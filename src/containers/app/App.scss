@@ -1,0 +1,60 @@
+* { outline: none !important; }
+
+.App {
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  flex-direction: column;
+  height: 100vh;
+
+  a:hover { text-decoration: none; }
+
+  h2 { font-size: 24px; }
+
+  h4,
+  h5 { font-size: 16px; }
+
+  .main {
+    background: #fafafa;
+    flex: 1 0 0;
+    padding-top: 20px;
+  }
+
+  .title {
+    line-height: 50px;
+    margin: 0;
+
+    i { margin-right: 5px; }
+
+    span { vertical-align: super; }
+  }
+
+  .panel {
+    border-radius: 0;
+    margin-bottom: 10px;
+
+    .panel-heading {
+      background-color: #673ab7;
+      border-radius: 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      height: 50px;
+      padding: 0 10px;
+
+      h4 {
+        color: $white;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .panel-body { padding: 10px; }
+
+  .alert,
+  .searc-wrapper .input-group { margin-bottom: 10px; }
+
+  .alert:last-child { margin-bottom: 0 }
+
+  .text-left { text-align: left; }
+  .text-right { text-align: right; }
+
+  .priority { text-transform: uppercase; }
+}

@@ -1,0 +1,56 @@
+.filter-panel {
+
+  .title { display: inline-block; }
+
+  .btn-done-tasks {
+    margin-top: 6px;
+
+    i {
+      margin-left: 5px;
+      vertical-align: bottom;
+    }
+  }
+
+  .btn-all,
+  .btn-done-tasks { color: $white; }
+
+  .btn-group { margin-top: -15px; }
+
+  .filter .btn,
+  .btn {
+    border-bottom: 2px solid transparent;
+
+    &:hover,
+    &.active {
+      background-color: transparent;
+      border-bottom-style: solid;
+      border-bottom-width: 2px;
+    }
+
+    &.alert-danger:hover,
+    &.alert-danger.active { border-bottom-color: $danger; }
+    &.alert-warning:hover,
+    &.alert-warning.active { border-bottom-color: $warning; }
+    &.alert-success:hover,
+    &.alert-success.active { border-bottom-color: $success; }
+    &.btn-all:hover,
+    &.btn-all.active { border-bottom-color: $info; }
+
+    &.alert-danger .badge { color: $danger; }
+    &.alert-warning .badge { color: $warning; }
+    &.alert-success .badge { color: $success; }
+    &.btn-all .badge { color: $info; }
+
+    &.alert-danger,
+    &.alert-warning,
+    &.alert-success,
+    &.btn-all {
+
+      .badge {
+        background-color: $white;
+        font-size: 10px;
+        font-weight: 900;
+      }
+    }
+  }
+}

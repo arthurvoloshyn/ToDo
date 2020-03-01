@@ -1,0 +1,57 @@
+.main {
+
+  .btn {
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    font-weight: 900;
+    transition: all 200ms ease;
+
+    &:hover,
+    &.active { box-shadow: none; }
+
+    &.alert-danger {
+      color: $danger;
+
+      &:hover,
+      &.active { background-color: rgba(244,67,54,.3); }
+    }
+
+    &.alert-warning {
+      color: $warning;
+
+      &:hover,
+      &.active { background-color: rgba(255,152,0,.3); }
+    }
+
+    &.alert-success {
+      color: $success;
+
+      &:hover,
+      &.active { background-color: rgba(76,175,80,.3); }
+    }
+  }
+}
+
+.iconBtn {
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  color: $darkGrey;
+  display: inline-block;
+  height: 40px;
+  padding: 0;
+  text-align: center;
+  transition: all 200ms ease;
+  width: 40px;
+
+  & > i { line-height: 40px; }
+
+  &.active,
+  &:hover {
+    background-color: rgba(3,169,244,.5);
+
+    i { color: $white; }
+  }
+}

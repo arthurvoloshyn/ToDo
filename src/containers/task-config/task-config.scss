@@ -1,0 +1,25 @@
+.margin-bottom { margin-bottom: 20px; }
+
+.main .panel textarea.form-control {
+  color: $text;
+  resize: none;
+}
+
+.btn.save-changes {
+  top: 25px;
+  position: absolute;
+  right: 30px;
+}
+
+.edit-task-panel textarea::-webkit-input-placeholder {
+  color: $text !important;
+}
+.edit-task-panel textarea::-moz-placeholder {
+  color: $text !important;
+}
+.edit-task-panel textarea:-moz-placeholder {
+  color: $text !important;
+}
+.edit-task-panel textarea:-ms-input-placeholder {
+  color: $text !important;
+}

@@ -1,0 +1,24 @@
+.not-found {
+  display: flex;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+
+  .text {
+    color: $white;
+    margin: auto;
+    text-align: center;
+
+    h1 { font-size: 100px; }
+
+    h2 {
+      font-size: 40px;
+      margin-bottom: 50px;
+      margin-top: 0;
+    }
+
+    .link { font-size: 16px; }
+  }
+}

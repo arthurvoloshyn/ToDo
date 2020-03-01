@@ -1,0 +1,38 @@
+.footer {
+  background-color: $mainTheme;
+
+  .info-wrapper {
+    line-height: 70px;
+
+    &.text-left,
+    &.text-right {
+      @media screen and (max-width: 768px) {
+        text-align: center;
+      }
+    }
+
+    h6 {
+      color: $white;
+      font-weight: 900;
+      line-height: 70px;
+      margin: 0;
+      text-transform: uppercase;
+
+      &.heart {
+        i {
+          animation: heart 1s ease infinite;
+          color: #e51c23;
+          margin-left: 5px;
+          vertical-align: middle;
+        }
+      }
+
+      a { margin-left: 5px; }
+    }
+  }
+}
+
+@keyframes heart {
+  0% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}

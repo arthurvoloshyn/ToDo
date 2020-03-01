@@ -1,0 +1,66 @@
+.tasks-list .panel { transition: all 200ms ease; }
+.tasks-list .panel:hover { background-color: $hoverPanel; }
+
+.tasks-list-item {
+  flex: 1;
+  margin-bottom: 0;
+  min-height: 35px;
+  overflow: hidden;
+  padding-left: 30px;
+  position: relative;
+}
+
+.tasks-list-mark {
+  color: $darkGrey;
+  cursor: pointer;
+  height: 24px;
+  left: 0px;
+  margin-top: -12px;
+  position: absolute;
+  top: 50%;
+  width: 24px;
+}
+
+.task-text {
+  color: $text;
+  cursor: pointer;
+  line-height: 37px;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.doneTask {
+  opacity: .4;
+
+  .task-text:before {
+    background-color: $text;
+    display: block;
+    content: '';
+    height: 2px;
+    left: -10px;
+    position: absolute;
+    top: 50%;
+    width: calc(100% + 20px);
+  }
+}
+
+.panel.alert {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tasks-list .panel.alert {
+  border-left-style: solid;
+  border-left-width: 5px;
+
+  &:hover { background-color: $hoverPanel; }
+}
+
+.tasks-list .panel.alert-danger { border-left-color: $danger; }
+.tasks-list .panel.alert-warning { border-left-color: $warning; }
+.tasks-list .panel.alert-success { border-left-color: $success; }

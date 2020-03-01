@@ -1,0 +1,45 @@
+.main .panel .form-control {
+  box-shadow: inset 0 -2px 0 $text;
+  color: $white;
+  padding-right: 10px;
+}
+
+.form-control::-webkit-input-placeholder {
+  color: $white !important;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.form-control::-moz-placeholder {
+  color: $white !important;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.form-control:-moz-placeholder {
+  color: $white !important;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.form-control:-ms-input-placeholder {
+  color: $white !important;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.add-new {
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+  position: relative;
+
+  div { flex: 1 0 0; }
+
+  .btn-add {
+    position: absolute;
+    right: -40px;
+    top: 25px;
+    z-index: 2;
+
+    &:hover { transform: scale(1.2) rotate(90deg); }
+  }
+}

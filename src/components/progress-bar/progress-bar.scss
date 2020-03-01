@@ -1,0 +1,66 @@
+.panel {
+
+  &.progress-panel {
+    cursor: pointer;
+    height: 35px;
+    margin-bottom: 0;
+    padding: 10px 0;
+  }
+
+  .progress {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    height: 15px;
+    margin-bottom: 0;
+
+    &-count {
+      box-shadow: none;
+      background-color: transparent;
+    }
+
+    &-counters {
+      float: left;
+      line-height: 1;
+      text-align: center;
+      width: 33.33333%;
+    }
+
+    &-counter {
+
+      &--danger {
+        .progress-descr:before { background-color: $danger; }
+      }
+
+      &--warning {
+        .progress-descr:before { background-color: $warning; }
+      }
+
+      &--success {
+        .progress-descr:before { background-color: $success; }
+      }
+    }
+
+    &-descr {
+      font-weight: bold;
+      margin-right: 5px;
+      position: relative;
+      text-transform: uppercase;
+
+      &:before {
+        border-radius: 50%;
+        content: '';
+        display: block;
+        left: -15px;
+        height: 10px;
+        position: absolute;
+        top: 3px;
+        width: 10px;
+      }
+    }
+
+    .progress-bar { border-radius: 0; }
+  }
+
+  .progress-bar-success:last-child.progress-bar:before {
+    background-color: rgba(103, 58, 183, 0.3);
+  }
+}

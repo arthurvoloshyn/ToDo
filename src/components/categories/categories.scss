@@ -1,0 +1,30 @@
+.categories {
+
+  .categories-heading { margin-bottom: 20px; }
+
+  .category {
+    cursor: pointer;
+    min-height: 35px;
+    padding: 0 5px;
+
+    &.active { background-color: rgba(103,58,183,.3); }
+
+    .category-name {
+      display: flex;
+      flex: 1 0 0;
+
+      span { top: 4px; }
+
+      .form-control {
+        color: $text;
+        height: 25px;
+      }
+    }
+
+    .category-text {
+      line-height: 25px;
+      margin: 0;
+      margin-left: 5px;
+    }
+  }
+}
