@@ -6,6 +6,8 @@
   "private": true,
   "scripts": {
     "test": "jest",
+    "test:watch": "jest --watchAll",
+    "test:coverage": "jest --collectCoverage",
     "prestart": "babel-node tools/startMessage.js",
     "start": "npm-run-all --parallel open:src lint:watch",
     "open:src": "babel-node tools/srcServer.js",
@@ -45,7 +47,6 @@
     "colors": "1.1.2",
     "compression": "^1.6.1",
     "open": "0.0.5",
-    "prop-types": "^15.5.10",
     "react": "^15.3.1",
     "react-dom": "^15.0.1",
     "react-favicon": "0.0.4",
@@ -59,6 +60,8 @@
   },
   "devDependencies": {
     "@babel/parser": "^7.7.5",
+    "@testing-library/jest-dom": "^5.1.1",
+    "@testing-library/react": "^9.4.1",
     "@typescript-eslint/eslint-plugin": "^2.11.0",
     "@typescript-eslint/parser": "^2.11.0",
     "babel-cli": "6.8.0",
@@ -81,6 +84,7 @@
     "cross-env": "1.0.7",
     "css-loader": "0.23.1",
     "enzyme": "2.2.0",
+    "enzyme-to-json": "^3.4.4",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.7.0",
     "eslint-config-react-app": "^5.1.0",
@@ -103,7 +107,7 @@
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.8.5",
     "husky": "^3.1.0",
-    "jest": "^20.0.1",
+    "jest": "^20.0.4",
     "jsdom": "8.5.0",
     "lint-staged": "^9.5.0",
     "mocha": "2.4.5",
@@ -112,6 +116,7 @@
     "npm-run-all": "1.8.0",
     "open": "0.0.5",
     "prettier": "^1.19.1",
+    "prop-types": "^15.7.2",
     "react-addons-test-utils": "15.0.2",
     "redux-immutable-state-invariant": "1.2.3",
     "redux-mock-store": "1.0.2",
@@ -149,6 +154,12 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run precommit"
+    }
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
     }
   }
 }
