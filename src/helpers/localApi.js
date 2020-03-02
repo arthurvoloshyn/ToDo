@@ -42,7 +42,7 @@ class localApi {
   updateUser(editUser) {
     let users = this.getUsers();
     users = users.map(user => {
-      if(user.alias === editUser.alias) {
+      if (user.alias === editUser.alias) {
         user.settings[0].activeView = editUser.settings[0].activeView;
         user.settings[1].showDone = editUser.settings[1].showDone;
       }
@@ -54,7 +54,7 @@ class localApi {
   updateTask(doneTask) {
     let userTasks = this.getTasks();
     userTasks = userTasks.map(task => {
-      if(task.id === doneTask.id) {
+      if (task.id === doneTask.id) {
         task.id = doneTask.id;
         task.category = doneTask.category;
         task.isTaskDone = doneTask.isTaskDone;
@@ -70,7 +70,7 @@ class localApi {
   updateCategory(editCategory) {
     let userCategories = this.getCategories();
     userCategories = userCategories.map(category => {
-      if(category.id === editCategory.id) {
+      if (category.id === editCategory.id) {
         category.id = editCategory.id;
         category.text = editCategory.text;
         category.userId = editCategory.userId;
@@ -84,7 +84,7 @@ class localApi {
     let userTasks = this.getTasks();
     let deleteIndex = 0;
     userTasks.forEach((task, index) => {
-      if(task.id === deletedTask.id) {
+      if (task.id === deletedTask.id) {
         deleteIndex = index;
       }
     });
@@ -96,7 +96,7 @@ class localApi {
     let userCategories = this.getCategories();
     let deleteIndex = 0;
     userCategories.forEach((category, index) => {
-      if(category.id === deletedCategory.id) {
+      if (category.id === deletedCategory.id) {
         deleteIndex = index;
       }
     });

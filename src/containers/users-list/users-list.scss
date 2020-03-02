@@ -1,7 +1,9 @@
 .users__item {
   transition: all 200ms ease;
 
-  &:hover { background-color: $hoverPanel; }
+  &:hover {
+    background-color: $hoverPanel;
+  }
 
   & > .panel-body {
     display: flex;
@@ -15,7 +17,9 @@
     overflow: hidden;
     width: 50px;
 
-    img { width: 100%; }
+    img {
+      width: 100%;
+    }
   }
 
   .users__name {
@@ -56,13 +60,13 @@
   justify-content: space-around;
 
   .avatar-wrapp {
-    border-radius: 50%;
     border: 1px solid transparent;
+    border-radius: 50%;
     transition: all 200ms ease;
 
     &.active,
     &:hover {
-      background-color: rgba(209,196,233,.7);
+      background-color: rgba(209, 196, 233, 0.7);
       border: 1px solid #bdbdbd;
     }
 

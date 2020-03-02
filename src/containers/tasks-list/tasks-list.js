@@ -10,7 +10,6 @@ import Task from './../../components/task-item/task-item';
 import { changeTaskText, updateUser } from './../../actions/actionCreators';
 
 class TasksList extends Component {
-
   constructor(props) {
     super(props);
 
@@ -31,11 +30,11 @@ class TasksList extends Component {
     this.props.changeTaskText(evt.target.value);
   }
 
-  sortTasksOrder (tasksArray) {
+  sortTasksOrder(tasksArray) {
     tasksArray.sort((a, b) => a.priority - b.priority);
     let notDoneTasksArray = tasksArray.filter(task => !task.isTaskDone);
     let doneDasksArray = tasksArray.filter(task => task.isTaskDone);
-    return tasksArray = [...notDoneTasksArray, ...doneDasksArray];
+    return (tasksArray = [...notDoneTasksArray, ...doneDasksArray]);
   }
 
   render() {
@@ -48,17 +47,17 @@ class TasksList extends Component {
     tasks = this.sortTasksOrder(tasks.filter(task => task.userId === alias));
     let tasksList = [];
 
-    showDone ?
-    tasksList = tasks.map((task, index) => {
-      if(task.priority === activeView && task.category === activeCategory || activeView === 4 && task.category === activeCategory) {
-        return <Task key={index} index={index} task={task} tasks={tasks} alias={alias} doneTask={doneTask} deleteTask={deleteTask} />;
-      }
-    }) :
-    tasksList = tasks.map((task, index) => {
-      if(task.priority === activeView && !task.isTaskDone && task.category === activeCategory || activeView === 4 && !task.isTaskDone && task.category === activeCategory) {
-        return <Task key={index} index={index} task={task} tasks={tasks} alias={alias} doneTask={doneTask} deleteTask={deleteTask} />;
-      }
-    });
+    showDone
+      ? (tasksList = tasks.map((task, index) => {
+          if ((task.priority === activeView && task.category === activeCategory) || (activeView === 4 && task.category === activeCategory)) {
+            return <Task key={index} index={index} task={task} tasks={tasks} alias={alias} doneTask={doneTask} deleteTask={deleteTask} />;
+          }
+        }))
+      : (tasksList = tasks.map((task, index) => {
+          if ((task.priority === activeView && !task.isTaskDone && task.category === activeCategory) || (activeView === 4 && !task.isTaskDone && task.category === activeCategory)) {
+            return <Task key={index} index={index} task={task} tasks={tasks} alias={alias} doneTask={doneTask} deleteTask={deleteTask} />;
+          }
+        }));
 
     return (
       <div>
@@ -72,61 +71,31 @@ class TasksList extends Component {
                 </h4>
               </div>
               <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                <InputField
-                  value={taskText}
-                  changeFunction={this.updateInputValue}
-                  data={this.state}
-                  addFunction={addTask}
-                  placeholder={`Click to add new task...`}
-                />
+                <InputField value={taskText} changeFunction={this.updateInputValue} data={this.state} addFunction={addTask} placeholder={`Click to add new task...`} />
               </div>
             </div>
           </div>
           <div className="panel-body">
             <div className="row">
               <div className="col-lg-5 text-left">
-                <ButtonsGroup
-                  specialClass="priority"
-                  activeElem={this.state.inputRate}
-                >
-                  <Button
-                    onClickFunction={this.updateRateValue}
-                    dataValue="1"
-                    specialClass={`btn alert-danger`}
-                    checkActive={this.state.inputRate}
-                  >Hight</Button>
-                  <Button
-                    onClickFunction={this.updateRateValue}
-                    dataValue="2"
-                    specialClass={`btn alert-warning`}
-                    checkActive={this.state.inputRate}
-                  >Middle</Button>
-                  <Button
-                    onClickFunction={this.updateRateValue}
-                    dataValue="3"
-                    specialClass={`btn alert-success`}
-                    checkActive={this.state.inputRate}
-                  >Low</Button>
+                <ButtonsGroup specialClass="priority" activeElem={this.state.inputRate}>
+                  <Button onClickFunction={this.updateRateValue} dataValue="1" specialClass={`btn alert-danger`} checkActive={this.state.inputRate}>
+                    Hight
+                  </Button>
+                  <Button onClickFunction={this.updateRateValue} dataValue="2" specialClass={`btn alert-warning`} checkActive={this.state.inputRate}>
+                    Middle
+                  </Button>
+                  <Button onClickFunction={this.updateRateValue} dataValue="3" specialClass={`btn alert-success`} checkActive={this.state.inputRate}>
+                    Low
+                  </Button>
                 </ButtonsGroup>
               </div>
             </div>
           </div>
         </div>
-        <ProgressBar
-          alias={alias}
-          tasksList={tasks}
-          activeCategory={activeCategory}
-        />
-        <div className="panel panel-body tasks-list">
-          {tasksList}
-        </div>
-        <Filter
-          alias={alias}
-          tasks={tasks}
-          users={users}
-          activeCategory={activeCategory}
-          updateUser={updateUser}
-        />
+        <ProgressBar alias={alias} tasksList={tasks} activeCategory={activeCategory} />
+        <div className="panel panel-body tasks-list">{tasksList}</div>
+        <Filter alias={alias} tasks={tasks} users={users} activeCategory={activeCategory} updateUser={updateUser} />
       </div>
     );
   }
@@ -146,10 +115,13 @@ TasksList.propTypes = {
   users: PropTypes.array
 };
 
-export default connect(state => ({
-  activeCategory: state.activeCategory,
-  categories: state.categories,
-  taskText: state.taskText,
-  tasks: state.tasks,
-  users: state.users
-}), { changeTaskText, updateUser })(TasksList);
+export default connect(
+  state => ({
+    activeCategory: state.activeCategory,
+    categories: state.categories,
+    taskText: state.taskText,
+    tasks: state.tasks,
+    users: state.users
+  }),
+  { changeTaskText, updateUser }
+)(TasksList);

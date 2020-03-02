@@ -28,11 +28,13 @@
 .add-new {
   align-items: flex-end;
   display: flex;
-  justify-content: space-between;
   height: 50px;
+  justify-content: space-between;
   position: relative;
 
-  div { flex: 1 0 0; }
+  div {
+    flex: 1 0 0;
+  }
 
   .btn-add {
     position: absolute;
@@ -40,6 +42,8 @@
     top: 25px;
     z-index: 2;
 
-    &:hover { transform: scale(1.2) rotate(90deg); }
+    &:hover {
+      transform: scale(1.2) rotate(90deg);
+    }
   }
 }

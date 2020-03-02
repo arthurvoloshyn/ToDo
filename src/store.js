@@ -7,8 +7,7 @@ const api = new localApi();
 const users = api.getUsers();
 const tasks = api.getTasks();
 const categories = api.getCategories();
-const activeCategory = api.getCategories().length > 0 ?
-api.getCategories()[0].alias : 'default';
+const activeCategory = api.getCategories().length > 0 ? api.getCategories()[0].alias : 'default';
 const userName = '';
 const taskText = '';
 const categoryName = '';

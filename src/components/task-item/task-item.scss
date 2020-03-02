@@ -1,5 +1,9 @@
-.tasks-list .panel { transition: all 200ms ease; }
-.tasks-list .panel:hover { background-color: $hoverPanel; }
+.tasks-list .panel {
+  transition: all 200ms ease;
+}
+.tasks-list .panel:hover {
+  background-color: $hoverPanel;
+}
 
 .tasks-list-item {
   flex: 1;
@@ -14,7 +18,7 @@
   color: $darkGrey;
   cursor: pointer;
   height: 24px;
-  left: 0px;
+  left: 0;
   margin-top: -12px;
   position: absolute;
   top: 50%;
@@ -34,12 +38,12 @@
 }
 
 .doneTask {
-  opacity: .4;
+  opacity: 0.4;
 
   .task-text:before {
     background-color: $text;
-    display: block;
     content: '';
+    display: block;
     height: 2px;
     left: -10px;
     position: absolute;
@@ -58,9 +62,17 @@
   border-left-style: solid;
   border-left-width: 5px;
 
-  &:hover { background-color: $hoverPanel; }
+  &:hover {
+    background-color: $hoverPanel;
+  }
 }
 
-.tasks-list .panel.alert-danger { border-left-color: $danger; }
-.tasks-list .panel.alert-warning { border-left-color: $warning; }
-.tasks-list .panel.alert-success { border-left-color: $success; }
+.tasks-list .panel.alert-danger {
+  border-left-color: $danger;
+}
+.tasks-list .panel.alert-warning {
+  border-left-color: $warning;
+}
+.tasks-list .panel.alert-success {
+  border-left-color: $success;
+}

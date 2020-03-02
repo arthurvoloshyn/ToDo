@@ -64,17 +64,26 @@ class Filter extends Component {
     const activeUser = this.Helpers.getActiveUser(users, alias);
     const activeView = activeUser.settings[0].activeView;
 
-    let danger = [], warning = [], success = [], all = [];
+    let danger = [],
+      warning = [],
+      success = [],
+      all = [];
 
     tasks = tasks.filter(task => task.userId === alias);
 
     for (let i = 0; i < tasks.length; i++) {
-      if(!tasks[i].isTaskDone && tasks[i].category === activeCategory) {
+      if (!tasks[i].isTaskDone && tasks[i].category === activeCategory) {
         all.push(tasks[i]);
-        switch(tasks[i].priority) {
-          case 1: danger.push(tasks[i]); break;
-          case 2: warning.push(tasks[i]); break;
-          case 3: success.push(tasks[i]); break;
+        switch (tasks[i].priority) {
+          case 1:
+            danger.push(tasks[i]);
+            break;
+          case 2:
+            warning.push(tasks[i]);
+            break;
+          case 3:
+            success.push(tasks[i]);
+            break;
         }
       }
     }
@@ -88,52 +97,25 @@ class Filter extends Component {
                 <i className="material-icons">filter_list</i>
                 <span>FILTER:</span>
               </h4>
-              <ButtonsGroup
-                specialClass={'filter'}
-                activeElem={activeView}
-              >
-                <Button
-                  onClickFunction={this.updateView}
-                  dataValue="1"
-                  specialClass={`btn alert-danger`}
-                  checkActive={this.state.activeView}
-                >
+              <ButtonsGroup specialClass={'filter'} activeElem={activeView}>
+                <Button onClickFunction={this.updateView} dataValue="1" specialClass={`btn alert-danger`} checkActive={this.state.activeView}>
                   Hight {<span className="badge">{danger.length}</span>}
                 </Button>
-                <Button
-                  onClickFunction={this.updateView}
-                  dataValue="2"
-                  specialClass={`btn alert-warning`}
-                  checkActive={this.state.activeView}
-                >
+                <Button onClickFunction={this.updateView} dataValue="2" specialClass={`btn alert-warning`} checkActive={this.state.activeView}>
                   Middle {<span className="badge">{warning.length}</span>}
                 </Button>
-                <Button
-                  onClickFunction={this.updateView}
-                  dataValue="3"
-                  specialClass={`btn alert-success`}
-                  checkActive={this.state.activeView}
-                >
+                <Button onClickFunction={this.updateView} dataValue="3" specialClass={`btn alert-success`} checkActive={this.state.activeView}>
                   Low {<span className="badge">{success.length}</span>}
                 </Button>
-                <Button
-                  onClickFunction={this.updateView}
-                  specialClass={`btn btn-all`}
-                  dataValue="4"
-                  checkActive={this.state.activeView}
-                >
+                <Button onClickFunction={this.updateView} specialClass={`btn btn-all`} dataValue="4" checkActive={this.state.activeView}>
                   All <span className="badge">{all.length}</span>
                 </Button>
               </ButtonsGroup>
             </div>
             <div className="col-lg-3 col-md-3 col-sm-3 text-right">
-              <Button
-                onClickFunction={this.showDoneTasks}
-                specialClass={`btn btn-done-tasks ${this.isShowDone()}`}
-              >Done tasks
-                <i className="material-icons">
-                  {`${this.isShowDone() === 'active' ? 'visibility' : 'visibility_off'}`}
-                </i>
+              <Button onClickFunction={this.showDoneTasks} specialClass={`btn btn-done-tasks ${this.isShowDone()}`}>
+                Done tasks
+                <i className="material-icons">{`${this.isShowDone() === 'active' ? 'visibility' : 'visibility_off'}`}</i>
               </Button>
             </div>
           </div>

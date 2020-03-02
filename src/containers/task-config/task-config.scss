@@ -1,4 +1,6 @@
-.margin-bottom { margin-bottom: 20px; }
+.margin-bottom {
+  margin-bottom: 20px;
+}
 
 .main .panel textarea.form-control {
   color: $text;
@@ -6,9 +8,9 @@
 }
 
 .btn.save-changes {
-  top: 25px;
   position: absolute;
   right: 30px;
+  top: 25px;
 }
 
 .edit-task-panel textarea::-webkit-input-placeholder {

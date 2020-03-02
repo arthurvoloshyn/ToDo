@@ -41,8 +41,7 @@ class UsersList extends Component {
   setTasksCounter(index) {
     const alias = this.props.users[index].alias;
     const tasksValue = this.api.getUserTasks(alias);
-    return tasksValue === null ? 0 : tasksValue.length ?
-    tasksValue.filter(task=> task.isTaskDone === false).length : 0;
+    return tasksValue === null ? 0 : tasksValue.length ? tasksValue.filter(task => task.isTaskDone === false).length : 0;
   }
 
   isActive(value) {
@@ -56,37 +55,34 @@ class UsersList extends Component {
   addUser() {
     let { userName, addUser, addCategory, changeUserName } = this.props;
     const userInit = {
-      id: (new Date()).getTime(),
+      id: new Date().getTime(),
       avatar: this.state.users_avatars[this.state.avatarIndex],
       name: userName,
-      alias: `user_${(new Date()).getTime()}`,
-      settings: [
-        { activeView: 4 },
-        { showDone: true }
-      ]
+      alias: `user_${new Date().getTime()}`,
+      settings: [{ activeView: 4 }, { showDone: true }]
     };
-    if (userName.length <=2 ) {
-      toastr.warning('Very short name', {timeOut: 4000});
+    if (userName.length <= 2) {
+      toastr.warning('Very short name', { timeOut: 4000 });
     } else {
       const user = addUser(userInit.id, userInit.avatar, userInit.name, userInit.alias, userInit.settings);
       this.api.addUser(user);
 
       const categoryInit = {
         userId: userInit.alias,
-        id: (new Date()).getTime(),
+        id: new Date().getTime(),
         text: 'default',
         alias: 'default'
       };
       addCategory(categoryInit.userId, categoryInit.id, categoryInit.text, categoryInit.alias);
       this.api.addCategory(categoryInit);
       changeUserName('');
-      toastr.success('New user successfully added', {timeOut: 3000});
+      toastr.success('New user successfully added', { timeOut: 3000 });
     }
   }
 
   deleteUser(index) {
-    toastr.confirm('Are you sure that you want to delete user profile',
-      { onOk: () => {
+    toastr.confirm('Are you sure that you want to delete user profile', {
+      onOk: () => {
         const { alias } = this.api.deleteUser(index);
         this.props.deleteUser(index);
         this.api.deleteUserTask(alias);
@@ -97,23 +93,15 @@ class UsersList extends Component {
 
   render() {
     const avatars = this.state.users_avatars.map((avatar, i) => {
-      return(
-        <div
-          key={i}
-          className={`avatar-wrapp ${this.isActive(i)}`}
-        ><img
-          onClick={(e) => this.changeUserAvatar(e)}
-          data-index={i}
-          className="avatar"
-          src={avatar}
-          alt="avatar"
-         />
+      return (
+        <div key={i} className={`avatar-wrapp ${this.isActive(i)}`}>
+          <img onClick={e => this.changeUserAvatar(e)} data-index={i} className="avatar" src={avatar} alt="avatar" />
         </div>
       );
     });
 
     const users = this.props.users.map((user, i) => {
-      return(
+      return (
         <div key={i} className="panel users__item">
           <div className="panel-body">
             <span className="label label-info active-tasks">{this.setTasksCounter(i)}</span>
@@ -123,16 +111,15 @@ class UsersList extends Component {
             <Link to={`/users/${user.alias}`} className="users__name">
               {user.name}
             </Link>
-            <span
-              onClick={()=> this.deleteUser(i)}
-              className="label label-danger delete-user"
-            >Delete profile</span>
+            <span onClick={() => this.deleteUser(i)} className="label label-danger delete-user">
+              Delete profile
+            </span>
           </div>
         </div>
       );
     });
 
-    return(
+    return (
       <div className="container">
         <div className="row">
           <div className="col-lg-6">
@@ -146,27 +133,18 @@ class UsersList extends Component {
                     </h4>
                   </div>
                   <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                    <InputField
-                      value={this.props.userName}
-                      changeFunction={this.updateUserValue}
-                      addFunction={this.addUser}
-                      placeholder={`click to add your full name...`}
-                    />
+                    <InputField value={this.props.userName} changeFunction={this.updateUserValue} addFunction={this.addUser} placeholder={`click to add your full name...`} />
                   </div>
                 </div>
               </div>
               <div className="panel-body">
                 <h5 className="user-descr">Choose your avatar:</h5>
-                <div className="user-avatars-wrapper">
-                  {avatars}
-                </div>
+                <div className="user-avatars-wrapper">{avatars}</div>
               </div>
             </div>
           </div>
           <div className="col-lg-6">
-            <div className="users__list">
-              {users}
-            </div>
+            <div className="users__list">{users}</div>
           </div>
         </div>
       </div>
@@ -183,7 +161,10 @@ UsersList.propTypes = {
   users: PropTypes.array
 };
 
-export default connect(state => ({
-  userName: state.userName,
-  users: state.users
-}), { addUser, deleteUser, addCategory, changeUserName })(UsersList);
+export default connect(
+  state => ({
+    userName: state.userName,
+    users: state.users
+  }),
+  { addUser, deleteUser, addCategory, changeUserName }
+)(UsersList);

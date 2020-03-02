@@ -7,17 +7,12 @@ class ButtonsGroup extends Component {
   }
 
   render() {
-    const {
-      specialClass,
-      children } = this.props;
+    const { specialClass, children } = this.props;
     const classString = specialClass ? specialClass : '';
 
-    return(
-      <div
-        className={`btn-group ${classString}`}
-        role="group"
-      >
-        {React.Children.map(children, (child) => {
+    return (
+      <div className={`btn-group ${classString}`} role="group">
+        {React.Children.map(children, child => {
           return child;
         })}
       </div>
@@ -27,10 +22,7 @@ class ButtonsGroup extends Component {
 
 ButtonsGroup.propTypes = {
   activeElem: PropTypes.number,
-  children: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.element
-  ]),
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.element]),
   specialClass: PropTypes.string
 };
 

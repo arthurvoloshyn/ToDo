@@ -1,5 +1,4 @@
 .panel {
-
   &.progress-panel {
     cursor: pointer;
     height: 35px;
@@ -13,8 +12,8 @@
     margin-bottom: 0;
 
     &-count {
-      box-shadow: none;
       background-color: transparent;
+      box-shadow: none;
     }
 
     &-counters {
@@ -25,17 +24,22 @@
     }
 
     &-counter {
-
       &--danger {
-        .progress-descr:before { background-color: $danger; }
+        .progress-descr:before {
+          background-color: $danger;
+        }
       }
 
       &--warning {
-        .progress-descr:before { background-color: $warning; }
+        .progress-descr:before {
+          background-color: $warning;
+        }
       }
 
       &--success {
-        .progress-descr:before { background-color: $success; }
+        .progress-descr:before {
+          background-color: $success;
+        }
       }
     }
 
@@ -49,15 +53,17 @@
         border-radius: 50%;
         content: '';
         display: block;
-        left: -15px;
         height: 10px;
+        left: -15px;
         position: absolute;
         top: 3px;
         width: 10px;
       }
     }
 
-    .progress-bar { border-radius: 0; }
+    .progress-bar {
+      border-radius: 0;
+    }
   }
 
   .progress-bar-success:last-child.progress-bar:before {

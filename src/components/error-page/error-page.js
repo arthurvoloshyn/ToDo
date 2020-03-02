@@ -7,7 +7,9 @@ const errorPage = () => {
       <div className="text">
         <h1>404</h1>
         <h2>Page not found</h2>
-        <Link to="/" className="link">Back on the main page</Link>
+        <Link to="/" className="link">
+          Back on the main page
+        </Link>
       </div>
     </div>
   );

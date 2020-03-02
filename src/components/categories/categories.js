@@ -44,12 +44,12 @@ class Categories extends Component {
   addCategory(categoryName) {
     const categoryInit = {
       userId: this.props.alias,
-      id: (new Date()).getTime(),
+      id: new Date().getTime(),
       text: categoryName,
       alias: categoryName.trim().replace(/ /gi, '')
     };
     if (categoryName.length < 2) {
-      toastr.warning('Very short category name', {timeOut: 4000});
+      toastr.warning('Very short category name', { timeOut: 4000 });
     } else {
       this.props.addCategory(categoryInit.userId, categoryInit.id, categoryInit.text, categoryInit.alias);
       this.api.addCategory(categoryInit);
@@ -62,16 +62,16 @@ class Categories extends Component {
     let { categories, tasks, deleteCategory, deleteTask } = this.props;
     const deletedCategory = categories.filter(item => item.id === category.id)[0];
 
-    tasks = tasks.map((task) => {
-      if(task.category === deletedCategory.alias && task.userId === deletedCategory.userId) {
+    tasks = tasks.map(task => {
+      if (task.category === deletedCategory.alias && task.userId === deletedCategory.userId) {
         deleteTask(task);
         this.api.deleteTask(task);
       }
       return task;
     });
 
-    toastr.confirm('This will delete all tasks connected with category',
-      { onOk: () => {
+    toastr.confirm('This will delete all tasks connected with category', {
+      onOk: () => {
         deleteCategory(deletedCategory);
         this.api.deleteCategory(deletedCategory);
       }
@@ -98,37 +98,31 @@ class Categories extends Component {
     let { categories, categoryName } = this.props;
 
     let category = categories.map((category, index) => {
-      if(category.userId === this.props.alias) {
+      if (category.userId === this.props.alias) {
         return (
-          <div
-            onClick={(e) => this.changeActive(e)}
-            key={index}
-            data-name={category.alias}
-            className={`category alert panel ${this.isActive(category.alias)}`}
-            role="alert"
-          ><div className="category-name">
-            <i className="material-icons">folder</i>
-            {category.isEdit ?
-              <input
-                value={category.text}
-                onChange={(evt) => this.updateCategoryValue(evt, category)}
-                onBlur={(evt) => this.editCategory(evt, category)}
-                type="text"
-                className="form-control"
-                autoFocus
-              /> :
-             <h5 className="category-text">{category ? category.text : null}</h5>
-            }
+          <div onClick={e => this.changeActive(e)} key={index} data-name={category.alias} className={`category alert panel ${this.isActive(category.alias)}`} role="alert">
+            <div className="category-name">
+              <i className="material-icons">folder</i>
+              {category.isEdit ? (
+                <input
+                  value={category.text}
+                  onChange={evt => this.updateCategoryValue(evt, category)}
+                  onBlur={evt => this.editCategory(evt, category)}
+                  type="text"
+                  className="form-control"
+                  autoFocus
+                />
+              ) : (
+                <h5 className="category-text">{category ? category.text : null}</h5>
+              )}
             </div>
             <ButtonsGroup>
-              <Button
-                onClickFunction={(evt) => this.editCategory(evt, category)}
-                specialClass={`iconBtn ${category.isEdit? 'active' : ''}`}
-              ><i className="material-icons">{category.isEdit? 'done' : 'create'}</i></Button>
-              <Button
-                onClickFunction={(evt) => this.deleteCategory(evt, category)}
-                specialClass="iconBtn"
-              ><i className="material-icons">delete</i></Button>
+              <Button onClickFunction={evt => this.editCategory(evt, category)} specialClass={`iconBtn ${category.isEdit ? 'active' : ''}`}>
+                <i className="material-icons">{category.isEdit ? 'done' : 'create'}</i>
+              </Button>
+              <Button onClickFunction={evt => this.deleteCategory(evt, category)} specialClass="iconBtn">
+                <i className="material-icons">delete</i>
+              </Button>
             </ButtonsGroup>
           </div>
         );
@@ -146,19 +140,11 @@ class Categories extends Component {
               </h4>
             </div>
             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-              <InputField
-                value={categoryName}
-                changeFunction={this.updateInputValue}
-                data={categoryName}
-                addFunction={this.addCategory}
-                placeholder={`Click to add new category...`}
-              />
+              <InputField value={categoryName} changeFunction={this.updateInputValue} data={categoryName} addFunction={this.addCategory} placeholder={`Click to add new category...`} />
             </div>
           </div>
         </div>
-        <div className="panel-body">
-          {category}
-        </div>
+        <div className="panel-body">{category}</div>
       </div>
     );
   }

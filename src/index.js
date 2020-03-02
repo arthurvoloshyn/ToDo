@@ -23,5 +23,6 @@ ReactDOM.render(
         <Route path="*" component={ErrorPage} />
       </Route>
     </Router>
-  </Provider>, document.getElementById('root')
+  </Provider>,
+  document.getElementById('root')
 );

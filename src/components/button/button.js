@@ -11,22 +11,13 @@ class Button extends Component {
   }
 
   render() {
-    let {
-      onClickFunction,
-      specialClass,
-      children,
-      dataValue } = this.props;
+    let { onClickFunction, specialClass, children, dataValue } = this.props;
 
     const classString = specialClass ? specialClass : '';
 
-    return(
-      <button
-        onClick={(e) => onClickFunction(e)}
-        data-value={dataValue}
-        type="button"
-        className={`${classString} ${this.isActive()}`}
-      >
-        {React.Children.map(children, (child) => {
+    return (
+      <button onClick={e => onClickFunction(e)} data-value={dataValue} type="button" className={`${classString} ${this.isActive()}`}>
+        {React.Children.map(children, child => {
           return child;
         })}
       </button>
@@ -36,11 +27,7 @@ class Button extends Component {
 
 Button.propTypes = {
   checkActive: PropTypes.number,
-  children: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.element,
-    PropTypes.string
-  ]),
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.element, PropTypes.string]),
   dataValue: PropTypes.string,
   onClickFunction: PropTypes.func,
   specialClass: PropTypes.string

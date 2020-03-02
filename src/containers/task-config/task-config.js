@@ -53,7 +53,7 @@ class TaskConfig extends Component {
   }
 
   saveChanges() {
-    let {taskRate, isDone, inputValue, activeCategory} = this.state;
+    let { taskRate, isDone, inputValue, activeCategory } = this.state;
     const task = this.Helpers.getTask(this.props.tasks, this.props.routeParams.id);
     task.priority = taskRate;
     task.isTaskDone = isDone;
@@ -61,25 +61,19 @@ class TaskConfig extends Component {
     task.category = activeCategory;
     this.api.updateTask(task);
     browserHistory.goBack();
-    toastr.success('Tasks updated', {timeOut: 3000});
+    toastr.success('Tasks updated', { timeOut: 3000 });
   }
 
   render() {
     let categories = this.api.getCategories();
     let { taskRate, inputValue, isDone, activeCategory } = this.state;
 
-
     categories = categories.map((category, index) => {
       if (category.userId === this.props.params.alias) {
         return (
           <div className="radio" key={index}>
             <label>
-              <input
-                onChange={(evt)=> this.updateTaskCategory(evt)}
-                type="radio"
-                name={category.alias}
-                checked={activeCategory === category.alias}
-              />
+              <input onChange={evt => this.updateTaskCategory(evt)} type="radio" name={category.alias} checked={activeCategory === category.alias} />
               {category.text}
             </label>
           </div>
@@ -107,24 +101,15 @@ class TaskConfig extends Component {
                       </div>
                       <div className="col-lg-7 col-md-8 text-left">
                         <ButtonsGroup specialClass="priority">
-                          <Button
-                            onClickFunction={this.updateTaskRate}
-                            dataValue="1"
-                            specialClass={`btn alert-danger`}
-                            checkActive={taskRate}
-                          >Hight</Button>
-                          <Button
-                            onClickFunction={this.updateTaskRate}
-                            dataValue="2"
-                            specialClass={`btn alert-warning`}
-                            checkActive={taskRate}
-                          >Middle</Button>
-                          <Button
-                            onClickFunction={this.updateTaskRate}
-                            dataValue="3"
-                            specialClass={`btn alert-success`}
-                            checkActive={taskRate}
-                          >Low</Button>
+                          <Button onClickFunction={this.updateTaskRate} dataValue="1" specialClass={`btn alert-danger`} checkActive={taskRate}>
+                            Hight
+                          </Button>
+                          <Button onClickFunction={this.updateTaskRate} dataValue="2" specialClass={`btn alert-warning`} checkActive={taskRate}>
+                            Middle
+                          </Button>
+                          <Button onClickFunction={this.updateTaskRate} dataValue="3" specialClass={`btn alert-success`} checkActive={taskRate}>
+                            Low
+                          </Button>
                         </ButtonsGroup>
                       </div>
                     </div>
@@ -135,14 +120,7 @@ class TaskConfig extends Component {
                     <h5 className="priority text-left">Change Description:</h5>
                   </div>
                   <div className="col-lg-7 col-md-8 text-left">
-                    <textarea
-                      className="form-control"
-                      rows="2"
-                      id="textArea"
-                      value={inputValue}
-                      onChange={(evt) => this.updateTaskText(evt)}
-                      autoFocus
-                    ></textarea>
+                    <textarea className="form-control" rows="2" id="textArea" value={inputValue} onChange={evt => this.updateTaskText(evt)} autoFocus></textarea>
                     <span className="help-block">Update your task description</span>
                   </div>
                 </div>
@@ -156,25 +134,13 @@ class TaskConfig extends Component {
                         <form>
                           <div className="radio">
                             <label>
-                              <input
-                                onChange={(evt)=> this.updateTaskStatus(evt)}
-                                type="radio"
-                                checked={isDone}
-                                name="optionsRadios"
-                                value="true"
-                              />
+                              <input onChange={evt => this.updateTaskStatus(evt)} type="radio" checked={isDone} name="optionsRadios" value="true" />
                               Done
                             </label>
                           </div>
                           <div className="radio">
                             <label>
-                              <input
-                                onChange={(evt)=> this.updateTaskStatus(evt)}
-                                type="radio"
-                                checked={!isDone}
-                                name="optionsRadios"
-                                value="false"
-                              />
+                              <input onChange={evt => this.updateTaskStatus(evt)} type="radio" checked={!isDone} name="optionsRadios" value="false" />
                               Not Done
                             </label>
                           </div>
@@ -190,17 +156,14 @@ class TaskConfig extends Component {
                   <div className="col-lg-7">
                     <div className="row">
                       <div className="col-lg-12 col-md-8 text-left">
-                        <form>
-                          {categories}
-                        </form>
+                        <form>{categories}</form>
                       </div>
                     </div>
                   </div>
                 </div>
-                  <Button
-                    onClickFunction={this.saveChanges}
-                    specialClass="btn btn-primary save-changes"
-                  ><i className="material-icons">check</i></Button>
+                <Button onClickFunction={this.saveChanges} specialClass="btn btn-primary save-changes">
+                  <i className="material-icons">check</i>
+                </Button>
               </div>
             </div>
           </div>

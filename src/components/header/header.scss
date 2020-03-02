@@ -12,9 +12,9 @@
     img {
       width: 50px;
 
-       &[alt="to-do logo"] {
-         animation: rotateLogo 20s infinite linear;
-       }
+      &[alt='to-do logo'] {
+        animation: rotateLogo 20s infinite linear;
+      }
     }
   }
 
@@ -28,14 +28,18 @@
 }
 
 @keyframes rotateLogo {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .btn-add,
 .btn.btn-primary.save-changes,
-.logout-btn-wrapper a[type="button"],
-.logout-btn-wrapper button[type="button"] {
+.logout-btn-wrapper a[type='button'],
+.logout-btn-wrapper button[type='button'] {
   background-color: #03a9f4;
   border: none;
   border-radius: 50%;
@@ -43,10 +47,14 @@
   color: $white;
   height: 50px;
   padding: 0;
-  transition: all .2s ease;
+  transition: all 0.2s ease;
   width: 50px;
 
-  &:hover { transform: scale(1.2); }
+  &:hover {
+    transform: scale(1.2);
+  }
 
-  i { line-height: 50px; }
+  i {
+    line-height: 50px;
+  }
 }

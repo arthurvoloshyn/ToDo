@@ -9,16 +9,8 @@ const App = props => {
   return (
     <div className="App">
       <Header userAlias={params.alias} location={location.pathname} />
-      <ReduxToastr
-        newestOnTop={false}
-        preventDuplicates
-        position="top-center"
-        transitionIn="fadeIn"
-        transitionOut="fadeOut"
-      />
-      <div className="main">
-        {children}
-      </div>
+      <ReduxToastr newestOnTop={false} preventDuplicates position="top-center" transitionIn="fadeIn" transitionOut="fadeOut" />
+      <div className="main">{children}</div>
       <Footer />
     </div>
   );
