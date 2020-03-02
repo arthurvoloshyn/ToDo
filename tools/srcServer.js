@@ -1,7 +1,7 @@
 import express from 'express';
 import webpack from 'webpack';
 import path from 'path';
-import config from '../webpack.config.dev';
+import config from '../build/webpack.config.dev';
 import open from 'open';
 import favicon from 'serve-favicon';
 
