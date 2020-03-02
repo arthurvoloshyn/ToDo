@@ -8,7 +8,7 @@ class ButtonsGroup extends Component {
 
   render() {
     const { specialClass, children } = this.props;
-    const classString = specialClass ? specialClass : '';
+    const classString = specialClass || '';
 
     return (
       <div className={`btn-group ${classString}`} role="group">

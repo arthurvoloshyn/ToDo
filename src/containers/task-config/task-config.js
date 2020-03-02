@@ -53,7 +53,7 @@ class TaskConfig extends Component {
   }
 
   saveChanges() {
-    let { taskRate, isDone, inputValue, activeCategory } = this.state;
+    const { taskRate, isDone, inputValue, activeCategory } = this.state;
     const task = this.Helpers.getTask(this.props.tasks, this.props.routeParams.id);
     task.priority = taskRate;
     task.isTaskDone = isDone;
@@ -66,7 +66,7 @@ class TaskConfig extends Component {
 
   render() {
     let categories = this.api.getCategories();
-    let { taskRate, inputValue, isDone, activeCategory } = this.state;
+    const { taskRate, inputValue, isDone, activeCategory } = this.state;
 
     categories = categories.map((category, index) => {
       if (category.userId === this.props.params.alias) {

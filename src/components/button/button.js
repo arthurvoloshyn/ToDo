@@ -11,9 +11,9 @@ class Button extends Component {
   }
 
   render() {
-    let { onClickFunction, specialClass, children, dataValue } = this.props;
+    const { onClickFunction, specialClass, children, dataValue } = this.props;
 
-    const classString = specialClass ? specialClass : '';
+    const classString = specialClass || '';
 
     return (
       <button onClick={e => onClickFunction(e)} data-value={dataValue} type="button" className={`${classString} ${this.isActive()}`}>

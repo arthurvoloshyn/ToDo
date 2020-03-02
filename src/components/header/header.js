@@ -8,8 +8,8 @@ import logo from './../../img/react.svg'; // eslint-disable-line
 const Header = props => {
   const alias = props.userAlias;
   const users = JSON.parse(localStorage.getItem('users'));
-  let user = users ? users.filter(item => item.alias === alias)[0] : {};
-  let isTaskLocation = props.location.indexOf('tasks');
+  const user = users ? users.filter(item => item.alias === alias)[0] : {};
+  const isTaskLocation = props.location.indexOf('tasks');
 
   return (
     <div className="header">

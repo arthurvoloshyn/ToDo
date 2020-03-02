@@ -64,10 +64,10 @@ class Filter extends Component {
     const activeUser = this.Helpers.getActiveUser(users, alias);
     const activeView = activeUser.settings[0].activeView;
 
-    let danger = [],
-      warning = [],
-      success = [],
-      all = [];
+    const danger = [];
+    const warning = [];
+    const success = [];
+    const all = [];
 
     tasks = tasks.filter(task => task.userId === alias);
 

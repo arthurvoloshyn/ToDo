@@ -16,25 +16,25 @@ class localApi {
   }
 
   getUserTasks(alias) {
-    let userTasks = this.getTasks();
+    const userTasks = this.getTasks();
     return userTasks.filter(task => task.userId === alias) || [];
   }
 
   addUser(user) {
-    let users = this.getUsers();
+    const users = this.getUsers();
     users.push(user);
     Helper.addToLocalStorage(users, 'users');
     return { users };
   }
 
   addTask(tasks) {
-    let userTasks = this.getTasks();
+    const userTasks = this.getTasks();
     userTasks.push(tasks);
     Helper.addToLocalStorage(userTasks, 'tasks');
   }
 
   addCategory(category) {
-    let userCategories = this.getCategories();
+    const userCategories = this.getCategories();
     userCategories.push(category);
     Helper.addToLocalStorage(userCategories, 'categories');
   }
@@ -81,7 +81,7 @@ class localApi {
   }
 
   deleteTask(deletedTask) {
-    let userTasks = this.getTasks();
+    const userTasks = this.getTasks();
     let deleteIndex = 0;
     userTasks.forEach((task, index) => {
       if (task.id === deletedTask.id) {
@@ -93,7 +93,7 @@ class localApi {
   }
 
   deleteCategory(deletedCategory) {
-    let userCategories = this.getCategories();
+    const userCategories = this.getCategories();
     let deleteIndex = 0;
     userCategories.forEach((category, index) => {
       if (category.id === deletedCategory.id) {
@@ -105,21 +105,21 @@ class localApi {
   }
 
   deleteUser(index) {
-    let users = this.getUsers();
+    const users = this.getUsers();
     const alias = users.splice(index, 1)[0].alias;
     Helper.addToLocalStorage(users, 'users');
     return { alias, users };
   }
 
   deleteUserTask(alias) {
-    let userTasks = this.getTasks();
-    let tasks = userTasks.filter(task => task.userId !== alias) || [];
+    const userTasks = this.getTasks();
+    const tasks = userTasks.filter(task => task.userId !== alias) || [];
     Helper.addToLocalStorage(tasks, 'tasks');
   }
 
   deleteUserCategories(alias) {
-    let userCategories = this.getTasks();
-    let categories = userCategories.filter(category => category.userId !== alias) || [];
+    const userCategories = this.getTasks();
+    const categories = userCategories.filter(category => category.userId !== alias) || [];
     Helper.addToLocalStorage(categories, 'categories');
   }
 }

@@ -34,7 +34,7 @@ class Categories extends Component {
   }
 
   changeActive(evt) {
-    this.props.changeActiveCategory(evt.currentTarget.dataset['name']);
+    this.props.changeActiveCategory(evt.currentTarget.dataset.name);
   }
 
   updateInputValue(evt) {
@@ -95,9 +95,9 @@ class Categories extends Component {
   }
 
   render() {
-    let { categories, categoryName } = this.props;
+    const { categories, categoryName } = this.props;
 
-    let category = categories.map((category, index) => {
+    const category = categories.map((category, index) => {
       if (category.userId === this.props.alias) {
         return (
           <div onClick={e => this.changeActive(e)} key={index} data-name={category.alias} className={`category alert panel ${this.isActive(category.alias)}`} role="alert">

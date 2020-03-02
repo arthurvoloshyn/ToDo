@@ -19,7 +19,7 @@ class Todo extends Component {
   }
 
   addTask(data) {
-    let { params, activeCategory, taskText, addTask, changeTaskText } = this.props;
+    const { params, activeCategory, taskText, addTask, changeTaskText } = this.props;
 
     const taskInit = {
       userId: params.alias,
@@ -39,7 +39,7 @@ class Todo extends Component {
   }
 
   deleteTask(task) {
-    let { tasks, deleteTask } = this.props;
+    const { tasks, deleteTask } = this.props;
     const deletedTask = tasks.filter(item => item.id === task.id)[0];
     deleteTask(deletedTask);
     this.api.deleteTask(deletedTask);
@@ -47,7 +47,7 @@ class Todo extends Component {
   }
 
   doneTask(index, task) {
-    let { tasks, updateTask } = this.props;
+    const { tasks, updateTask } = this.props;
     const doneTask = tasks.filter(item => item.id === task.id)[0];
     doneTask.isTaskDone = !doneTask.isTaskDone;
     updateTask(doneTask);
@@ -55,7 +55,7 @@ class Todo extends Component {
   }
 
   render() {
-    let { categories, categoryName, activeCategory, addCategory, deleteCategory, updateCategory, changeActiveCategory, changeCategoryName, tasks, params } = this.props;
+    const { categories, categoryName, activeCategory, addCategory, deleteCategory, updateCategory, changeActiveCategory, changeCategoryName, tasks, params } = this.props;
 
     return (
       <div className="container">

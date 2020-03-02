@@ -43,10 +43,10 @@ class ProgressBar extends Component {
 
   updateProgress(nextProps) {
     let { tasksList, alias, activeCategory } = this.props;
-    let tasks = [],
-      danger = [],
-      warning = [],
-      success = [];
+    let tasks = [];
+    const danger = [];
+    const warning = [];
+    const success = [];
 
     tasks = nextProps ? nextProps.tasksList : tasksList;
     activeCategory = nextProps ? nextProps.activeCategory : activeCategory;
@@ -81,7 +81,7 @@ class ProgressBar extends Component {
   }
 
   render() {
-    let { danger, warning, success, isShowedCounters } = this.state;
+    const { danger, warning, success, isShowedCounters } = this.state;
 
     return (
       <div onClick={this.showCounters} className="panel progress-panel">

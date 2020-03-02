@@ -53,7 +53,7 @@ class UsersList extends Component {
   }
 
   addUser() {
-    let { userName, addUser, addCategory, changeUserName } = this.props;
+    const { userName, addUser, addCategory, changeUserName } = this.props;
     const userInit = {
       id: new Date().getTime(),
       avatar: this.state.users_avatars[this.state.avatarIndex],

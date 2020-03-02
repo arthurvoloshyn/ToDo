@@ -32,8 +32,8 @@ class TasksList extends Component {
 
   sortTasksOrder(tasksArray) {
     tasksArray.sort((a, b) => a.priority - b.priority);
-    let notDoneTasksArray = tasksArray.filter(task => !task.isTaskDone);
-    let doneDasksArray = tasksArray.filter(task => task.isTaskDone);
+    const notDoneTasksArray = tasksArray.filter(task => !task.isTaskDone);
+    const doneDasksArray = tasksArray.filter(task => task.isTaskDone);
     return (tasksArray = [...notDoneTasksArray, ...doneDasksArray]);
   }
 
