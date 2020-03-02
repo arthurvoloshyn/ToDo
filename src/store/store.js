@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
-import localApi from './helpers/localApi';
-import rootReducer from './reducers/index';
+import localApi from '../helpers/localApi';
+import rootReducer from '../reducers';
 
 const api = new localApi();
 
