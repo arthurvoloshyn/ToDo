@@ -2,18 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class ProgressBar extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    isShowedCounters: false
+  };
 
-    this.state = {
-      isShowedCounters: false
-    };
-
-    this.updateProgress = this.updateProgress.bind(this);
-    this.showCounters = this.showCounters.bind(this);
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state !== nextState || this.props !== nextProps;
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { danger, warning, success } = this.updateProgress();
     this.setState({
       danger: danger,
@@ -22,7 +19,7 @@ class ProgressBar extends Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { danger, warning, success } = this.updateProgress(nextProps);
     this.setState({
       danger: danger,
@@ -31,17 +28,13 @@ class ProgressBar extends Component {
     });
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.state !== nextState || this.props !== nextProps;
-  }
+  showCounters = () => {
+    this.setState(({ isShowedCounters }) => ({
+      isShowedCounters: !isShowedCounters
+    }));
+  };
 
-  showCounters() {
-    this.setState({
-      isShowedCounters: !this.state.isShowedCounters
-    });
-  }
-
-  updateProgress(nextProps) {
+  updateProgress = nextProps => {
     let { tasksList, alias, activeCategory } = this.props;
     let tasks = [];
     const danger = [];
@@ -65,6 +58,8 @@ class ProgressBar extends Component {
           case 3:
             success.push(tasks[i]);
             break;
+          default:
+            return null;
         }
       }
     }
@@ -78,7 +73,7 @@ class ProgressBar extends Component {
       warning: warning.length * koef,
       success: success.length * koef
     };
-  }
+  };
 
   render() {
     const { danger, warning, success, isShowedCounters } = this.state;

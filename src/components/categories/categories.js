@@ -4,44 +4,34 @@ import { toastr } from 'react-redux-toastr';
 import InputField from './../input-field/input-field';
 import Button from './../button/button';
 import ButtonsGroup from './../buttons-group/buttons-group';
-import localApi from './../../helpers/localApi';
+import LocalApi from './../../helpers/localApi';
 
 class Categories extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    isEdit: false
+  };
 
-    this.api = new localApi();
+  api = new LocalApi();
 
-    this.state = {
-      isEdit: false
-    };
-
-    this.addCategory = this.addCategory.bind(this);
-    this.deleteCategory = this.deleteCategory.bind(this);
-    this.updateInputValue = this.updateInputValue.bind(this);
-    this.editCategory = this.editCategory.bind(this);
-    this.updateCategoryValue = this.updateCategoryValue.bind(this);
-  }
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.props.categories.length > 0) {
       this.isActive(this.props.categories[0].alias);
     }
   }
 
-  isActive(value) {
+  isActive = value => {
     return value === this.props.activeCategory ? 'active' : '';
-  }
+  };
 
-  changeActive(evt) {
+  changeActive = evt => {
     this.props.changeActiveCategory(evt.currentTarget.dataset.name);
-  }
+  };
 
-  updateInputValue(evt) {
-    this.props.changeCategoryName(evt.target.value);
-  }
+  updateInputValue = ({ target: { value } }) => {
+    this.props.changeCategoryName(value);
+  };
 
-  addCategory(categoryName) {
+  addCategory = categoryName => {
     const categoryInit = {
       userId: this.props.alias,
       id: new Date().getTime(),
@@ -55,19 +45,18 @@ class Categories extends Component {
       this.api.addCategory(categoryInit);
       this.props.changeCategoryName('');
     }
-  }
+  };
 
-  deleteCategory(evt, category) {
+  deleteCategory = (evt, category) => {
     evt.stopPropagation();
-    let { categories, tasks, deleteCategory, deleteTask } = this.props;
+    const { categories, tasks, deleteCategory, deleteTask } = this.props;
     const deletedCategory = categories.filter(item => item.id === category.id)[0];
 
-    tasks = tasks.map(task => {
+    tasks.forEach(task => {
       if (task.category === deletedCategory.alias && task.userId === deletedCategory.userId) {
         deleteTask(task);
         this.api.deleteTask(task);
       }
-      return task;
     });
 
     toastr.confirm('This will delete all tasks connected with category', {
@@ -76,58 +65,49 @@ class Categories extends Component {
         this.api.deleteCategory(deletedCategory);
       }
     });
-  }
+  };
 
-  editCategory(evt, category) {
+  editCategory = (evt, category) => {
     const { categories, updateCategory } = this.props;
     const edieableCategory = categories.filter(item => item.alias === category.alias)[0];
     edieableCategory.isEdit = !category.isEdit;
     updateCategory(edieableCategory);
     this.api.updateCategory(edieableCategory);
-  }
+  };
 
-  updateCategoryValue(evt, category) {
+  updateCategoryValue = ({ target: { value } }, category) => {
     const { categories, updateCategory } = this.props;
     const edieableCategory = categories.filter(item => item.alias === category.alias)[0];
-    edieableCategory.text = evt.target.value;
+    edieableCategory.text = value;
     updateCategory(edieableCategory);
     this.api.updateCategory(edieableCategory);
-  }
+  };
 
   render() {
     const { categories, categoryName } = this.props;
 
-    const category = categories.map((category, index) => {
-      if (category.userId === this.props.alias) {
-        return (
-          <div onClick={e => this.changeActive(e)} key={index} data-name={category.alias} className={`category alert panel ${this.isActive(category.alias)}`} role="alert">
-            <div className="category-name">
-              <i className="material-icons">folder</i>
-              {category.isEdit ? (
-                <input
-                  value={category.text}
-                  onChange={evt => this.updateCategoryValue(evt, category)}
-                  onBlur={evt => this.editCategory(evt, category)}
-                  type="text"
-                  className="form-control"
-                  autoFocus
-                />
-              ) : (
-                <h5 className="category-text">{category ? category.text : null}</h5>
-              )}
-            </div>
-            <ButtonsGroup>
-              <Button onClickFunction={evt => this.editCategory(evt, category)} specialClass={`iconBtn ${category.isEdit ? 'active' : ''}`}>
-                <i className="material-icons">{category.isEdit ? 'done' : 'create'}</i>
-              </Button>
-              <Button onClickFunction={evt => this.deleteCategory(evt, category)} specialClass="iconBtn">
-                <i className="material-icons">delete</i>
-              </Button>
-            </ButtonsGroup>
+    const category = categories.map((category, index) =>
+      category.userId === this.props.alias ? (
+        <div onClick={e => this.changeActive(e)} key={index} data-name={category.alias} className={`category alert panel ${this.isActive(category.alias)}`} role="alert">
+          <div className="category-name">
+            <i className="material-icons">folder</i>
+            {category.isEdit ? (
+              <input value={category.text} onChange={evt => this.updateCategoryValue(evt, category)} onBlur={evt => this.editCategory(evt, category)} type="text" className="form-control" autoFocus />
+            ) : (
+              <h5 className="category-text">{category ? category.text : null}</h5>
+            )}
           </div>
-        );
-      }
-    });
+          <ButtonsGroup>
+            <Button onClickFunction={evt => this.editCategory(evt, category)} specialClass={`iconBtn ${category.isEdit ? 'active' : ''}`}>
+              <i className="material-icons">{category.isEdit ? 'done' : 'create'}</i>
+            </Button>
+            <Button onClickFunction={evt => this.deleteCategory(evt, category)} specialClass="iconBtn">
+              <i className="material-icons">delete</i>
+            </Button>
+          </ButtonsGroup>
+        </div>
+      ) : null
+    );
 
     return (
       <div className="panel panel-default categories">

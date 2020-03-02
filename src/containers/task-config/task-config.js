@@ -5,44 +5,36 @@ import { browserHistory } from 'react-router';
 import { toastr } from 'react-redux-toastr';
 import Button from './../../components/button/button';
 import ButtonsGroup from './../../components/buttons-group/buttons-group';
-import localApi from './../../helpers/localApi';
+import LocalApi from './../../helpers/localApi';
 import Helpers from './../../helpers/Helpers';
 
 class TaskConfig extends Component {
-  constructor(props) {
-    super(props);
+  api = new LocalApi();
+  Helpers = new Helpers();
 
-    this.api = new localApi();
-    this.Helpers = new Helpers();
-
-    this.updateTaskRate = this.updateTaskRate.bind(this);
-    this.updateData = this.updateData.bind(this);
-    this.saveChanges = this.saveChanges.bind(this);
-  }
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.updateData();
   }
 
-  updateTaskText(evt) {
-    this.setState({ inputValue: evt.target.value });
-  }
+  updateTaskText = ({ target: { value } }) => {
+    this.setState({ inputValue: value });
+  };
 
-  updateTaskRate(evt) {
-    const priority = +evt.target.getAttribute('data-value');
+  updateTaskRate = ({ target }) => {
+    const priority = +target.getAttribute('data-value');
     this.setState({ taskRate: priority });
-  }
+  };
 
-  updateTaskStatus(evt) {
+  updateTaskStatus = ({ target: { value } }) => {
     // Use JSON.parse for conver value to boolean
-    this.setState({ isDone: JSON.parse(evt.target.value) });
-  }
+    this.setState({ isDone: JSON.parse(value) });
+  };
 
-  updateTaskCategory(evt) {
-    this.setState({ activeCategory: evt.target.name });
-  }
+  updateTaskCategory = ({ target: { name } }) => {
+    this.setState({ activeCategory: name });
+  };
 
-  updateData() {
+  updateData = () => {
     const task = this.Helpers.getTask(this.props.tasks, this.props.routeParams.id);
     this.setState({
       taskRate: task.priority,
@@ -50,9 +42,9 @@ class TaskConfig extends Component {
       inputValue: task.text,
       activeCategory: task.category
     });
-  }
+  };
 
-  saveChanges() {
+  saveChanges = () => {
     const { taskRate, isDone, inputValue, activeCategory } = this.state;
     const task = this.Helpers.getTask(this.props.tasks, this.props.routeParams.id);
     task.priority = taskRate;
@@ -62,24 +54,22 @@ class TaskConfig extends Component {
     this.api.updateTask(task);
     browserHistory.goBack();
     toastr.success('Tasks updated', { timeOut: 3000 });
-  }
+  };
 
   render() {
     let categories = this.api.getCategories();
     const { taskRate, inputValue, isDone, activeCategory } = this.state;
 
-    categories = categories.map((category, index) => {
-      if (category.userId === this.props.params.alias) {
-        return (
-          <div className="radio" key={index}>
-            <label>
-              <input onChange={evt => this.updateTaskCategory(evt)} type="radio" name={category.alias} checked={activeCategory === category.alias} />
-              {category.text}
-            </label>
-          </div>
-        );
-      }
-    });
+    categories = categories.map((category, index) =>
+      category.userId === this.props.params.alias ? (
+        <div className="radio" key={index}>
+          <label>
+            <input onChange={evt => this.updateTaskCategory(evt)} type="radio" name={category.alias} checked={activeCategory === category.alias} />
+            {category.text}
+          </label>
+        </div>
+      ) : null
+    );
 
     return (
       <div className="container">

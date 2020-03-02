@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import { toastr } from 'react-redux-toastr';
 import TasksList from './../tasks-list/tasks-list';
 import Categories from './../../components/categories/categories';
-import localApi from './../../helpers/localApi';
+import LocalApi from './../../helpers/localApi';
 import { addTask, deleteTask, updateTask, changeTaskText, addCategory, deleteCategory, updateCategory, changeActiveCategory, changeCategoryName } from './../../actions/actionCreators';
 
 class Todo extends Component {
   constructor(props) {
     super(props);
 
-    this.api = new localApi();
+    this.api = new LocalApi();
 
     this.addTask = this.addTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);

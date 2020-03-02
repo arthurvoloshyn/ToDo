@@ -1,8 +1,8 @@
 import { createStore } from 'redux';
-import localApi from '../helpers/localApi';
+import LocalApi from '../helpers/localApi';
 import rootReducer from '../reducers';
 
-const api = new localApi();
+const api = new LocalApi();
 
 const users = api.getUsers();
 const tasks = api.getTasks();

@@ -2,7 +2,7 @@ import Helpers from './Helpers';
 
 const Helper = new Helpers();
 
-class localApi {
+class LocalApi {
   getUsers() {
     return JSON.parse(localStorage.getItem('users')) || [];
   }
@@ -124,4 +124,4 @@ class localApi {
   }
 }
 
-export default localApi;
+export default LocalApi;

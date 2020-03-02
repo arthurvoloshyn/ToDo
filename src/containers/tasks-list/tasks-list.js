@@ -6,36 +6,28 @@ import Button from './../../components/button/button';
 import ButtonsGroup from './../../components/buttons-group/buttons-group';
 import InputField from './../../components/input-field/input-field';
 import Filter from './../../components/filter/filter';
-import Task from './../../components/task-item/task-item';
+import RenderTask from '../../components/render-tasks/render-tasks';
 import { changeTaskText, updateUser } from './../../actions/actionCreators';
 
 class TasksList extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    inputRate: 3
+  };
 
-    this.state = {
-      inputRate: 3
-    };
+  updateRateValue = ({ target }) => {
+    this.setState({ inputRate: +target.getAttribute('data-value') });
+  };
 
-    this.updateRateValue = this.updateRateValue.bind(this);
-    this.updateInputValue = this.updateInputValue.bind(this);
-    this.sortTasksOrder = this.sortTasksOrder.bind(this);
-  }
+  updateInputValue = ({ target: { value } }) => {
+    this.props.changeTaskText(value);
+  };
 
-  updateRateValue(evt) {
-    this.setState({ inputRate: +evt.target.getAttribute('data-value') });
-  }
-
-  updateInputValue(evt) {
-    this.props.changeTaskText(evt.target.value);
-  }
-
-  sortTasksOrder(tasksArray) {
+  sortTasksOrder = tasksArray => {
     tasksArray.sort((a, b) => a.priority - b.priority);
     const notDoneTasksArray = tasksArray.filter(task => !task.isTaskDone);
     const doneDasksArray = tasksArray.filter(task => task.isTaskDone);
     return (tasksArray = [...notDoneTasksArray, ...doneDasksArray]);
-  }
+  };
 
   render() {
     let { users, addTask, taskText, activeCategory, categories, tasks, alias, doneTask, deleteTask, updateUser } = this.props;
@@ -44,20 +36,7 @@ class TasksList extends Component {
     const activeView = users.filter(user => user.alias === alias)[0].settings[0].activeView;
     const showDone = users.filter(user => user.alias === alias)[0].settings[1].showDone;
 
-    tasks = this.sortTasksOrder(tasks.filter(task => task.userId === alias));
-    let tasksList = [];
-
-    showDone
-      ? (tasksList = tasks.map((task, index) => {
-          if ((task.priority === activeView && task.category === activeCategory) || (activeView === 4 && task.category === activeCategory)) {
-            return <Task key={index} index={index} task={task} tasks={tasks} alias={alias} doneTask={doneTask} deleteTask={deleteTask} />;
-          }
-        }))
-      : (tasksList = tasks.map((task, index) => {
-          if ((task.priority === activeView && !task.isTaskDone && task.category === activeCategory) || (activeView === 4 && !task.isTaskDone && task.category === activeCategory)) {
-            return <Task key={index} index={index} task={task} tasks={tasks} alias={alias} doneTask={doneTask} deleteTask={deleteTask} />;
-          }
-        }));
+    tasks = this.sortTasksOrder(tasks.filter(({ userId }) => userId === alias));
 
     return (
       <div>
@@ -94,7 +73,22 @@ class TasksList extends Component {
           </div>
         </div>
         <ProgressBar alias={alias} tasksList={tasks} activeCategory={activeCategory} />
-        <div className="panel panel-body tasks-list">{tasksList}</div>
+        <div className="panel panel-body tasks-list">
+          {tasks.map((task, index) => (
+            <RenderTask
+              key={index}
+              task={task}
+              index={index}
+              tasks={tasks}
+              activeView={activeView}
+              activeCategory={activeCategory}
+              alias={alias}
+              doneTask={doneTask}
+              deleteTask={deleteTask}
+              showDone={showDone}
+            />
+          ))}
+        </div>
         <Filter alias={alias} tasks={tasks} users={users} activeCategory={activeCategory} updateUser={updateUser} />
       </div>
     );

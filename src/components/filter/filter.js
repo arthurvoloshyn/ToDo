@@ -2,46 +2,39 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from './../../components/button/button';
 import ButtonsGroup from './../../components/buttons-group/buttons-group';
-import localApi from './../../helpers/localApi';
+import LocalApi from './../../helpers/localApi';
 import Helpers from './../../helpers/Helpers';
 
 class Filter extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    activeView: 3
+  };
 
-    this.state = {
-      activeView: 3
-    };
+  api = new LocalApi();
 
-    this.api = new localApi();
-    this.Helpers = new Helpers();
+  Helpers = new Helpers();
 
-    this.showDoneTasks = this.showDoneTasks.bind(this);
-    this.updateView = this.updateView.bind(this);
-    this.isActive = this.isActive.bind(this);
-  }
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setState({
       activeView: this.isActive()
     });
   }
 
-  isActive() {
+  isActive = () => {
     const { users, alias } = this.props;
     const activeUser = this.Helpers.getActiveUser(users, alias);
     return activeUser.settings[0].activeView;
-  }
+  };
 
-  isShowDone() {
+  isShowDone = () => {
     const { users, alias } = this.props;
     const activeUser = this.Helpers.getActiveUser(users, alias);
     return activeUser.settings[1].showDone ? 'active' : '';
-  }
+  };
 
-  updateView(evt) {
+  updateView = ({ target }) => {
     const { users, alias, updateUser } = this.props;
-    const priority = +evt.target.getAttribute('data-value');
+    const priority = +target.getAttribute('data-value');
     const activeUser = this.Helpers.getActiveUser(users, alias);
     activeUser.settings[0].activeView = priority;
     updateUser(activeUser);
@@ -49,15 +42,15 @@ class Filter extends Component {
     this.setState({
       activeView: priority
     });
-  }
+  };
 
-  showDoneTasks() {
+  showDoneTasks = () => {
     const { users, alias, updateUser } = this.props;
     const activeUser = this.Helpers.getActiveUser(users, alias);
     activeUser.settings[1].showDone = !activeUser.settings[1].showDone;
     updateUser(activeUser);
     this.api.updateUser(activeUser);
-  }
+  };
 
   render() {
     let { alias, tasks, users, activeCategory } = this.props;
@@ -69,24 +62,26 @@ class Filter extends Component {
     const success = [];
     const all = [];
 
-    tasks = tasks.filter(task => task.userId === alias);
+    tasks = tasks.filter(({ userId }) => userId === alias);
 
-    for (let i = 0; i < tasks.length; i++) {
-      if (!tasks[i].isTaskDone && tasks[i].category === activeCategory) {
-        all.push(tasks[i]);
-        switch (tasks[i].priority) {
+    tasks.forEach(task => {
+      if (!task.isTaskDone && task.category === activeCategory) {
+        all.push(task);
+        switch (task.priority) {
           case 1:
-            danger.push(tasks[i]);
+            danger.push(task);
             break;
           case 2:
-            warning.push(tasks[i]);
+            warning.push(task);
             break;
           case 3:
-            success.push(tasks[i]);
+            success.push(task);
             break;
+          default:
+            return null;
         }
       }
-    }
+    });
 
     return (
       <div className="panel panel-default filter-panel">

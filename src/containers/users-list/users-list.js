@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { toastr } from 'react-redux-toastr';
-import localApi from './../../helpers/localApi';
+import LocalApi from './../../helpers/localApi';
 import InputField from './../../components/input-field/input-field';
 import { addUser, deleteUser, addCategory, changeUserName } from './../../actions/actionCreators';
 // TODO: another way for pictures
@@ -20,7 +20,7 @@ class UsersList extends Component {
   constructor(props) {
     super(props);
 
-    this.api = new localApi();
+    this.api = new LocalApi();
 
     this.state = {
       users_avatars: [man1, man2, man3, man4, woman1, woman2, woman3, woman4],

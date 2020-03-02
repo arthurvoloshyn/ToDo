@@ -17,6 +17,8 @@ const taskItem = props => {
     case 3:
       itemClass = `${itemClass}success`;
       break;
+    default:
+      return null;
   }
 
   return (
