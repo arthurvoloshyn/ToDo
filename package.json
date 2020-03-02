@@ -108,6 +108,7 @@
     "express": "4.13.4",
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.8.5",
+    "handlebars": "^4.5.0",
     "husky": "^3.1.0",
     "jest": "^20.0.4",
     "jsdom": "8.5.0",
