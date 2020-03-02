@@ -1,29 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-class Button extends Component {
-  constructor(props) {
-    super(props);
-  }
+const Button = ({ onClickFunction, specialClass, children, dataValue, checkActive }) => {
+  const isActive = () => (checkActive === +dataValue ? 'active' : '');
 
-  isActive() {
-    return this.props.checkActive === +this.props.dataValue ? 'active' : '';
-  }
+  const classString = specialClass || '';
 
-  render() {
-    const { onClickFunction, specialClass, children, dataValue } = this.props;
-
-    const classString = specialClass || '';
-
-    return (
-      <button onClick={e => onClickFunction(e)} data-value={dataValue} type="button" className={`${classString} ${this.isActive()}`}>
-        {React.Children.map(children, child => {
-          return child;
-        })}
-      </button>
-    );
-  }
-}
+  return (
+    <button onClick={e => onClickFunction(e)} data-value={dataValue} type="button" className={`${classString} ${isActive()}`}>
+      {React.Children.map(children, child => child)}
+    </button>
+  );
+};
 
 Button.propTypes = {
   checkActive: PropTypes.number,

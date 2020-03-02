@@ -1,24 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-class ButtonsGroup extends Component {
-  constructor(props) {
-    super(props);
-  }
+const ButtonsGroup = ({ specialClass, children }) => {
+  const classString = specialClass || '';
 
-  render() {
-    const { specialClass, children } = this.props;
-    const classString = specialClass || '';
-
-    return (
-      <div className={`btn-group ${classString}`} role="group">
-        {React.Children.map(children, child => {
-          return child;
-        })}
-      </div>
-    );
-  }
-}
+  return (
+    <div className={`btn-group ${classString}`} role="group">
+      {React.Children.map(children, child => child)}
+    </div>
+  );
+};
 
 ButtonsGroup.propTypes = {
   activeElem: PropTypes.number,
