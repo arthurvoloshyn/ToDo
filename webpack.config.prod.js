@@ -31,7 +31,7 @@ export default {
 
   module: {
     loaders: [
-      { test: /\.js?$/, loader: 'babel', exclude: /node_modules/ },
+      { test: /\.js?$/, loader: 'babel?presets[]=react,presets[]=es2015,presets[]=stage-0', exclude: /node_modules/ },
       { test: /\.scss?$/, loader: ExtractTextPlugin.extract('style', 'css!sass'), include: path.join(__dirname, 'src') },
       { test: /\.png$/, loader: 'file' },
       { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loader: 'file' }
