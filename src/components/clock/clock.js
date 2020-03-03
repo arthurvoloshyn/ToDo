@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 
 class Clock extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      date: new Date()
-    };
-  }
+  timerID = null;
+
+  state = {
+    date: new Date()
+  };
 
   componentDidMount() {
     this.timerID = setInterval(() => this.sec(), 1000);
@@ -23,9 +22,11 @@ class Clock extends Component {
   }
 
   render() {
+    const { date } = this.state;
+
     return (
       <div className="clock">
-        <h2>{this.state.date.toLocaleTimeString()}</h2>
+        <h2>{date.toLocaleTimeString()}</h2>
       </div>
     );
   }

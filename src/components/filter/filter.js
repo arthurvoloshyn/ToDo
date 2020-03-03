@@ -1,11 +1,52 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Button from './../../components/button/button';
-import ButtonsGroup from './../../components/buttons-group/buttons-group';
+
 import LocalApi from './../../helpers/localApi';
 import Helpers from './../../helpers/Helpers';
 
+import Button from './../../components/button/button';
+import ButtonsGroup from './../../components/buttons-group/buttons-group';
+
 class Filter extends Component {
+  static propTypes = {
+    activeCategory: PropTypes.string,
+    alias: PropTypes.string,
+    tasks: PropTypes.arrayOf(
+      PropTypes.shape({
+        userId: PropTypes.string,
+        id: PropTypes.number,
+        category: PropTypes.string,
+        text: PropTypes.string,
+        priority: PropTypes.number,
+        isTaskDone: PropTypes.bool
+      })
+    ),
+    updateUser: PropTypes.func,
+    users: PropTypes.arrayOf(
+      PropTypes.shape({
+        type: PropTypes.oneOf(['ADD_USER']),
+        id: PropTypes.number,
+        avatar: PropTypes.string,
+        name: PropTypes.string,
+        alias: PropTypes.string,
+        settings: PropTypes.arrayOf(
+          PropTypes.shape({
+            activeView: PropTypes.number,
+            showDone: PropTypes.bool
+          })
+        )
+      })
+    )
+  };
+
+  static defaultProps = {
+    activeCategory: 'default',
+    alias: '',
+    updateUser: () => {},
+    tasks: [],
+    users: []
+  };
+
   state = {
     activeView: 3
   };
@@ -22,23 +63,28 @@ class Filter extends Component {
 
   isActive = () => {
     const { users, alias } = this.props;
-    const activeUser = this.Helpers.getActiveUser(users, alias);
+    const activeUser = this.Helpers.getDataByAlias(users, alias);
+
     return activeUser.settings[0].activeView;
   };
 
   isShowDone = () => {
     const { users, alias } = this.props;
-    const activeUser = this.Helpers.getActiveUser(users, alias);
+    const activeUser = this.Helpers.getDataByAlias(users, alias);
+
     return activeUser.settings[1].showDone ? 'active' : '';
   };
 
   updateView = ({ target }) => {
     const { users, alias, updateUser } = this.props;
     const priority = +target.getAttribute('data-value');
-    const activeUser = this.Helpers.getActiveUser(users, alias);
+    const activeUser = this.Helpers.getDataByAlias(users, alias);
+
     activeUser.settings[0].activeView = priority;
     updateUser(activeUser);
+
     this.api.updateUser(activeUser);
+
     this.setState({
       activeView: priority
     });
@@ -46,15 +92,18 @@ class Filter extends Component {
 
   showDoneTasks = () => {
     const { users, alias, updateUser } = this.props;
-    const activeUser = this.Helpers.getActiveUser(users, alias);
+    const activeUser = this.Helpers.getDataByAlias(users, alias);
+
     activeUser.settings[1].showDone = !activeUser.settings[1].showDone;
     updateUser(activeUser);
+
     this.api.updateUser(activeUser);
   };
 
   render() {
     let { alias, tasks, users, activeCategory } = this.props;
-    const activeUser = this.Helpers.getActiveUser(users, alias);
+    const { activeView: stateActiveView } = this.state;
+    const activeUser = this.Helpers.getDataByAlias(users, alias);
     const activeView = activeUser.settings[0].activeView;
 
     const danger = [];
@@ -67,6 +116,7 @@ class Filter extends Component {
     tasks.forEach(task => {
       if (!task.isTaskDone && task.category === activeCategory) {
         all.push(task);
+
         switch (task.priority) {
           case 1:
             danger.push(task);
@@ -92,17 +142,17 @@ class Filter extends Component {
                 <i className="material-icons">filter_list</i>
                 <span>FILTER:</span>
               </h4>
-              <ButtonsGroup specialClass={'filter'} activeElem={activeView}>
-                <Button onClickFunction={this.updateView} dataValue="1" specialClass={`btn alert-danger`} checkActive={this.state.activeView}>
+              <ButtonsGroup specialClass="filter" activeElem={activeView}>
+                <Button onClickFunction={this.updateView} dataValue="1" specialClass="btn alert-danger" checkActive={stateActiveView}>
                   Hight {<span className="badge">{danger.length}</span>}
                 </Button>
-                <Button onClickFunction={this.updateView} dataValue="2" specialClass={`btn alert-warning`} checkActive={this.state.activeView}>
+                <Button onClickFunction={this.updateView} dataValue="2" specialClass="btn alert-warning" checkActive={stateActiveView}>
                   Middle {<span className="badge">{warning.length}</span>}
                 </Button>
-                <Button onClickFunction={this.updateView} dataValue="3" specialClass={`btn alert-success`} checkActive={this.state.activeView}>
+                <Button onClickFunction={this.updateView} dataValue="3" specialClass="btn alert-success" checkActive={stateActiveView}>
                   Low {<span className="badge">{success.length}</span>}
                 </Button>
-                <Button onClickFunction={this.updateView} specialClass={`btn btn-all`} dataValue="4" checkActive={this.state.activeView}>
+                <Button onClickFunction={this.updateView} specialClass="btn btn-all" dataValue="4" checkActive={stateActiveView}>
                   All <span className="badge">{all.length}</span>
                 </Button>
               </ButtonsGroup>
@@ -119,13 +169,5 @@ class Filter extends Component {
     );
   }
 }
-
-Filter.propTypes = {
-  activeCategory: PropTypes.string,
-  alias: PropTypes.string,
-  tasks: PropTypes.array,
-  updateUser: PropTypes.func,
-  users: PropTypes.array
-};
 
 export default Filter;

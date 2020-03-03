@@ -50,7 +50,7 @@ class TasksList extends Component {
                 </h4>
               </div>
               <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                <InputField value={taskText} changeFunction={this.updateInputValue} data={this.state} addFunction={addTask} placeholder={`Click to add new task...`} />
+                <InputField value={taskText} changeFunction={this.updateInputValue} data={this.state} addFunction={addTask} placeholder="Click to add new task..." />
               </div>
             </div>
           </div>
@@ -58,13 +58,13 @@ class TasksList extends Component {
             <div className="row">
               <div className="col-lg-5 text-left">
                 <ButtonsGroup specialClass="priority" activeElem={this.state.inputRate}>
-                  <Button onClickFunction={this.updateRateValue} dataValue="1" specialClass={`btn alert-danger`} checkActive={this.state.inputRate}>
+                  <Button onClickFunction={this.updateRateValue} dataValue="1" specialClass="btn alert-danger" checkActive={this.state.inputRate}>
                     Hight
                   </Button>
-                  <Button onClickFunction={this.updateRateValue} dataValue="2" specialClass={`btn alert-warning`} checkActive={this.state.inputRate}>
+                  <Button onClickFunction={this.updateRateValue} dataValue="2" specialClass="btn alert-warning" checkActive={this.state.inputRate}>
                     Middle
                   </Button>
-                  <Button onClickFunction={this.updateRateValue} dataValue="3" specialClass={`btn alert-success`} checkActive={this.state.inputRate}>
+                  <Button onClickFunction={this.updateRateValue} dataValue="3" specialClass="btn alert-success" checkActive={this.state.inputRate}>
                     Low
                   </Button>
                 </ButtonsGroup>

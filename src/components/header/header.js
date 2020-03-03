@@ -1,15 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory, Link } from 'react-router';
+
+import LocalApi from '../../helpers/localApi';
+import Helpers from '../../helpers/Helpers';
+
 import Button from './../button/button';
 import Clock from './../clock/clock';
+
 import logo from './../../img/react.svg'; // eslint-disable-line
 
-const Header = props => {
-  const alias = props.userAlias;
-  const users = JSON.parse(localStorage.getItem('users'));
-  const user = users ? users.filter(item => item.alias === alias)[0] : {};
-  const isTaskLocation = props.location.indexOf('tasks');
+const Header = ({ userAlias, location }) => {
+  const api = new LocalApi();
+  const users = api.getUsers();
+
+  const Helper = new Helpers();
+
+  const user = users ? Helper.getDataByAlias(users, userAlias) : {};
+  const isTaskLocation = location.indexOf('tasks');
 
   return (
     <div className="header">
@@ -46,6 +54,11 @@ const Header = props => {
 Header.propTypes = {
   location: PropTypes.string,
   userAlias: PropTypes.string
+};
+
+Header.defaultProps = {
+  location: '/',
+  userAlias: ''
 };
 
 export default Header;

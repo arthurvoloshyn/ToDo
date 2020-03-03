@@ -4,10 +4,8 @@ import PropTypes from 'prop-types';
 const Button = ({ onClickFunction, specialClass, children, dataValue, checkActive }) => {
   const isActive = () => (checkActive === +dataValue ? 'active' : '');
 
-  const classString = specialClass || '';
-
   return (
-    <button onClick={e => onClickFunction(e)} data-value={dataValue} type="button" className={`${classString} ${isActive()}`}>
+    <button onClick={e => onClickFunction(e)} data-value={dataValue} type="button" className={`${specialClass} ${isActive()}`}>
       {React.Children.map(children, child => child)}
     </button>
   );
@@ -19,6 +17,14 @@ Button.propTypes = {
   dataValue: PropTypes.string,
   onClickFunction: PropTypes.func,
   specialClass: PropTypes.string
+};
+
+Button.defaultProps = {
+  checkActive: null,
+  dataValue: '',
+  specialClass: '',
+  children: null,
+  onClickFunction: () => {}
 };
 
 export default Button;

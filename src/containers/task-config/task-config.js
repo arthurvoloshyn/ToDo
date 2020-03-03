@@ -36,7 +36,7 @@ class TaskConfig extends Component {
 
   updateData = () => {
     const { tasks, routeParams } = this.props;
-    const task = this.Helpers.getTask(tasks, routeParams.id);
+    const task = this.Helpers.getDataById(tasks, routeParams.id);
     const { priority, isTaskDone, text, category } = task;
     this.setState({
       taskRate: priority,
@@ -48,7 +48,7 @@ class TaskConfig extends Component {
 
   saveChanges = () => {
     const { taskRate, isDone, inputValue, activeCategory } = this.state;
-    const task = this.Helpers.getTask(this.props.tasks, this.props.routeParams.id);
+    const task = this.Helpers.getDataById(this.props.tasks, this.props.routeParams.id);
     task.priority = taskRate;
     task.isTaskDone = isDone;
     task.text = inputValue;
@@ -93,13 +93,13 @@ class TaskConfig extends Component {
                       </div>
                       <div className="col-lg-7 col-md-8 text-left">
                         <ButtonsGroup specialClass="priority">
-                          <Button onClickFunction={this.updateTaskRate} dataValue="1" specialClass={`btn alert-danger`} checkActive={taskRate}>
+                          <Button onClickFunction={this.updateTaskRate} dataValue="1" specialClass="btn alert-danger" checkActive={taskRate}>
                             Hight
                           </Button>
-                          <Button onClickFunction={this.updateTaskRate} dataValue="2" specialClass={`btn alert-warning`} checkActive={taskRate}>
+                          <Button onClickFunction={this.updateTaskRate} dataValue="2" specialClass="btn alert-warning" checkActive={taskRate}>
                             Middle
                           </Button>
-                          <Button onClickFunction={this.updateTaskRate} dataValue="3" specialClass={`btn alert-success`} checkActive={taskRate}>
+                          <Button onClickFunction={this.updateTaskRate} dataValue="3" specialClass="btn alert-success" checkActive={taskRate}>
                             Low
                           </Button>
                         </ButtonsGroup>

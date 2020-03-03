@@ -1,12 +1,12 @@
 class Helpers {
-  // Get particular task by ID
-  getTask(tasksArray, id) {
-    return tasksArray.filter(task => task.id === +id)[0];
+  // Get particular data by ID
+  getDataById(dataArray, id) {
+    return dataArray.filter(data => data.id === +id)[0];
   }
 
-  // Get particular User by Alias
-  getActiveUser(usersArray, alias) {
-    return usersArray.filter(user => user.alias === alias)[0];
+  // Get particular data by Alias
+  getDataByAlias(dataArray, alias) {
+    return dataArray.filter(data => data.alias === alias)[0];
   }
 
   // Add data to local storage

@@ -1,60 +1,130 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { toastr } from 'react-redux-toastr';
+
+import LocalApi from './../../helpers/localApi';
+import Helpers from './../../helpers/Helpers';
+
 import InputField from './../input-field/input-field';
 import Button from './../button/button';
 import ButtonsGroup from './../buttons-group/buttons-group';
-import LocalApi from './../../helpers/localApi';
 
 class Categories extends Component {
+  static propTypes = {
+    activeCategory: PropTypes.string,
+    addCategory: PropTypes.func,
+    alias: PropTypes.string,
+    categories: PropTypes.arrayOf(
+      PropTypes.shape({
+        userId: PropTypes.string,
+        id: PropTypes.number,
+        text: PropTypes.string,
+        alias: PropTypes.string
+      })
+    ),
+    categoryName: PropTypes.string,
+    changeActiveCategory: PropTypes.func,
+    changeCategoryName: PropTypes.func,
+    deleteCategory: PropTypes.func,
+    deleteTask: PropTypes.func,
+    tasks: PropTypes.arrayOf(
+      PropTypes.shape({
+        userId: PropTypes.string,
+        id: PropTypes.number,
+        category: PropTypes.string,
+        text: PropTypes.string,
+        priority: PropTypes.number,
+        isTaskDone: PropTypes.bool
+      })
+    ),
+    updateCategory: PropTypes.func
+  };
+
+  static defaultProps = {
+    activeCategory: '',
+    addCategory: () => {},
+    alias: '',
+    categories: [],
+    categoryName: '',
+    changeActiveCategory: () => {},
+    changeCategoryName: () => {},
+    deleteCategory: () => {},
+    deleteTask: () => {},
+    tasks: [],
+    updateCategory: () => {}
+  };
+
   state = {
     isEdit: false
   };
 
   api = new LocalApi();
+  Helpers = new Helpers();
 
   componentWillMount() {
-    if (this.props.categories.length > 0) {
-      this.isActive(this.props.categories[0].alias);
+    const { categories } = this.props;
+
+    if (categories.length > 0) {
+      this.isActive(categories[0].alias);
     }
   }
 
   isActive = value => {
-    return value === this.props.activeCategory ? 'active' : '';
+    const { activeCategory } = this.props;
+
+    return value === activeCategory ? 'active' : '';
   };
 
-  changeActive = evt => {
-    this.props.changeActiveCategory(evt.currentTarget.dataset.name);
+  changeActive = ({
+    currentTarget: {
+      dataset: { name }
+    }
+  }) => {
+    const { changeActiveCategory } = this.props;
+
+    changeActiveCategory(name);
   };
 
   updateInputValue = ({ target: { value } }) => {
-    this.props.changeCategoryName(value);
+    const { changeCategoryName } = this.props;
+
+    changeCategoryName(value);
   };
 
   addCategory = categoryName => {
+    const { alias, addCategory, changeCategoryName } = this.props;
+
     const categoryInit = {
-      userId: this.props.alias,
+      userId: alias,
       id: new Date().getTime(),
       text: categoryName,
       alias: categoryName.trim().replace(/ /gi, '')
     };
+
     if (categoryName.length < 2) {
       toastr.warning('Very short category name', { timeOut: 4000 });
     } else {
-      this.props.addCategory(categoryInit.userId, categoryInit.id, categoryInit.text, categoryInit.alias);
+      const { userId, id, text, alias } = categoryInit;
+
+      addCategory(userId, id, text, alias);
+
       this.api.addCategory(categoryInit);
-      this.props.changeCategoryName('');
+
+      changeCategoryName('');
     }
   };
 
   deleteCategory = (evt, category) => {
     evt.stopPropagation();
+
     const { categories, tasks, deleteCategory, deleteTask } = this.props;
-    const deletedCategory = categories.filter(item => item.id === category.id)[0];
+    const deletedCategory = this.Helpers.getDataById(categories, category.id);
+    const { alias, userId } = deletedCategory;
 
     tasks.forEach(task => {
-      if (task.category === deletedCategory.alias && task.userId === deletedCategory.userId) {
+      if (task.category === alias && task.userId === userId) {
         deleteTask(task);
+
         this.api.deleteTask(task);
       }
     });
@@ -62,6 +132,7 @@ class Categories extends Component {
     toastr.confirm('This will delete all tasks connected with category', {
       onOk: () => {
         deleteCategory(deletedCategory);
+
         this.api.deleteCategory(deletedCategory);
       }
     });
@@ -69,25 +140,29 @@ class Categories extends Component {
 
   editCategory = (evt, category) => {
     const { categories, updateCategory } = this.props;
-    const edieableCategory = categories.filter(item => item.alias === category.alias)[0];
+    const edieableCategory = this.Helpers.getDataByAlias(categories, category.alias);
+
     edieableCategory.isEdit = !category.isEdit;
     updateCategory(edieableCategory);
+
     this.api.updateCategory(edieableCategory);
   };
 
   updateCategoryValue = ({ target: { value } }, category) => {
     const { categories, updateCategory } = this.props;
-    const edieableCategory = categories.filter(item => item.alias === category.alias)[0];
-    edieableCategory.text = value;
-    updateCategory(edieableCategory);
-    this.api.updateCategory(edieableCategory);
+    const edieableCategory = this.Helpers.getDataByAlias(categories, category.alias);
+    const newEdieableCategory = { ...edieableCategory, text: value };
+
+    updateCategory(newEdieableCategory);
+
+    this.api.updateCategory(newEdieableCategory);
   };
 
   render() {
-    const { categories, categoryName } = this.props;
+    const { categories, categoryName, alias } = this.props;
 
     const category = categories.map((category, index) =>
-      category.userId === this.props.alias ? (
+      category.userId === alias ? (
         <div onClick={e => this.changeActive(e)} key={index} data-name={category.alias} className={`category alert panel ${this.isActive(category.alias)}`} role="alert">
           <div className="category-name">
             <i className="material-icons">folder</i>
@@ -98,9 +173,16 @@ class Categories extends Component {
             )}
           </div>
           <ButtonsGroup>
-            <Button onClickFunction={evt => this.editCategory(evt, category)} specialClass={`iconBtn ${category.isEdit ? 'active' : ''}`}>
-              <i className="material-icons">{category.isEdit ? 'done' : 'create'}</i>
-            </Button>
+            {category.isEdit && (
+              <Button onClickFunction={evt => this.editCategory(evt, category)} specialClass="iconBtn active">
+                <i className="material-icons">done</i>
+              </Button>
+            )}
+            {!category.isEdit && (
+              <Button onClickFunction={evt => this.editCategory(evt, category)} specialClass="iconBtn">
+                <i className="material-icons">create</i>
+              </Button>
+            )}
             <Button onClickFunction={evt => this.deleteCategory(evt, category)} specialClass="iconBtn">
               <i className="material-icons">delete</i>
             </Button>
@@ -120,7 +202,7 @@ class Categories extends Component {
               </h4>
             </div>
             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-              <InputField value={categoryName} changeFunction={this.updateInputValue} data={categoryName} addFunction={this.addCategory} placeholder={`Click to add new category...`} />
+              <InputField value={categoryName} changeFunction={this.updateInputValue} data={categoryName} addFunction={this.addCategory} placeholder="Click to add new category..." />
             </div>
           </div>
         </div>
@@ -129,19 +211,5 @@ class Categories extends Component {
     );
   }
 }
-
-Categories.propTypes = {
-  activeCategory: PropTypes.string,
-  addCategory: PropTypes.func,
-  alias: PropTypes.string,
-  categories: PropTypes.array,
-  categoryName: PropTypes.string,
-  changeActiveCategory: PropTypes.func,
-  changeCategoryName: PropTypes.func,
-  deleteCategory: PropTypes.func,
-  deleteTask: PropTypes.func,
-  tasks: PropTypes.array,
-  updateCategory: PropTypes.func
-};
 
 export default Categories;
