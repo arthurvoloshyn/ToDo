@@ -14,7 +14,7 @@ class Filter extends Component {
 
   Helpers = new Helpers();
 
-  UNSAFE_componentWillMount() {
+  componentWillMount() {
     this.setState({
       activeView: this.isActive()
     });

@@ -270,7 +270,7 @@
     "react/no-danger-with-children": 0,
     "react/no-typos": 0,
     "react/style-prop-object": 0,
-    "react/sort-comp": "error",
+    "react/sort-comp": 0,
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
 

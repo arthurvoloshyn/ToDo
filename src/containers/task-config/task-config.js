@@ -12,7 +12,7 @@ class TaskConfig extends Component {
   api = new LocalApi();
   Helpers = new Helpers();
 
-  UNSAFE_componentWillMount() {
+  componentWillMount() {
     this.updateData();
   }
 
@@ -35,12 +35,14 @@ class TaskConfig extends Component {
   };
 
   updateData = () => {
-    const task = this.Helpers.getTask(this.props.tasks, this.props.routeParams.id);
+    const { tasks, routeParams } = this.props;
+    const task = this.Helpers.getTask(tasks, routeParams.id);
+    const { priority, isTaskDone, text, category } = task;
     this.setState({
-      taskRate: task.priority,
-      isDone: task.isTaskDone,
-      inputValue: task.text,
-      activeCategory: task.category
+      taskRate: priority,
+      isDone: isTaskDone,
+      inputValue: text,
+      activeCategory: category
     });
   };
 
@@ -170,7 +172,7 @@ TaskConfig.propTypes = {
   tasks: PropTypes.array
 };
 
-export default connect(state => ({
-  categories: state.categories,
-  tasks: state.tasks
+export default connect(({ categories, tasks }) => ({
+  categories,
+  tasks
 }))(TaskConfig);

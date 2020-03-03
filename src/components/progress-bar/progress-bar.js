@@ -6,11 +6,7 @@ class ProgressBar extends Component {
     isShowedCounters: false
   };
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.state !== nextState || this.props !== nextProps;
-  }
-
-  UNSAFE_componentWillMount() {
+  componentWillMount() {
     const { danger, warning, success } = this.updateProgress();
     this.setState({
       danger: danger,
@@ -19,13 +15,17 @@ class ProgressBar extends Component {
     });
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {
     const { danger, warning, success } = this.updateProgress(nextProps);
     this.setState({
       danger: danger,
       warning: warning,
       success: success
     });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state !== nextState || this.props !== nextProps;
   }
 
   showCounters = () => {

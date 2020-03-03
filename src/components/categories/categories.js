@@ -13,7 +13,7 @@ class Categories extends Component {
 
   api = new LocalApi();
 
-  UNSAFE_componentWillMount() {
+  componentWillMount() {
     if (this.props.categories.length > 0) {
       this.isActive(this.props.categories[0].alias);
     }
