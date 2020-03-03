@@ -14,7 +14,7 @@
     "lint": "node_modules/.bin/esw webpack.config.* src",
     "lint:fix": "npm run lint -- --fix",
     "lint:watch": "npm run lint -- --watch",
-    "lint:styles": "stylelint --fix --syntax scss src/**/*.scss",
+    "lint:styles": "stylelint --fix --syntax scss **/*.scss",
     "clean-public": "npm run remove-public && mkdir public",
     "remove-public": "node_modules/.bin/rimraf ./public",
     "build:html": "babel-node tools/buildHtml.js",

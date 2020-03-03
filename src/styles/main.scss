@@ -3,7 +3,9 @@
 // Vendors
 @import 'vendor/toastr/index';
 // Theme
+@import 'theme/base';
 @import 'theme/theme';
+@import 'theme/default';
 // Containers
 @import '../containers/app/app';
 @import '../containers/task-config/task-config';
