@@ -7,6 +7,7 @@ const RenderTask = ({ task, index, tasks, activeView, activeCategory, alias, don
   const conditionWithShowingDone = (task.priority === activeView && task.category === activeCategory) || (activeView === 4 && task.category === activeCategory);
   const conditionWithoutShowingDone =
     (task.priority === activeView && !task.isTaskDone && task.category === activeCategory) || (activeView === 4 && !task.isTaskDone && task.category === activeCategory);
+
   const isDone = showDone ? conditionWithShowingDone : conditionWithoutShowingDone;
 
   return isDone ? <Task index={index} task={task} tasks={tasks} alias={alias} doneTask={doneTask} deleteTask={deleteTask} /> : null;
@@ -38,6 +39,25 @@ RenderTask.propTypes = {
       isTaskDone: PropTypes.bool
     })
   )
+};
+
+RenderTask.defaultProps = {
+  activeCategory: 'default',
+  deleteTask: () => {},
+  doneTask: () => {},
+  tasks: [],
+  showDone: false,
+  alias: '',
+  index: 0,
+  activeView: 4,
+  task: {
+    userId: '',
+    id: new Date().getTime(),
+    category: 'default',
+    text: '',
+    priority: 3,
+    isTaskDone: false
+  }
 };
 
 export default RenderTask;

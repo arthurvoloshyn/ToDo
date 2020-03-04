@@ -1,26 +1,53 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Helpers from '../../helpers/Helpers';
+
 class ProgressBar extends Component {
+  static propTypes = {
+    activeCategory: PropTypes.string,
+    alias: PropTypes.string,
+    tasksList: PropTypes.arrayOf(
+      PropTypes.shape({
+        userId: PropTypes.string,
+        id: PropTypes.number,
+        category: PropTypes.string,
+        text: PropTypes.string,
+        priority: PropTypes.number,
+        isTaskDone: PropTypes.bool
+      })
+    )
+  };
+
+  static defaultProps = {
+    activeCategory: 'default',
+    alias: '',
+    tasksList: []
+  };
+
+  Helpers = new Helpers();
+
   state = {
     isShowedCounters: false
   };
 
   componentWillMount() {
     const { danger, warning, success } = this.updateProgress();
+
     this.setState({
-      danger: danger,
-      warning: warning,
-      success: success
+      danger,
+      warning,
+      success
     });
   }
 
   componentWillReceiveProps(nextProps) {
     const { danger, warning, success } = this.updateProgress(nextProps);
+
     this.setState({
-      danger: danger,
-      warning: warning,
-      success: success
+      danger,
+      warning,
+      success
     });
   }
 
@@ -36,87 +63,67 @@ class ProgressBar extends Component {
 
   updateProgress = nextProps => {
     let { tasksList, alias, activeCategory } = this.props;
-    let tasks = [];
+    let tasks = nextProps ? nextProps.tasksList : tasksList;
     const danger = [];
     const warning = [];
     const success = [];
 
-    tasks = nextProps ? nextProps.tasksList : tasksList;
     activeCategory = nextProps ? nextProps.activeCategory : activeCategory;
 
-    tasks = tasks.filter(task => task.userId === alias);
+    tasks = tasks.filter(({ userId }) => userId === alias);
 
-    for (let i = 0; i < tasks.length; i++) {
-      if (!tasks[i].isTaskDone && tasks[i].category === activeCategory) {
-        switch (tasks[i].priority) {
+    tasks.forEach(task => {
+      if (!task.isTaskDone && task.category === activeCategory) {
+        switch (task.priority) {
           case 1:
-            danger.push(tasks[i]);
+            danger.push(task);
             break;
           case 2:
-            warning.push(tasks[i]);
+            warning.push(task);
             break;
           case 3:
-            success.push(tasks[i]);
+            success.push(task);
             break;
           default:
             return null;
         }
       }
-    }
+    });
 
-    let koef = 100 / [danger.length, warning.length, success.length].reduce((sum, item) => (sum += item), 0);
-
-    koef = koef !== Infinity ? koef : 0; // fix for koef = Infinity
-
-    return {
-      danger: danger.length * koef,
-      warning: warning.length * koef,
-      success: success.length * koef
-    };
+    return this.Helpers.getProgress(danger, warning, success);
   };
 
   render() {
     const { danger, warning, success, isShowedCounters } = this.state;
+    const progressList = [
+      { value: danger, title: 'Hight', id: 'danger' },
+      { value: warning, title: 'Midle', id: 'warning' },
+      { value: success, title: 'Low', id: 'success' }
+    ];
 
     return (
       <div onClick={this.showCounters} className="panel progress-panel">
         {!isShowedCounters ? (
           <div className="progress">
-            <div className="progress-bar progress-bar-danger" role="progressbar" style={{ width: danger + '%' }}></div>
-            <div className="progress-bar progress-bar-warning" role="progressbar" style={{ width: warning + '%' }}></div>
-            <div className="progress-bar progress-bar-success" role="progressbar" style={{ width: success + '%' }}></div>
+            {progressList.map(({ value, id }) => (
+              <div key={id} className={`progress-bar progress-bar-${id}`} role="progressbar" style={{ width: `${value}%` }} />
+            ))}
           </div>
         ) : (
           <div className="progress progress-count">
-            <div className="progress-counters">
-              <div className="progress-counter progress-counter--danger">
-                <span className="progress-descr">Hight</span>
-                <span>{parseInt(danger || 0) + '%'}</span>
+            {progressList.map(({ value, title, id }) => (
+              <div key={id} className="progress-counters">
+                <div className={`progress-counter progress-counter--${id}`}>
+                  <span className="progress-descr">{title}</span>
+                  <span>{`${parseInt(value || 0)}%`}</span>
+                </div>
               </div>
-            </div>
-            <div className="progress-counters">
-              <div className="progress-counter progress-counter--warning">
-                <span className="progress-descr">Midle</span>
-                <span>{parseInt(warning || 0) + '%'}</span>
-              </div>
-            </div>
-            <div className="progress-counters">
-              <div className="progress-counter progress-counter--success">
-                <span className="progress-descr">Low</span>
-                <span>{parseInt(success || 0) + '%'}</span>
-              </div>
-            </div>
+            ))}
           </div>
         )}
       </div>
     );
   }
 }
-
-ProgressBar.propTypes = {
-  activeCategory: PropTypes.string,
-  alias: PropTypes.string,
-  tasksList: PropTypes.array
-};
 
 export default ProgressBar;

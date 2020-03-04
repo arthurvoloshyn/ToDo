@@ -1,22 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import { Enter } from '../../constants/constants';
+
 import Button from './../button/button';
 
-const InputField = props => {
-  const submitHandler = (evt, data) => {
-    if (evt.keyCode === 13) {
-      props.addFunction(data);
+const InputField = ({ value, changeFunction, data, addFunction, placeholder }) => {
+  const submitHandler = ({ keyCode }) => {
+    if (keyCode === Enter) {
+      addFunction(data);
     }
   };
 
-  const { value, changeFunction, data, addFunction, placeholder } = props;
+  const onAddFunction = () => addFunction(data);
 
   return (
     <div className="add-new">
       <div>
-        <input value={value} onChange={evt => changeFunction(evt)} onKeyDown={e => submitHandler(e, data)} type="text" className="form-control" placeholder={placeholder} />
+        <input value={value} onChange={changeFunction} onKeyDown={submitHandler} type="text" className="form-control" placeholder={placeholder} />
       </div>
-      <Button onClickFunction={() => addFunction(data)} specialClass="btn-add">
+      <Button onClickFunction={onAddFunction} specialClass="btn-add">
         <i className="material-icons">add</i>
       </Button>
     </div>
@@ -29,6 +32,14 @@ InputField.propTypes = {
   data: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   placeholder: PropTypes.string,
   value: PropTypes.string
+};
+
+InputField.defaultProps = {
+  addFunction: () => {},
+  changeFunction: () => {},
+  data: '',
+  placeholder: '',
+  value: ''
 };
 
 export default InputField;

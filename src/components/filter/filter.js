@@ -133,6 +133,13 @@ class Filter extends Component {
       }
     });
 
+    const filterList = [
+      { value: danger, title: 'Hight', id: 'alert-danger' },
+      { value: warning, title: 'Middle', id: 'alert-warning' },
+      { value: success, title: 'Low', id: 'alert-success' },
+      { value: all, title: 'All', id: 'btn-all' }
+    ];
+
     return (
       <div className="panel panel-default filter-panel">
         <div className="panel-heading">
@@ -143,18 +150,11 @@ class Filter extends Component {
                 <span>FILTER:</span>
               </h4>
               <ButtonsGroup specialClass="filter" activeElem={activeView}>
-                <Button onClickFunction={this.updateView} dataValue="1" specialClass="btn alert-danger" checkActive={stateActiveView}>
-                  Hight {<span className="badge">{danger.length}</span>}
-                </Button>
-                <Button onClickFunction={this.updateView} dataValue="2" specialClass="btn alert-warning" checkActive={stateActiveView}>
-                  Middle {<span className="badge">{warning.length}</span>}
-                </Button>
-                <Button onClickFunction={this.updateView} dataValue="3" specialClass="btn alert-success" checkActive={stateActiveView}>
-                  Low {<span className="badge">{success.length}</span>}
-                </Button>
-                <Button onClickFunction={this.updateView} specialClass="btn btn-all" dataValue="4" checkActive={stateActiveView}>
-                  All <span className="badge">{all.length}</span>
-                </Button>
+                {filterList.map(({ value, title, id }, index) => (
+                  <Button key={id} onClickFunction={this.updateView} dataValue={`${index + 1}`} specialClass={`btn ${id}`} checkActive={stateActiveView}>
+                    {title} {<span className="badge">{value.length}</span>}
+                  </Button>
+                ))}
               </ButtonsGroup>
             </div>
             <div className="col-lg-3 col-md-3 col-sm-3 text-right">
