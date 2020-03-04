@@ -163,7 +163,7 @@ class Categories extends Component {
 
     const category = categories.map((category, index) =>
       category.userId === alias ? (
-        <div onClick={e => this.changeActive(e)} key={index} data-name={category.alias} className={`category alert panel ${this.isActive(category.alias)}`} role="alert">
+        <div onClick={this.changeActive} key={index} data-name={category.alias} className={`category alert panel ${this.isActive(category.alias)}`} role="alert">
           <div className="category-name">
             <i className="material-icons">folder</i>
             {category.isEdit ? (

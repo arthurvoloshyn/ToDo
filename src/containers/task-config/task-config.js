@@ -3,12 +3,56 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { toastr } from 'react-redux-toastr';
-import Button from './../../components/button/button';
-import ButtonsGroup from './../../components/buttons-group/buttons-group';
+
+import { priorityList, readinessList } from '../../constants/constants';
+
 import LocalApi from './../../helpers/localApi';
 import Helpers from './../../helpers/Helpers';
 
+import Button from './../../components/button/button';
+import ButtonsGroup from './../../components/buttons-group/buttons-group';
+
 class TaskConfig extends Component {
+  static propTypes = {
+    categories: PropTypes.arrayOf(
+      PropTypes.shape({
+        userId: PropTypes.string,
+        id: PropTypes.number,
+        text: PropTypes.string,
+        alias: PropTypes.string
+      })
+    ),
+    params: PropTypes.shape({
+      alias: PropTypes.string,
+      id: PropTypes.string
+    }),
+    routeParams: PropTypes.shape({
+      id: PropTypes.string
+    }),
+    tasks: PropTypes.arrayOf(
+      PropTypes.shape({
+        userId: PropTypes.string,
+        id: PropTypes.number,
+        category: PropTypes.string,
+        text: PropTypes.string,
+        priority: PropTypes.number,
+        isTaskDone: PropTypes.bool
+      })
+    )
+  };
+
+  static defaultProps = {
+    categories: [],
+    tasks: [],
+    params: {
+      alias: '',
+      id: ''
+    },
+    routeParams: {
+      id: ''
+    }
+  };
+
   api = new LocalApi();
   Helpers = new Helpers();
 
@@ -21,12 +65,13 @@ class TaskConfig extends Component {
   };
 
   updateTaskRate = ({ target }) => {
-    const priority = +target.getAttribute('data-value');
-    this.setState({ taskRate: priority });
+    const taskRate = +target.getAttribute('data-value');
+
+    this.setState({ taskRate });
   };
 
   updateTaskStatus = ({ target: { value } }) => {
-    // Use JSON.parse for conver value to boolean
+    // Use JSON.parse for convert value to boolean
     this.setState({ isDone: JSON.parse(value) });
   };
 
@@ -38,6 +83,7 @@ class TaskConfig extends Component {
     const { tasks, routeParams } = this.props;
     const task = this.Helpers.getDataById(tasks, routeParams.id);
     const { priority, isTaskDone, text, category } = task;
+
     this.setState({
       taskRate: priority,
       isDone: isTaskDone,
@@ -48,11 +94,14 @@ class TaskConfig extends Component {
 
   saveChanges = () => {
     const { taskRate, isDone, inputValue, activeCategory } = this.state;
-    const task = this.Helpers.getDataById(this.props.tasks, this.props.routeParams.id);
+    const { tasks, routeParams } = this.props;
+    const task = this.Helpers.getDataById(tasks, routeParams.id);
+
     task.priority = taskRate;
     task.isTaskDone = isDone;
     task.text = inputValue;
     task.category = activeCategory;
+
     this.api.updateTask(task);
     browserHistory.goBack();
     toastr.success('Tasks updated', { timeOut: 3000 });
@@ -61,12 +110,13 @@ class TaskConfig extends Component {
   render() {
     let categories = this.api.getCategories();
     const { taskRate, inputValue, isDone, activeCategory } = this.state;
+    const { params } = this.props;
 
     categories = categories.map((category, index) =>
-      category.userId === this.props.params.alias ? (
+      category.userId === params.alias ? (
         <div className="radio" key={index}>
           <label>
-            <input onChange={evt => this.updateTaskCategory(evt)} type="radio" name={category.alias} checked={activeCategory === category.alias} />
+            <input onChange={this.updateTaskCategory} type="radio" name={category.alias} checked={activeCategory === category.alias} />
             {category.text}
           </label>
         </div>
@@ -93,15 +143,11 @@ class TaskConfig extends Component {
                       </div>
                       <div className="col-lg-7 col-md-8 text-left">
                         <ButtonsGroup specialClass="priority">
-                          <Button onClickFunction={this.updateTaskRate} dataValue="1" specialClass="btn alert-danger" checkActive={taskRate}>
-                            Hight
-                          </Button>
-                          <Button onClickFunction={this.updateTaskRate} dataValue="2" specialClass="btn alert-warning" checkActive={taskRate}>
-                            Middle
-                          </Button>
-                          <Button onClickFunction={this.updateTaskRate} dataValue="3" specialClass="btn alert-success" checkActive={taskRate}>
-                            Low
-                          </Button>
+                          {priorityList.map(({ title, id }, index) => (
+                            <Button key={id} onClickFunction={this.updateTaskRate} dataValue={`${index + 1}`} specialClass={`btn alert-${id}`} checkActive={taskRate}>
+                              {title}
+                            </Button>
+                          ))}
                         </ButtonsGroup>
                       </div>
                     </div>
@@ -112,7 +158,7 @@ class TaskConfig extends Component {
                     <h5 className="priority text-left">Change Description:</h5>
                   </div>
                   <div className="col-lg-7 col-md-8 text-left">
-                    <textarea className="form-control" rows="2" id="textArea" value={inputValue} onChange={evt => this.updateTaskText(evt)} autoFocus></textarea>
+                    <textarea className="form-control" rows="2" id="textArea" value={inputValue} onChange={this.updateTaskText} autoFocus />
                     <span className="help-block">Update your task description</span>
                   </div>
                 </div>
@@ -124,18 +170,14 @@ class TaskConfig extends Component {
                     <div className="row">
                       <div className="col-lg-12 col-md-8 text-left">
                         <form>
-                          <div className="radio">
-                            <label>
-                              <input onChange={evt => this.updateTaskStatus(evt)} type="radio" checked={isDone} name="optionsRadios" value="true" />
-                              Done
-                            </label>
-                          </div>
-                          <div className="radio">
-                            <label>
-                              <input onChange={evt => this.updateTaskStatus(evt)} type="radio" checked={!isDone} name="optionsRadios" value="false" />
-                              Not Done
-                            </label>
-                          </div>
+                          {readinessList.map(({ value, title }, index) => (
+                            <div key={index} className="radio">
+                              <label>
+                                <input onChange={this.updateTaskStatus} type="radio" checked={value ? isDone : !isDone} name="optionsRadios" value={`${value}`} />
+                                {title}
+                              </label>
+                            </div>
+                          ))}
                         </form>
                       </div>
                     </div>
@@ -164,13 +206,6 @@ class TaskConfig extends Component {
     );
   }
 }
-
-TaskConfig.propTypes = {
-  categories: PropTypes.array,
-  params: PropTypes.object,
-  routeParams: PropTypes.object,
-  tasks: PropTypes.array
-};
 
 export default connect(({ categories, tasks }) => ({
   categories,

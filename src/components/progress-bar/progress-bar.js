@@ -95,11 +95,7 @@ class ProgressBar extends Component {
 
   render() {
     const { danger, warning, success, isShowedCounters } = this.state;
-    const progressList = [
-      { value: danger, title: 'Hight', id: 'danger' },
-      { value: warning, title: 'Midle', id: 'warning' },
-      { value: success, title: 'Low', id: 'success' }
-    ];
+    const progressList = this.Helpers.getPriorityListWithValues(danger, warning, success);
 
     return (
       <div onClick={this.showCounters} className="panel progress-panel">
