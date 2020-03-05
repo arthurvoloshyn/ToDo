@@ -1,36 +1,45 @@
-const path = require('path');
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const merge = require('webpack-merge');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 const baseConfig = require('./webpack.config.base');
 
 module.exports = merge(baseConfig, {
-  devtool: 'source-map',
-
-  entry: [baseConfig.externals.paths.src],
-
+  mode: 'production',
   plugins: [
-    new webpack.optimize.DedupePlugin(),
-    new ExtractTextPlugin('styles.css'),
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
-      compress: {
-        warnings: false
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      openAnalyzer: false,
+      reportFilename: 'bundle_sizes.html'
+    }),
+    new CleanWebpackPlugin(),
+    new ManifestPlugin({
+      fileName: 'asset-manifest.json',
+      publicPath: baseConfig.externals.publicUrl,
+      generate: (seed, files, entrypoints) => {
+        const manifestFiles = files.reduce((manifest, file) => {
+          manifest[file.name] = file.path;
+          return manifest;
+        }, seed);
+        const entrypointFiles = entrypoints.main;
+
+        return {
+          files: manifestFiles,
+          entrypoints: entrypointFiles
+        };
       }
     }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
+    new WorkboxPlugin.GenerateSW({
+      clientsClaim: true,
+      exclude: [/\.map$/, /asset-manifest\.json$/, /\.htaccess/, /\.DS_Store/],
+      importWorkboxFrom: 'cdn',
+      navigateFallback: `${baseConfig.externals.publicUrl}/index.html`,
+      navigateFallbackBlacklist: [new RegExp('^/_'), new RegExp('/[^/?]+\\.[^/]+$')]
     })
   ],
-
-  module: {
-    loaders: [
-      { test: /\.js?$/, loader: 'babel?presets[]=react,presets[]=es2015,presets[]=stage-0', exclude: /node_modules/ },
-      { test: /\.scss?$/, loader: ExtractTextPlugin.extract('style', 'css!sass'), include: path.join(__dirname, 'src') },
-      { test: /\.png$/, loader: 'file' },
-      { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loader: 'file' }
-    ]
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM'
   }
 });
