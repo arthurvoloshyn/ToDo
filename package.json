@@ -109,6 +109,7 @@
     "express": "4.13.4",
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.8.5",
+    "fs": "0.0.1-security",
     "handlebars": "^4.5.0",
     "husky": "^3.1.0",
     "jest": "^20.0.4",
