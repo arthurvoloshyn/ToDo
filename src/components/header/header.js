@@ -8,7 +8,7 @@ import Helpers from '../../helpers/Helpers';
 import Button from './../button/button';
 import Clock from './../clock/clock';
 
-import logo from './../../img/react.svg'; // eslint-disable-line
+import logo from '../../assets/img/react.svg'; // eslint-disable-line
 
 const Header = ({ userAlias, location }) => {
   const api = new LocalApi();

@@ -1,14 +1,14 @@
 import { priorityList } from '../constants/constants';
 
 // TODO: another way for pictures
-import man1 from './../img/avatars/man1.png'; // eslint-disable-line
-import man2 from './../img/avatars/man2.png'; // eslint-disable-line
-import man3 from './../img/avatars/man3.png'; // eslint-disable-line
-import man4 from './../img/avatars/man4.png'; // eslint-disable-line
-import woman1 from './../img/avatars/woman1.png'; // eslint-disable-line
-import woman2 from './../img/avatars/woman2.png'; // eslint-disable-line
-import woman3 from './../img/avatars/woman3.png'; // eslint-disable-line
-import woman4 from './../img/avatars/woman4.png'; // eslint-disable-line
+import man1 from '../assets/img/avatars/man1.png'; // eslint-disable-line
+import man2 from '../assets/img/avatars/man2.png'; // eslint-disable-line
+import man3 from '../assets/img/avatars/man3.png'; // eslint-disable-line
+import man4 from '../assets/img/avatars/man4.png'; // eslint-disable-line
+import woman1 from '../assets/img/avatars/woman1.png'; // eslint-disable-line
+import woman2 from '../assets/img/avatars/woman2.png'; // eslint-disable-line
+import woman3 from '../assets/img/avatars/woman3.png'; // eslint-disable-line
+import woman4 from '../assets/img/avatars/woman4.png'; // eslint-disable-line
 
 class Helpers {
   getDataById(dataArray, id) {
