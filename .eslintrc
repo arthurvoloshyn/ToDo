@@ -225,6 +225,7 @@
     "import/no-duplicates": "error",
     "import/no-named-default": 0,
     "import/no-webpack-loader-syntax": 0,
+    "import/default": 0,
 
     "node/no-deprecated-api": "error",
     "node/process-exit-as-throw": "error",
