@@ -1,17 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const merge = require('webpack-merge');
+const baseConfig = require('./webpack.config.base');
 
-export default {
+module.exports = merge(baseConfig, {
   devtool: 'source-map',
 
-  entry: ['./src/index'],
-
-  output: {
-    path: path.join(__dirname, 'public'),
-    publicPath: '/',
-    filename: 'bundle.js'
-  },
+  entry: [baseConfig.externals.paths.src],
 
   plugins: [
     new webpack.optimize.DedupePlugin(),
@@ -37,4 +33,4 @@ export default {
       { test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/, loader: 'file' }
     ]
   }
-};
+});

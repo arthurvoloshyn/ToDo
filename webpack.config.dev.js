@@ -1,7 +1,9 @@
 import webpack from 'webpack';
 import path from 'path';
+const merge = require('webpack-merge');
+const baseConfig = require('./webpack.config.base');
 
-export default {
+module.exports = merge(baseConfig, {
   debug: true,
   devtool: 'cheap-module-eval-source-map',
   noInfo: false,
@@ -11,16 +13,16 @@ export default {
     './src/index'
   ],
   target: 'web',
-  output: {
-    path: path.join(__dirname, 'dist'), // Note: Physical files are only output by the production
-    // build task `npm run build`.
-    publicPath: '/',
-    filename: 'bundle.js'
-  },
   devServer: {
-    contentBase: './src'
+    contentBase: baseConfig.externals.paths.src
   },
-  plugins: [new webpack.HotModuleReplacementPlugin(), new webpack.NoErrorsPlugin()],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new webpack.SourceMapDevToolPlugin({
+      filename: '[file].map'
+    })
+  ],
   module: {
     loaders: [
       { test: /\.js$/, include: path.join(__dirname, 'src'), loader: 'babel' },
@@ -32,4 +34,4 @@ export default {
       { test: /\.(png)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/png' }
     ]
   }
-};
+});

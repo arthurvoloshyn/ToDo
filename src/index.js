@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute, Redirect } from 'react-router';
 
+import * as serviceWorker from './serviceWorker';
+
 import store from './store/store';
 
 import App from './containers/app/app.js';
@@ -30,3 +32,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
+
+serviceWorker.register();
