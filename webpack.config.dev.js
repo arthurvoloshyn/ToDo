@@ -10,7 +10,7 @@ module.exports = merge(baseConfig, {
   entry: [
     'eventsource-polyfill', // necessary for hot reloading with IE
     'webpack-hot-middleware/client?reload=true', // note that it reloads the page if hot module reloading fails.
-    './src/index'
+    baseConfig.externals.paths.src
   ],
   target: 'web',
   devServer: {
