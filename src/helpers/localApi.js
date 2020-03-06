@@ -3,125 +3,110 @@ import Helpers from './Helpers';
 const Helper = new Helpers();
 
 class LocalApi {
-  getUsers() {
-    return JSON.parse(localStorage.getItem('users')) || [];
-  }
+  getUsers = () => JSON.parse(localStorage.getItem('users')) || [];
 
-  getTasks() {
-    return JSON.parse(localStorage.getItem('tasks')) || [];
-  }
+  getTasks = () => JSON.parse(localStorage.getItem('tasks')) || [];
 
-  getCategories() {
-    return JSON.parse(localStorage.getItem('categories')) || [];
-  }
+  getCategories = () => JSON.parse(localStorage.getItem('categories')) || [];
 
-  getUserTasks(alias) {
+  getUserTasks = alias => {
     const userTasks = this.getTasks();
-    return userTasks.filter(task => task.userId === alias) || [];
-  }
 
-  addUser(user) {
+    return userTasks.filter(task => task.userId === alias) || [];
+  };
+
+  addUser = user => {
     const users = this.getUsers();
     users.push(user);
-    Helper.addToLocalStorage(users, 'users');
-    return { users };
-  }
 
-  addTask(tasks) {
+    Helper.addToLocalStorage(users, 'users');
+
+    return { users };
+  };
+
+  addTask = tasks => {
     const userTasks = this.getTasks();
     userTasks.push(tasks);
-    Helper.addToLocalStorage(userTasks, 'tasks');
-  }
 
-  addCategory(category) {
+    Helper.addToLocalStorage(userTasks, 'tasks');
+  };
+
+  addCategory = category => {
     const userCategories = this.getCategories();
     userCategories.push(category);
-    Helper.addToLocalStorage(userCategories, 'categories');
-  }
 
-  updateUser(editUser) {
-    let users = this.getUsers();
-    users = users.map(user => {
+    Helper.addToLocalStorage(userCategories, 'categories');
+  };
+
+  updateUser = editUser => {
+    const users = this.getUsers();
+
+    const newUsers = users.map(user => {
       if (user.alias === editUser.alias) {
         user.settings[0].activeView = editUser.settings[0].activeView;
         user.settings[1].showDone = editUser.settings[1].showDone;
       }
+
       return user;
     });
-    Helper.addToLocalStorage(users, 'users');
-  }
 
-  updateTask(doneTask) {
-    let userTasks = this.getTasks();
-    userTasks = userTasks.map(task => {
-      if (task.id === doneTask.id) {
-        task.id = doneTask.id;
-        task.category = doneTask.category;
-        task.isTaskDone = doneTask.isTaskDone;
-        task.priority = doneTask.priority;
-        task.text = doneTask.text;
-        task.userId = doneTask.userId;
-      }
-      return task;
-    });
-    Helper.addToLocalStorage(userTasks, 'tasks');
-  }
+    Helper.addToLocalStorage(newUsers, 'users');
+  };
 
-  updateCategory(editCategory) {
-    let userCategories = this.getCategories();
-    userCategories = userCategories.map(category => {
-      if (category.id === editCategory.id) {
-        category.id = editCategory.id;
-        category.text = editCategory.text;
-        category.userId = editCategory.userId;
-      }
-      return category;
-    });
-    Helper.addToLocalStorage(userCategories, 'categories');
-  }
-
-  deleteTask(deletedTask) {
+  updateTask = ({ id, category, isTaskDone, priority, text, userId }) => {
     const userTasks = this.getTasks();
-    let deleteIndex = 0;
-    userTasks.forEach((task, index) => {
-      if (task.id === deletedTask.id) {
-        deleteIndex = index;
-      }
-    });
-    userTasks.splice(deleteIndex, 1);
-    Helper.addToLocalStorage(userTasks, 'tasks');
-  }
 
-  deleteCategory(deletedCategory) {
+    const newUserTasks = userTasks.map(task => (task.id === id ? { ...task, id, category, isTaskDone, priority, text, userId } : { ...task }));
+
+    Helper.addToLocalStorage(newUserTasks, 'tasks');
+  };
+
+  updateCategory = ({ id, text, userId }) => {
     const userCategories = this.getCategories();
-    let deleteIndex = 0;
-    userCategories.forEach((category, index) => {
-      if (category.id === deletedCategory.id) {
-        deleteIndex = index;
-      }
-    });
-    userCategories.splice(deleteIndex, 1);
-    Helper.addToLocalStorage(userCategories, 'categories');
-  }
 
-  deleteUser(index) {
+    const newUserCategories = userCategories.map(category => (category.id === id ? { ...category, id, text, userId } : { ...category }));
+
+    Helper.addToLocalStorage(newUserCategories, 'categories');
+  };
+
+  deleteTask = ({ id }) => {
+    const userTasks = this.getTasks();
+
+    const newUserTasks = userTasks.filter(task => task.id !== id);
+
+    Helper.addToLocalStorage(newUserTasks, 'tasks');
+  };
+
+  deleteCategory = ({ id }) => {
+    const userCategories = this.getCategories();
+
+    const newUserCategories = userCategories.filter(category => category.id !== id);
+
+    Helper.addToLocalStorage(newUserCategories, 'categories');
+  };
+
+  deleteUser = index => {
     const users = this.getUsers();
     const alias = users.splice(index, 1)[0].alias;
+
     Helper.addToLocalStorage(users, 'users');
+
     return { alias, users };
-  }
+  };
 
-  deleteUserTask(alias) {
+  deleteUserTask = alias => {
     const userTasks = this.getTasks();
-    const tasks = userTasks.filter(task => task.userId !== alias) || [];
-    Helper.addToLocalStorage(tasks, 'tasks');
-  }
+    const tasks = userTasks.filter(({ userId }) => userId !== alias) || [];
 
-  deleteUserCategories(alias) {
+    Helper.addToLocalStorage(tasks, 'tasks');
+  };
+
+  deleteUserCategories = alias => {
     const userCategories = this.getTasks();
-    const categories = userCategories.filter(category => category.userId !== alias) || [];
+    const categories = userCategories.filter(({ userId }) => userId !== alias) || [];
+
     Helper.addToLocalStorage(categories, 'categories');
-  }
+  };
 }
 
 export default LocalApi;

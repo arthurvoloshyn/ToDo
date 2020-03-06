@@ -20,10 +20,10 @@ const Header = ({ userAlias, location }) => {
   const isTaskLocation = location.indexOf('tasks');
 
   return (
-    <div className="header">
+    <header className="header">
       <div className="container">
         <div className="row">
-          <div className="col-lg-4 col-md-4">
+          <nav className="col-lg-4 col-md-4">
             {user && (
               <div className="logout-btn-wrapper text-left">
                 {isTaskLocation === -1 ? (
@@ -37,7 +37,7 @@ const Header = ({ userAlias, location }) => {
                 )}
               </div>
             )}
-          </div>
+          </nav>
           <div className="col-lg-4 col-md-4">
             <Clock />
           </div>
@@ -47,7 +47,7 @@ const Header = ({ userAlias, location }) => {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

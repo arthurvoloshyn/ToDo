@@ -1,5 +1,7 @@
-import { createStore } from 'redux';
+import { createStore, compose } from 'redux';
+
 import LocalApi from '../helpers/localApi';
+
 import rootReducer from '../reducers';
 
 const api = new LocalApi();
@@ -22,6 +24,10 @@ const defaultState = {
   categoryName
 };
 
-const store = createStore(rootReducer, defaultState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const composeEnhancers = process.env.NODE_ENV !== 'production' && typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : compose;
+
+const configureStore = preloadedState => createStore(rootReducer, preloadedState, composeEnhancers);
+
+const store = configureStore(defaultState);
 
 export default store;

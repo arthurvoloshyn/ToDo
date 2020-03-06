@@ -9,7 +9,7 @@ const App = ({ params, children, location }) => (
   <div className="App">
     <Header userAlias={params.alias} location={location.pathname} />
     <ReduxToastr newestOnTop={false} preventDuplicates position="top-center" transitionIn="fadeIn" transitionOut="fadeOut" />
-    <div className="main">{children}</div>
+    <main className="main">{children}</main>
     <Footer />
   </div>
 );

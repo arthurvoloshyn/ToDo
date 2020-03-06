@@ -118,11 +118,15 @@ class Todo extends Component {
     const { tasks, deleteTask } = this.props;
     const deletedTask = this.Helpers.getDataById(tasks, id);
 
-    deleteTask(deletedTask);
+    toastr.confirm('Are you sure that you want to delete this task', {
+      onOk: () => {
+        deleteTask(deletedTask);
 
-    this.api.deleteTask(deletedTask);
+        this.api.deleteTask(deletedTask);
 
-    toastr.info('Tasks deleted', { timeOut: 2000 });
+        toastr.info('Tasks deleted', { timeOut: 2000 });
+      }
+    });
   };
 
   doneTask = (index, task) => {
@@ -140,7 +144,7 @@ class Todo extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-lg-offset-0 col-lg-5 col-md-offset-2 col-md-8">
+          <section className="col-lg-offset-0 col-lg-5 col-md-offset-2 col-md-8">
             <Categories
               alias={params.alias}
               categories={categories}
@@ -154,10 +158,10 @@ class Todo extends Component {
               tasks={tasks}
               deleteTask={deleteTask}
             />
-          </div>
-          <div className="col-lg-offset-0 col-lg-7 col-md-offset-2 col-md-8">
+          </section>
+          <section className="col-lg-offset-0 col-lg-7 col-md-offset-2 col-md-8">
             <TasksList alias={params.alias} deleteTask={this.deleteTask} doneTask={this.doneTask} addTask={this.addTask} />
-          </div>
+          </section>
         </div>
       </div>
     );

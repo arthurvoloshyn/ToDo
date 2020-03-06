@@ -2,7 +2,7 @@ export const Enter = 13;
 
 export const priorityList = [
   { title: 'Hight', id: 'danger' },
-  { title: 'Midle', id: 'warning' },
+  { title: 'Middle', id: 'warning' },
   { title: 'Low', id: 'success' }
 ];
 

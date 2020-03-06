@@ -134,7 +134,7 @@ class TasksList extends Component {
               <div className="col-lg-5 text-left">
                 <ButtonsGroup specialClass="priority" activeElem={inputRate}>
                   {priorityList.map(({ title, id }, index) => (
-                    <Button key={id} onClickFunction={this.updateRateValue} dataValue={`${index}`} specialClass={`btn alert-${id}`} checkActive={inputRate}>
+                    <Button key={id} onClickFunction={this.updateRateValue} dataValue={`${index + 1}`} specialClass={`btn alert-${id}`} checkActive={inputRate}>
                       {title}
                     </Button>
                   ))}

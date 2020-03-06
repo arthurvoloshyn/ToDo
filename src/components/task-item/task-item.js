@@ -26,7 +26,7 @@ const taskItem = ({ index, task, alias, doneTask, deleteTask }) => {
   const onDeleteTask = () => deleteTask(task);
 
   return (
-    <div key={index} className={`${task.isTaskDone ? 'doneTask' : ''} ${itemClass}`} role="alert">
+    <article key={index} className={`${task.isTaskDone ? 'doneTask' : ''} ${itemClass}`} role="alert">
       <label className="tasks-list-item">
         <span onClick={onDoneTask} className="tasks-list-mark">
           <i className="material-icons">{`${task.isTaskDone ? 'check_box' : 'check_box_outline_blank'}`}</i>
@@ -43,7 +43,7 @@ const taskItem = ({ index, task, alias, doneTask, deleteTask }) => {
           <i className="material-icons">delete</i>
         </Button>
       </div>
-    </div>
+    </article>
   );
 };
 
