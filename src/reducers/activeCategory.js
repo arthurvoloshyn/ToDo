@@ -1,12 +1,12 @@
-function activeCategory(state = 'default', action) {
-  let store = state;
-  switch (action.type) {
+const initState = 'default';
+
+const activeCategory = (state = initState, { type, alias }) => {
+  switch (type) {
     case 'CHANGE_ACTIVE_CATEGORY':
-      store = action.alias;
-      return store;
+      return alias;
     default:
       return state;
   }
-}
+};
 
 export default activeCategory;

@@ -140,22 +140,22 @@ class Categories extends Component {
 
   editCategory = (evt, category) => {
     const { categories, updateCategory } = this.props;
-    const edieableCategory = this.Helpers.getDataByAlias(categories, category.alias);
+    const editableCategory = this.Helpers.getDataByAlias(categories, category.alias);
 
-    edieableCategory.isEdit = !category.isEdit;
-    updateCategory(edieableCategory);
+    editableCategory.isEdit = !category.isEdit;
+    updateCategory(editableCategory);
 
-    this.api.updateCategory(edieableCategory);
+    this.api.updateCategory(editableCategory);
   };
 
   updateCategoryValue = ({ target: { value } }, category) => {
     const { categories, updateCategory } = this.props;
-    const edieableCategory = this.Helpers.getDataByAlias(categories, category.alias);
-    const newEdieableCategory = { ...edieableCategory, text: value };
+    const editableCategory = this.Helpers.getDataByAlias(categories, category.alias);
+    const newEditableCategory = { ...editableCategory, text: value };
 
-    updateCategory(newEdieableCategory);
+    updateCategory(newEditableCategory);
 
-    this.api.updateCategory(newEdieableCategory);
+    this.api.updateCategory(newEditableCategory);
   };
 
   render() {

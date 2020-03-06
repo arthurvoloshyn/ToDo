@@ -1,12 +1,12 @@
-function userName(state = '', action) {
-  let store = state;
-  switch (action.type) {
+const initState = '';
+
+const userName = (state = initState, { type, name }) => {
+  switch (type) {
     case 'CHANGE_USER_NAME':
-      store = action.name;
-      return store;
+      return name;
     default:
       return state;
   }
-}
+};
 
 export default userName;

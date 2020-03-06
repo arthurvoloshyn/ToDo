@@ -1,33 +1,31 @@
-function users(state = [], action) {
-  const i = action.userIndex;
-  let store = [...state];
-  switch (action.type) {
+const initState = [];
+
+const users = (state = initState, { type, id, avatar, name, alias, settings, user }) => {
+  switch (type) {
     case 'ADD_USER':
       return [
         ...state,
         {
-          id: action.id,
-          avatar: action.avatar,
-          name: action.name,
-          alias: action.alias,
-          settings: action.settings
+          id,
+          avatar,
+          name,
+          alias,
+          settings
         }
       ];
     case 'DELETE_USER':
-      store.splice(i, 1);
-      return store;
+      return [...state].filter(item => item.id !== id);
     case 'UPDATE_USER':
-      store = store.map(user => {
-        if (user.alias === action.user.alias) {
-          user.settings[0].activeView = action.user.settings[0].activeView;
-          user.settings[1].showDone = action.user.settings[1].showDone;
+      return [...state].map(item => {
+        if (item.alias === user.alias) {
+          item.settings[0].activeView = user.settings[0].activeView;
+          item.settings[1].showDone = user.settings[1].showDone;
         }
-        return user;
+        return item;
       });
-      return store;
     default:
       return state;
   }
-}
+};
 
 export default users;

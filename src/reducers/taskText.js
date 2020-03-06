@@ -1,12 +1,12 @@
-function taskText(state = '', action) {
-  let store = state;
-  switch (action.type) {
+const initState = '';
+
+const taskText = (state = initState, { type, text }) => {
+  switch (type) {
     case 'CHANGE_TASK_TEXT':
-      store = action.text;
-      return store;
+      return text;
     default:
       return state;
   }
-}
+};
 
 export default taskText;

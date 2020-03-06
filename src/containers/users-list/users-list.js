@@ -117,13 +117,13 @@ class UsersList extends Component {
     }
   };
 
-  deleteUser = index => {
+  deleteUser = id => {
     toastr.confirm('Are you sure that you want to delete user profile', {
       onOk: () => {
         const { deleteUser } = this.props;
-        const { alias } = this.api.deleteUser(index);
+        const { alias } = this.api.deleteUser(id);
 
-        deleteUser(index);
+        deleteUser(id);
 
         this.api.deleteUserTask(alias);
         this.api.deleteUserCategories(alias);
@@ -141,7 +141,7 @@ class UsersList extends Component {
       </div>
     ));
 
-    const usersList = users.map(({ alias, name, avatar }, i) => (
+    const usersList = users.map(({ alias, name, avatar, id }, i) => (
       <div key={i} className="panel users__item">
         <div className="panel-body">
           <span className="label label-info active-tasks">{this.setTasksCounter(i)}</span>
@@ -151,7 +151,7 @@ class UsersList extends Component {
           <Link to={`/users/${alias}`} className="users__name">
             {name}
           </Link>
-          <span onClick={() => this.deleteUser(i)} className="label label-danger delete-user">
+          <span onClick={() => this.deleteUser(id)} className="label label-danger delete-user">
             Delete profile
           </span>
         </div>

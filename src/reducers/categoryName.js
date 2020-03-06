@@ -1,12 +1,12 @@
-function categoryName(state = '', action) {
-  let store = state;
-  switch (action.type) {
+const initState = '';
+
+const categoryName = (state = initState, { type, name }) => {
+  switch (type) {
     case 'CHANGE_CATEGORY_NAME':
-      store = action.name;
-      return store;
+      return name;
     default:
       return state;
   }
-}
+};
 
 export default categoryName;

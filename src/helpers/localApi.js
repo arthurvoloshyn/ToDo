@@ -85,13 +85,14 @@ class LocalApi {
     Helper.addToLocalStorage(newUserCategories, 'categories');
   };
 
-  deleteUser = index => {
+  deleteUser = id => {
     const users = this.getUsers();
-    const alias = users.splice(index, 1)[0].alias;
+    const alias = users.filter(user => user.id === id)[0].alias;
+    const newUsers = users.filter(user => user.id !== id);
 
-    Helper.addToLocalStorage(users, 'users');
+    Helper.addToLocalStorage(newUsers, 'users');
 
-    return { alias, users };
+    return { alias, newUsers };
   };
 
   deleteUserTask = alias => {

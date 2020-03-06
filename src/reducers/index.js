@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
-import { reducer as toastrReducer } from 'react-redux-toastr';
+import { reducer as toastr } from 'react-redux-toastr';
+
 import tasks from './tasks';
 import users from './users';
 import categories from './categories';
@@ -8,6 +9,6 @@ import userName from './userName';
 import taskText from './taskText';
 import categoryName from './categoryName';
 
-const rootReducer = combineReducers({ tasks, users, categories, activeCategory, userName, taskText, categoryName, toastr: toastrReducer });
+const rootReducer = combineReducers({ tasks, users, categories, activeCategory, userName, taskText, categoryName, toastr });
 
 export default rootReducer;

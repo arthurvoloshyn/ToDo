@@ -12,9 +12,9 @@ export const updateUser = user => ({
   user
 });
 
-export const deleteUser = userIndex => ({
+export const deleteUser = id => ({
   type: 'DELETE_USER',
-  userIndex
+  id
 });
 
 export const addTask = (userId, id, category, text, priority, isTaskDone) => ({

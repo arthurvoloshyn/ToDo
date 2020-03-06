@@ -1,36 +1,24 @@
-function categories(state = [], action) {
-  let store = [...state];
-  let deleteIndex = 0;
-  switch (action.type) {
+const initState = [];
+
+const categories = (state = initState, { type, userId, alias, id, text, category }) => {
+  switch (type) {
     case 'ADD_CATEGORY':
       return [
         ...state,
         {
-          userId: action.userId,
-          alias: action.alias,
-          id: action.id,
-          text: action.text
+          userId,
+          alias,
+          id,
+          text
         }
       ];
     case 'DELETE_CATEGORY':
-      store.forEach((category, index) => {
-        if (category.id === action.category.id) {
-          deleteIndex = index;
-        }
-      });
-      store.splice(deleteIndex, 1);
-      return store;
+      return [...state].filter(({ id }) => id !== category.id);
     case 'UPDATE_CATEGORY':
-      store = store.map(category => {
-        if (category.id === action.category.id) {
-          category.text = action.category.text;
-        }
-        return category;
-      });
-      return store;
+      return [...state].map(item => (item.id === category.id ? { ...item, text: category.text } : { ...item }));
     default:
       return state;
   }
-}
+};
 
 export default categories;

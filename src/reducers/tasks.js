@@ -1,41 +1,26 @@
-function tasks(state = [], action) {
-  let store = [...state];
-  let deleteIndex = 0;
-  switch (action.type) {
+const initState = [];
+
+const tasks = (state = initState, { type, userId, id, category, text, priority, isTaskDone, task }) => {
+  switch (type) {
     case 'ADD_TASK':
       return [
         ...state,
         {
-          userId: action.userId,
-          id: action.id,
-          category: action.category,
-          text: action.text,
-          priority: action.priority,
-          isTaskDone: action.isTaskDone
+          userId,
+          id,
+          category,
+          text,
+          priority,
+          isTaskDone
         }
       ];
     case 'DELETE_TASK':
-      store.forEach((task, index) => {
-        if (task.id === action.task.id) {
-          deleteIndex = index;
-        }
-      });
-      store.splice(deleteIndex, 1);
-      return store;
+      return [...state].filter(({ id }) => id !== task.id);
     case 'UPDATE_TASK':
-      store = store.map(task => {
-        if (task.id === action.task.id) {
-          task.category = action.task.category;
-          task.isTaskDone = action.task.isTaskDone;
-          task.priority = action.task.priority;
-          task.text = action.task.text;
-        }
-        return task;
-      });
-      return store;
+      return [...state].map(item => (item.id === task.id ? { ...item, category: task.category, isTaskDone: task.isTaskDone, priority: task.priority, text: task.text } : { ...item }));
     default:
       return state;
   }
-}
+};
 
 export default tasks;
