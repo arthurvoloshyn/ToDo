@@ -21,7 +21,7 @@ npm install
 npm start
 ```
 
-Open the web browser to `http://localhost:3000/`
+Open the web browser to `http://localhost:5000/`
 
 ### To build the production package
 

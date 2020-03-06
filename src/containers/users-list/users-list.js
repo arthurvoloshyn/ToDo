@@ -67,11 +67,11 @@ class UsersList extends Component {
     return tasksCounter;
   };
 
-  isActive(value) {
+  isActive = value => {
     const { avatarIndex } = this.state;
 
     return value === avatarIndex ? 'active' : '';
-  }
+  };
 
   changeUserAvatar = ({ target }) => {
     const avatarIndex = +target.getAttribute('data-index');
@@ -79,7 +79,7 @@ class UsersList extends Component {
     this.setState({ avatarIndex });
   };
 
-  addUser() {
+  addUser = () => {
     const { userName, addUser, addCategory, changeUserName } = this.props;
     const { usersAvatars, avatarIndex } = this.state;
 
@@ -115,9 +115,9 @@ class UsersList extends Component {
 
       toastr.success('New user successfully added', { timeOut: 3000 });
     }
-  }
+  };
 
-  deleteUser(index) {
+  deleteUser = index => {
     toastr.confirm('Are you sure that you want to delete user profile', {
       onOk: () => {
         const { deleteUser } = this.props;
@@ -129,7 +129,7 @@ class UsersList extends Component {
         this.api.deleteUserCategories(alias);
       }
     });
-  }
+  };
 
   render() {
     const { usersAvatars } = this.state;
