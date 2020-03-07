@@ -61,7 +61,7 @@ class LocalApi {
     Helper.addToLocalStorage(newUserTasks, 'tasks');
   };
 
-  updateCategory = ({ id, text, userId }) => {
+  updateCategory = (id, text, userId) => {
     const userCategories = this.getCategories();
 
     const newUserCategories = userCategories.map(category => (category.id === id ? { ...category, id, text, userId } : { ...category }));

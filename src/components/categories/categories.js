@@ -119,10 +119,11 @@ class Categories extends Component {
 
     const { categories, tasks, deleteCategory, deleteTask } = this.props;
     const deletedCategory = this.Helpers.getDataById(categories, id);
-    const { alias, userId } = deletedCategory;
 
     toastr.confirm('This will delete all tasks connected with category', {
       onOk: () => {
+        const { alias, userId, id } = deletedCategory;
+
         tasks.forEach(task => {
           if (task.category === alias && task.userId === userId) {
             deleteTask(task);
@@ -131,59 +132,60 @@ class Categories extends Component {
           }
         });
 
-        deleteCategory(deletedCategory.id);
+        deleteCategory(id);
 
-        this.api.deleteCategory(deletedCategory.id);
+        this.api.deleteCategory(id);
       }
     });
   };
 
-  editCategory = (evt, category) => {
+  editCategory = (alias, isEdit) => {
     const { categories, updateCategory } = this.props;
-    const editableCategory = this.Helpers.getDataByAlias(categories, category.alias);
+    const editableCategory = this.Helpers.getDataByAlias(categories, alias);
+    const { id, text, userId } = editableCategory;
 
-    editableCategory.isEdit = !category.isEdit;
-    updateCategory(editableCategory);
+    editableCategory.isEdit = !isEdit;
+    updateCategory(id, text);
 
-    this.api.updateCategory(editableCategory);
+    this.api.updateCategory(id, text, userId);
   };
 
-  updateCategoryValue = ({ target: { value } }, category) => {
+  updateCategoryValue = ({ target: { value } }, alias) => {
     const { categories, updateCategory } = this.props;
-    const editableCategory = this.Helpers.getDataByAlias(categories, category.alias);
-    const newEditableCategory = { ...editableCategory, text: value };
+    const editableCategory = this.Helpers.getDataByAlias(categories, alias);
+    const { id, userId } = editableCategory;
 
-    updateCategory(newEditableCategory);
+    updateCategory(id, value);
 
-    this.api.updateCategory(newEditableCategory);
+    this.api.updateCategory(id, value, userId);
   };
 
   render() {
-    const { categories, categoryName, alias } = this.props;
+    const { categories: propsCategories, categoryName: propsCategoryName, alias: propsAlias } = this.props;
 
-    const category = categories.map((category, index) =>
-      category.userId === alias ? (
-        <article onClick={this.changeActive} key={index} data-name={category.alias} className={`category alert panel ${this.isActive(category.alias)}`} role="alert">
+    const category = propsCategories.map(({ userId, alias, isEdit, text, id }, index) =>
+      userId === propsAlias ? (
+        <article onClick={this.changeActive} key={index} data-name={alias} className={`category alert panel ${this.isActive(alias)}`} role="alert">
           <div className="category-name">
             <i className="material-icons">folder</i>
-            {category.isEdit ? (
-              <input value={category.text} onChange={evt => this.updateCategoryValue(evt, category)} onBlur={evt => this.editCategory(evt, category)} type="text" className="form-control" autoFocus />
+            {isEdit ? (
+              <input value={text} onChange={evt => this.updateCategoryValue(evt, alias)} onBlur={() => this.editCategory(alias, isEdit)} type="text" className="form-control" autoFocus />
             ) : (
-              <h5 className="category-text">{category ? category.text : null}</h5>
+              <h5 className="category-text">{text || null}</h5>
             )}
           </div>
           <ButtonsGroup>
-            {category.isEdit && (
-              <Button onClickFunction={evt => this.editCategory(evt, category)} specialClass="iconBtn active">
+            {isEdit && (
+              <Button onClickFunction={() => this.editCategory(alias, isEdit)} specialClass="iconBtn active">
                 <i className="material-icons">done</i>
               </Button>
             )}
-            {!category.isEdit && (
-              <Button onClickFunction={evt => this.editCategory(evt, category)} specialClass="iconBtn">
+            {!isEdit && (
+              <Button onClickFunction={() => this.editCategory(alias, isEdit)} specialClass="iconBtn">
                 <i className="material-icons">create</i>
               </Button>
             )}
-            <Button onClickFunction={evt => this.deleteCategory(evt, category.id)} specialClass="iconBtn">
+            <Button onClickFunction={evt => this.deleteCategory(evt, id)} specialClass="iconBtn">
               <i className="material-icons">delete</i>
             </Button>
           </ButtonsGroup>
@@ -202,7 +204,7 @@ class Categories extends Component {
               </h4>
             </div>
             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-              <InputField value={categoryName} changeFunction={this.updateInputValue} data={categoryName} addFunction={this.addCategory} placeholder="Click to add new category..." />
+              <InputField value={propsCategoryName} changeFunction={this.updateInputValue} data={propsCategoryName} addFunction={this.addCategory} placeholder="Click to add new category..." />
             </div>
           </div>
         </div>

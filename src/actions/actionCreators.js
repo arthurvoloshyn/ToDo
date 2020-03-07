@@ -50,9 +50,10 @@ export const deleteCategory = id => ({
   id
 });
 
-export const updateCategory = category => ({
+export const updateCategory = (id, text) => ({
   type: 'UPDATE_CATEGORY',
-  category
+  id,
+  text
 });
 
 export const changeActiveCategory = alias => ({

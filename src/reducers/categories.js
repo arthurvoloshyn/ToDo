@@ -1,6 +1,6 @@
 const initState = [];
 
-const categories = (state = initState, { type, userId, alias, id, text, category }) => {
+const categories = (state = initState, { type, userId, alias, id, text }) => {
   switch (type) {
     case 'ADD_CATEGORY':
       return [
@@ -13,9 +13,9 @@ const categories = (state = initState, { type, userId, alias, id, text, category
         }
       ];
     case 'DELETE_CATEGORY':
-      return [...state].filter(item => item.id !== id);
+      return [...state].filter(category => category.id !== id);
     case 'UPDATE_CATEGORY':
-      return [...state].map(item => (item.id === category.id ? { ...item, text: category.text } : { ...item }));
+      return [...state].map(category => (category.id === id ? { ...category, text } : { ...category }));
     default:
       return state;
   }
