@@ -38,17 +38,10 @@ class LocalApi {
     Helper.addToLocalStorage(userCategories, 'categories');
   };
 
-  updateUser = editUser => {
+  updateUser = (alias, activeView, showDone) => {
     const users = this.getUsers();
 
-    const newUsers = users.map(user => {
-      if (user.alias === editUser.alias) {
-        user.settings[0].activeView = editUser.settings[0].activeView;
-        user.settings[1].showDone = editUser.settings[1].showDone;
-      }
-
-      return user;
-    });
+    const newUsers = users.map(user => (user.alias === alias ? { ...user, settings: [{ activeView }, { showDone }] } : { ...user }));
 
     Helper.addToLocalStorage(newUsers, 'users');
   };

@@ -7,9 +7,11 @@ export const addUser = (id, avatar, name, alias, settings) => ({
   settings
 });
 
-export const updateUser = user => ({
+export const updateUser = (alias, activeView, showDone) => ({
   type: 'UPDATE_USER',
-  user
+  alias,
+  activeView,
+  showDone
 });
 
 export const deleteUser = id => ({

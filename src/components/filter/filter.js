@@ -79,11 +79,13 @@ class Filter extends Component {
     const { users, alias, updateUser } = this.props;
     const priority = +target.getAttribute('data-value');
     const activeUser = this.Helpers.getDataByAlias(users, alias);
+    const {
+      alias: activeUserAlias,
+      settings: [, { showDone }]
+    } = activeUser;
 
-    activeUser.settings[0].activeView = priority;
-    updateUser(activeUser);
-
-    this.api.updateUser(activeUser);
+    updateUser(activeUserAlias, priority, showDone);
+    this.api.updateUser(activeUserAlias, priority, showDone);
 
     this.setState({
       activeView: priority
@@ -93,11 +95,14 @@ class Filter extends Component {
   showDoneTasks = () => {
     const { users, alias, updateUser } = this.props;
     const activeUser = this.Helpers.getDataByAlias(users, alias);
+    const {
+      alias: activeUserAlias,
+      settings: [{ activeView }, { showDone }]
+    } = activeUser;
+    const newShowDone = !showDone;
 
-    activeUser.settings[1].showDone = !activeUser.settings[1].showDone;
-    updateUser(activeUser);
-
-    this.api.updateUser(activeUser);
+    updateUser(activeUserAlias, activeView, newShowDone);
+    this.api.updateUser(activeUserAlias, activeView, newShowDone);
   };
 
   render() {
