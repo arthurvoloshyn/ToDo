@@ -18,7 +18,7 @@ class Helpers {
   addToLocalStorage = (data, label) => localStorage.setItem(label, JSON.stringify(data));
 
   getProgress = (danger, warning, success) => {
-    let koef = 100 / [danger.length, warning.length, success.length].reduce((sum, item) => (sum += item), 0);
+    let koef = 100 / [danger.length, warning.length, success.length].reduce((sum, item) => sum + item, 0);
 
     koef = koef !== Infinity ? koef : 0; // fix for koef = Infinity
 

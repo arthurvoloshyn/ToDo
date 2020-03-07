@@ -24,9 +24,9 @@ class LocalApi {
     return { users };
   };
 
-  addTask = tasks => {
+  addTask = task => {
     const userTasks = this.getTasks();
-    userTasks.push(tasks);
+    userTasks.push(task);
 
     Helper.addToLocalStorage(userTasks, 'tasks');
   };
@@ -90,6 +90,7 @@ class LocalApi {
 
   deleteUserTask = alias => {
     const userTasks = this.getTasks();
+
     const tasks = userTasks.filter(({ userId }) => userId !== alias) || [];
 
     Helper.addToLocalStorage(tasks, 'tasks');
@@ -97,6 +98,7 @@ class LocalApi {
 
   deleteUserCategories = alias => {
     const userCategories = this.getTasks();
+
     const categories = userCategories.filter(({ userId }) => userId !== alias) || [];
 
     Helper.addToLocalStorage(categories, 'categories');
