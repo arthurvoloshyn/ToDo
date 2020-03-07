@@ -53,7 +53,7 @@ class LocalApi {
     Helper.addToLocalStorage(newUsers, 'users');
   };
 
-  updateTask = ({ id, category, isTaskDone, priority, text, userId }) => {
+  updateTask = (id, category, isTaskDone, priority, text, userId) => {
     const userTasks = this.getTasks();
 
     const newUserTasks = userTasks.map(task => (task.id === id ? { ...task, id, category, isTaskDone, priority, text, userId } : { ...task }));
@@ -69,7 +69,7 @@ class LocalApi {
     Helper.addToLocalStorage(newUserCategories, 'categories');
   };
 
-  deleteTask = ({ id }) => {
+  deleteTask = id => {
     const userTasks = this.getTasks();
 
     const newUserTasks = userTasks.filter(task => task.id !== id);

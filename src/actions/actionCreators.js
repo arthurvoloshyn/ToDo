@@ -27,14 +27,18 @@ export const addTask = (userId, id, category, text, priority, isTaskDone) => ({
   isTaskDone
 });
 
-export const deleteTask = task => ({
+export const deleteTask = id => ({
   type: 'DELETE_TASK',
-  task
+  id
 });
 
-export const updateTask = task => ({
+export const updateTask = (id, category, isTaskDone, priority, text) => ({
   type: 'UPDATE_TASK',
-  task
+  id,
+  category,
+  isTaskDone,
+  priority,
+  text
 });
 
 export const addCategory = (userId, id, text, alias) => ({

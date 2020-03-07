@@ -114,15 +114,15 @@ class Todo extends Component {
     }
   };
 
-  deleteTask = ({ id }) => {
+  deleteTask = id => {
     const { tasks, deleteTask } = this.props;
     const deletedTask = this.Helpers.getDataById(tasks, id);
 
     toastr.confirm('Are you sure that you want to delete this task', {
       onOk: () => {
-        deleteTask(deletedTask);
+        deleteTask(deletedTask.id);
 
-        this.api.deleteTask(deletedTask);
+        this.api.deleteTask(deletedTask.id);
 
         toastr.info('Tasks deleted', { timeOut: 2000 });
       }
@@ -132,10 +132,11 @@ class Todo extends Component {
   doneTask = (index, task) => {
     const { tasks, updateTask } = this.props;
     const doneTask = this.Helpers.getDataById(tasks, task.id);
-    const newDoneTask = { ...doneTask, isTaskDone: !doneTask.isTaskDone };
+    const taskStatus = !doneTask.isTaskDone;
+    const { id, category, priority, text, userId } = doneTask;
 
-    updateTask(newDoneTask);
-    this.api.updateTask(newDoneTask);
+    updateTask(id, category, taskStatus, priority, text);
+    this.api.updateTask(id, category, taskStatus, priority, text, userId);
   };
 
   render() {

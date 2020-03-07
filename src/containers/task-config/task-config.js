@@ -6,6 +6,8 @@ import { toastr } from 'react-redux-toastr';
 
 import { priorityList, readinessList } from '../../constants/constants';
 
+import { updateTask } from '../../actions/actionCreators';
+
 import LocalApi from './../../helpers/localApi';
 import Helpers from './../../helpers/Helpers';
 
@@ -38,7 +40,8 @@ class TaskConfig extends Component {
         priority: PropTypes.number,
         isTaskDone: PropTypes.bool
       })
-    )
+    ),
+    updateTask: PropTypes.func
   };
 
   static defaultProps = {
@@ -50,7 +53,8 @@ class TaskConfig extends Component {
     },
     routeParams: {
       id: ''
-    }
+    },
+    updateTask: () => {}
   };
 
   api = new LocalApi();
@@ -94,15 +98,12 @@ class TaskConfig extends Component {
 
   saveChanges = () => {
     const { taskRate, isDone, inputValue, activeCategory } = this.state;
-    const { tasks, routeParams } = this.props;
+    const { tasks, routeParams, updateTask } = this.props;
     const task = this.Helpers.getDataById(tasks, routeParams.id);
+    const { id, userId } = task;
 
-    task.priority = taskRate;
-    task.isTaskDone = isDone;
-    task.text = inputValue;
-    task.category = activeCategory;
-
-    this.api.updateTask(task);
+    updateTask(id, activeCategory, isDone, taskRate, inputValue);
+    this.api.updateTask(id, activeCategory, isDone, taskRate, inputValue, userId);
     browserHistory.goBack();
     toastr.success('Tasks updated', { timeOut: 3000 });
   };
@@ -207,7 +208,10 @@ class TaskConfig extends Component {
   }
 }
 
-export default connect(({ categories, tasks }) => ({
-  categories,
-  tasks
-}))(TaskConfig);
+export default connect(
+  ({ categories, tasks }) => ({
+    categories,
+    tasks
+  }),
+  { updateTask }
+)(TaskConfig);

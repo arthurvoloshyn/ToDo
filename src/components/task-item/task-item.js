@@ -23,7 +23,7 @@ const taskItem = ({ index, task, alias, doneTask, deleteTask }) => {
   }
 
   const onDoneTask = () => doneTask(index, task);
-  const onDeleteTask = () => deleteTask(task);
+  const onDeleteTask = () => deleteTask(task.id);
 
   return (
     <article key={index} className={`${task.isTaskDone ? 'doneTask' : ''} ${itemClass}`} role="alert">

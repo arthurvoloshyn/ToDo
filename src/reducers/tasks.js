@@ -1,6 +1,6 @@
 const initState = [];
 
-const tasks = (state = initState, { type, userId, id, category, text, priority, isTaskDone, task }) => {
+const tasks = (state = initState, { type, userId, id, category, text, priority, isTaskDone }) => {
   switch (type) {
     case 'ADD_TASK':
       return [
@@ -15,9 +15,9 @@ const tasks = (state = initState, { type, userId, id, category, text, priority, 
         }
       ];
     case 'DELETE_TASK':
-      return [...state].filter(({ id }) => id !== task.id);
+      return [...state].filter(task => task.id !== id);
     case 'UPDATE_TASK':
-      return [...state].map(item => (item.id === task.id ? { ...item, category: task.category, isTaskDone: task.isTaskDone, priority: task.priority, text: task.text } : { ...item }));
+      return [...state].map(task => (task.id === id ? { ...task, category, isTaskDone, priority, text } : { ...task }));
     default:
       return state;
   }

@@ -126,9 +126,9 @@ class Categories extends Component {
 
         tasks.forEach(task => {
           if (task.category === alias && task.userId === userId) {
-            deleteTask(task);
+            deleteTask(task.id);
 
-            this.api.deleteTask(task);
+            this.api.deleteTask(task.id);
           }
         });
 
