@@ -114,11 +114,11 @@ class Categories extends Component {
     }
   };
 
-  deleteCategory = (evt, category) => {
+  deleteCategory = (evt, id) => {
     evt.stopPropagation();
 
     const { categories, tasks, deleteCategory, deleteTask } = this.props;
-    const deletedCategory = this.Helpers.getDataById(categories, category.id);
+    const deletedCategory = this.Helpers.getDataById(categories, id);
     const { alias, userId } = deletedCategory;
 
     toastr.confirm('This will delete all tasks connected with category', {
@@ -131,9 +131,9 @@ class Categories extends Component {
           }
         });
 
-        deleteCategory(deletedCategory);
+        deleteCategory(deletedCategory.id);
 
-        this.api.deleteCategory(deletedCategory);
+        this.api.deleteCategory(deletedCategory.id);
       }
     });
   };
@@ -183,7 +183,7 @@ class Categories extends Component {
                 <i className="material-icons">create</i>
               </Button>
             )}
-            <Button onClickFunction={evt => this.deleteCategory(evt, category)} specialClass="iconBtn">
+            <Button onClickFunction={evt => this.deleteCategory(evt, category.id)} specialClass="iconBtn">
               <i className="material-icons">delete</i>
             </Button>
           </ButtonsGroup>

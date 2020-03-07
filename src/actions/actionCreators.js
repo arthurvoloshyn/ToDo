@@ -45,9 +45,9 @@ export const addCategory = (userId, id, text, alias) => ({
   alias
 });
 
-export const deleteCategory = category => ({
+export const deleteCategory = id => ({
   type: 'DELETE_CATEGORY',
-  category
+  id
 });
 
 export const updateCategory = category => ({

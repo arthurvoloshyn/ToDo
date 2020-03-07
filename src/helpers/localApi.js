@@ -77,7 +77,7 @@ class LocalApi {
     Helper.addToLocalStorage(newUserTasks, 'tasks');
   };
 
-  deleteCategory = ({ id }) => {
+  deleteCategory = id => {
     const userCategories = this.getCategories();
 
     const newUserCategories = userCategories.filter(category => category.id !== id);

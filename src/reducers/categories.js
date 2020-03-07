@@ -13,7 +13,7 @@ const categories = (state = initState, { type, userId, alias, id, text, category
         }
       ];
     case 'DELETE_CATEGORY':
-      return [...state].filter(({ id }) => id !== category.id);
+      return [...state].filter(item => item.id !== id);
     case 'UPDATE_CATEGORY':
       return [...state].map(item => (item.id === category.id ? { ...item, text: category.text } : { ...item }));
     default:
