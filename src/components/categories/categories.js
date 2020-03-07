@@ -121,16 +121,16 @@ class Categories extends Component {
     const deletedCategory = this.Helpers.getDataById(categories, category.id);
     const { alias, userId } = deletedCategory;
 
-    tasks.forEach(task => {
-      if (task.category === alias && task.userId === userId) {
-        deleteTask(task);
-
-        this.api.deleteTask(task);
-      }
-    });
-
     toastr.confirm('This will delete all tasks connected with category', {
       onOk: () => {
+        tasks.forEach(task => {
+          if (task.category === alias && task.userId === userId) {
+            deleteTask(task);
+
+            this.api.deleteTask(task);
+          }
+        });
+
         deleteCategory(deletedCategory);
 
         this.api.deleteCategory(deletedCategory);
