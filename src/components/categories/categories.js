@@ -122,19 +122,17 @@ class Categories extends Component {
 
     toastr.confirm('This will delete all tasks connected with category', {
       onOk: () => {
-        const { alias, userId, id } = deletedCategory;
+        tasks.forEach(({ category, userId, id }) => {
+          if (category === deletedCategory.alias && userId === deletedCategory.userId) {
+            deleteTask(id);
 
-        tasks.forEach(task => {
-          if (task.category === alias && task.userId === userId) {
-            deleteTask(task.id);
-
-            this.api.deleteTask(task.id);
+            this.api.deleteTask(id);
           }
         });
 
-        deleteCategory(id);
+        deleteCategory(deletedCategory.id);
 
-        this.api.deleteCategory(id);
+        this.api.deleteCategory(deletedCategory.id);
       }
     });
   };

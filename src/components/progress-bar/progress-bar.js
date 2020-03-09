@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { priorityList } from '../../constants/constants';
+
 import Helpers from '../../helpers/Helpers';
 
 class ProgressBar extends Component {
@@ -95,7 +97,7 @@ class ProgressBar extends Component {
 
   render() {
     const { danger, warning, success, isShowedCounters } = this.state;
-    const progressList = this.Helpers.getPriorityListWithValues(danger, warning, success);
+    const progressList = this.Helpers.getPriorityListWithValues(priorityList, danger, warning, success);
 
     return (
       <div onClick={this.showCounters} className="panel progress-panel">

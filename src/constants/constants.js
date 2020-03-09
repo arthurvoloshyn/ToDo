@@ -10,3 +10,10 @@ export const readinessList = [
   { value: true, title: 'Done' },
   { value: false, title: 'Not Done' }
 ];
+
+export const filterList = [
+  { title: 'Hight', id: 'alert-danger' },
+  { title: 'Middle', id: 'alert-warning' },
+  { title: 'Low', id: 'alert-success' },
+  { title: 'All', id: 'btn-all' }
+];

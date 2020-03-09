@@ -122,7 +122,7 @@ class TasksList extends Component {
 
       const isDone = showDone ? conditionWithShowingDone : conditionWithoutShowingDone;
 
-      return isDone ? <Task index={index} id={id} text={text} isTaskDone={isTaskDone} priority={priority} alias={alias} doneTask={doneTask} deleteTask={deleteTask} /> : null;
+      return isDone ? <Task key={index} index={index} id={id} text={text} isTaskDone={isTaskDone} priority={priority} alias={alias} doneTask={doneTask} deleteTask={deleteTask} /> : null;
     });
 
     return (

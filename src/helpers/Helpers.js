@@ -1,5 +1,3 @@
-import { priorityList } from '../constants/constants';
-
 // TODO: another way for pictures
 import man1 from '../assets/img/avatars/man1.png'; // eslint-disable-line
 import man2 from '../assets/img/avatars/man2.png'; // eslint-disable-line
@@ -29,8 +27,8 @@ class Helpers {
     };
   };
 
-  getPriorityListWithValues = (danger, warning, success) =>
-    priorityList.map(item => {
+  getPriorityListWithValues = (list, danger, warning, success, all) =>
+    list.map(item => {
       switch (item.title) {
         case 'Hight':
           return { ...item, value: danger };
@@ -38,6 +36,8 @@ class Helpers {
           return { ...item, value: warning };
         case 'Low':
           return { ...item, value: success };
+        case 'All':
+          return { ...item, value: all };
         default:
           return { ...item };
       }

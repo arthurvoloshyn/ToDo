@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { filterList } from '../../constants/constants';
+
 import LocalApi from './../../helpers/localApi';
 import Helpers from './../../helpers/Helpers';
 
@@ -109,7 +111,9 @@ class Filter extends Component {
     let { alias, tasks, users, activeCategory } = this.props;
     const { activeView: stateActiveView } = this.state;
     const activeUser = this.Helpers.getDataByAlias(users, alias);
-    const activeView = activeUser.settings[0].activeView;
+    const {
+      settings: [{ activeView }]
+    } = activeUser;
 
     const danger = [];
     const warning = [];
@@ -138,12 +142,7 @@ class Filter extends Component {
       }
     });
 
-    const filterList = [
-      { value: danger, title: 'Hight', id: 'alert-danger' },
-      { value: warning, title: 'Middle', id: 'alert-warning' },
-      { value: success, title: 'Low', id: 'alert-success' },
-      { value: all, title: 'All', id: 'btn-all' }
-    ];
+    const priorityList = this.Helpers.getPriorityListWithValues(filterList, danger, warning, success, all);
 
     return (
       <div className="panel panel-default filter-panel">
@@ -155,7 +154,7 @@ class Filter extends Component {
                 <span>FILTER:</span>
               </h4>
               <ButtonsGroup specialClass="filter" activeElem={activeView}>
-                {filterList.map(({ value, title, id }, index) => (
+                {priorityList.map(({ value, title, id }, index) => (
                   <Button key={id} onClickFunction={this.updateView} dataValue={`${index + 1}`} specialClass={`btn ${id}`} checkActive={stateActiveView}>
                     {title} {<span className="badge">{value.length}</span>}
                   </Button>
