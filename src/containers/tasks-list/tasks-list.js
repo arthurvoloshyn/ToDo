@@ -13,7 +13,7 @@ import Button from './../../components/button/button';
 import ButtonsGroup from './../../components/buttons-group/buttons-group';
 import InputField from './../../components/input-field/input-field';
 import Filter from './../../components/filter/filter';
-import RenderTask from '../../components/render-tasks/render-tasks';
+import Task from '../../components/task-item/task-item';
 
 class TasksList extends Component {
   static propTypes = {
@@ -115,6 +115,16 @@ class TasksList extends Component {
 
     tasks = this.sortTasksOrder(tasks.filter(({ userId }) => userId === alias));
 
+    const tasksList = tasks.map((task, index) => {
+      const { priority, category, isTaskDone } = task;
+      const conditionWithShowingDone = (priority === activeView && category === activeCategory) || (activeView === 4 && category === activeCategory);
+      const conditionWithoutShowingDone = (priority === activeView && !isTaskDone && category === activeCategory) || (activeView === 4 && !isTaskDone && category === activeCategory);
+
+      const isDone = showDone ? conditionWithShowingDone : conditionWithoutShowingDone;
+
+      return isDone ? <Task index={index} task={task} tasks={tasks} alias={alias} doneTask={doneTask} deleteTask={deleteTask} /> : null;
+    });
+
     return (
       <div>
         <div className="panel panel-default add-panel">
@@ -146,22 +156,7 @@ class TasksList extends Component {
           </div>
         </div>
         <ProgressBar alias={alias} tasksList={tasks} activeCategory={activeCategory} />
-        <div className="panel panel-body tasks-list">
-          {tasks.map((task, index) => (
-            <RenderTask
-              key={index}
-              index={index}
-              task={task}
-              tasks={tasks}
-              activeView={activeView}
-              activeCategory={activeCategory}
-              alias={alias}
-              doneTask={doneTask}
-              deleteTask={deleteTask}
-              showDone={showDone}
-            />
-          ))}
-        </div>
+        <div className="panel panel-body tasks-list">{tasksList}</div>
         <Filter alias={alias} tasks={tasks} users={users} activeCategory={activeCategory} updateUser={updateUser} />
       </div>
     );
