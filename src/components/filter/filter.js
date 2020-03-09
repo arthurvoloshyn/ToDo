@@ -77,9 +77,9 @@ class Filter extends Component {
     return activeUser.settings[1].showDone ? 'active' : '';
   };
 
-  updateView = ({ target }) => {
+  updateView = ({ currentTarget }) => {
     const { users, alias, updateUser } = this.props;
-    const priority = +target.getAttribute('data-value');
+    const priority = +currentTarget.getAttribute('data-value');
     const activeUser = this.Helpers.getDataByAlias(users, alias);
     const {
       alias: activeUserAlias,
@@ -155,7 +155,7 @@ class Filter extends Component {
               </h4>
               <ButtonsGroup specialClass="filter" activeElem={activeView}>
                 {priorityList.map(({ value, title, id }, index) => (
-                  <Button key={id} onClickFunction={this.updateView} dataValue={`${index + 1}`} specialClass={`btn ${id}`} checkActive={stateActiveView}>
+                  <Button key={index} onClickFunction={this.updateView} dataValue={`${index + 1}`} specialClass={`btn ${id}`} checkActive={stateActiveView}>
                     {title} {<span className="badge">{value.length}</span>}
                   </Button>
                 ))}

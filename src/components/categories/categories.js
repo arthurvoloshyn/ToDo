@@ -202,14 +202,7 @@ class Categories extends Component {
               </h4>
             </div>
             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right text-block">
-              <InputField
-                value={propsCategoryName}
-                changeFunction={this.updateInputValue}
-                data={propsCategoryName}
-                addFunction={this.addCategory}
-                placeholder="Click to add new category..."
-                maxLength={20}
-              />
+              <InputField value={propsCategoryName} changeFunction={this.updateInputValue} data={propsCategoryName} addFunction={this.addCategory} placeholder="Click to add new category..." />
             </div>
           </div>
         </div>
