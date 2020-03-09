@@ -113,16 +113,16 @@ class TasksList extends Component {
       settings: [{ activeView }, { showDone }]
     } = data;
 
-    tasks = this.sortTasksOrder(tasks.filter(({ userId }) => userId === alias));
+    const filteredTasks = tasks.filter(({ userId }) => userId === alias);
+    tasks = this.sortTasksOrder(filteredTasks);
 
-    const tasksList = tasks.map((task, index) => {
-      const { priority, category, isTaskDone } = task;
+    const tasksList = tasks.map(({ priority, category, isTaskDone, id, text }, index) => {
       const conditionWithShowingDone = (priority === activeView && category === activeCategory) || (activeView === 4 && category === activeCategory);
       const conditionWithoutShowingDone = (priority === activeView && !isTaskDone && category === activeCategory) || (activeView === 4 && !isTaskDone && category === activeCategory);
 
       const isDone = showDone ? conditionWithShowingDone : conditionWithoutShowingDone;
 
-      return isDone ? <Task index={index} task={task} tasks={tasks} alias={alias} doneTask={doneTask} deleteTask={deleteTask} /> : null;
+      return isDone ? <Task index={index} id={id} text={text} isTaskDone={isTaskDone} priority={priority} alias={alias} doneTask={doneTask} deleteTask={deleteTask} /> : null;
     });
 
     return (

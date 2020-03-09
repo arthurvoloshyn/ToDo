@@ -4,10 +4,10 @@ import { Link } from 'react-router';
 
 import Button from './../button/button';
 
-const taskItem = ({ index, task, alias, doneTask, deleteTask }) => {
+const taskItem = ({ index, id, text, isTaskDone, priority, alias, doneTask, deleteTask }) => {
   let itemClass = 'alert panel alert-';
 
-  switch (task.priority) {
+  switch (priority) {
     case 1:
       itemClass = `${itemClass}danger`;
       break;
@@ -22,21 +22,21 @@ const taskItem = ({ index, task, alias, doneTask, deleteTask }) => {
       break;
   }
 
-  const onDoneTask = () => doneTask(task.id);
-  const onDeleteTask = () => deleteTask(task.id);
+  const onDoneTask = () => doneTask(id);
+  const onDeleteTask = () => deleteTask(id);
 
   return (
-    <article key={index} className={`${task.isTaskDone ? 'doneTask' : ''} ${itemClass}`} role="alert">
+    <article key={index} className={`${isTaskDone ? 'doneTask' : ''} ${itemClass}`} role="alert">
       <label className="tasks-list-item">
         <span onClick={onDoneTask} className="tasks-list-mark">
-          <i className="material-icons">{`${task.isTaskDone ? 'check_box' : 'check_box_outline_blank'}`}</i>
+          <i className="material-icons">{`${isTaskDone ? 'check_box' : 'check_box_outline_blank'}`}</i>
         </span>
         <h5 onClick={onDoneTask} className="task-text">
-          {task.text}
+          {text}
         </h5>
       </label>
       <div className="btn-group" role="group">
-        <Link className="iconBtn" to={`/users/${alias}/tasks/${task.id}`}>
+        <Link className="iconBtn" to={`/users/${alias}/tasks/${id}`}>
           <i className="material-icons">create</i>
         </Link>
         <Button onClickFunction={onDeleteTask} specialClass="iconBtn">
@@ -51,30 +51,22 @@ taskItem.propTypes = {
   alias: PropTypes.string,
   deleteTask: PropTypes.func,
   doneTask: PropTypes.func,
+  id: PropTypes.number,
   index: PropTypes.number,
-  task: PropTypes.shape({
-    userId: PropTypes.string,
-    id: PropTypes.number,
-    category: PropTypes.string,
-    text: PropTypes.string,
-    priority: PropTypes.number,
-    isTaskDone: PropTypes.bool
-  })
+  isTaskDone: PropTypes.bool,
+  priority: PropTypes.number,
+  text: PropTypes.string
 };
 
 taskItem.defaultProps = {
   alias: '',
   deleteTask: () => {},
   doneTask: () => {},
+  id: new Date().getTime(),
   index: 0,
-  task: {
-    userId: '',
-    id: new Date().getTime(),
-    category: 'default',
-    text: '',
-    priority: 3,
-    isTaskDone: false
-  }
+  isTaskDone: false,
+  priority: 3,
+  text: ''
 };
 
 export default taskItem;
