@@ -164,14 +164,14 @@ class UsersList extends Component {
             <div className="panel add-user-panel">
               <div className="panel-heading">
                 <div className="row">
-                  <div className="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-left">
+                  <div className="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-left text-block">
                     <h4 className="title">
                       <i className="material-icons">account_circle</i>
                       <span>ADD NEW USER:</span>
                     </h4>
                   </div>
-                  <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                    <InputField value={userName} changeFunction={this.updateUserValue} addFunction={this.addUser} placeholder="click to add your full name..." maxLength="12" />
+                  <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right text-block">
+                    <InputField value={userName} changeFunction={this.updateUserValue} addFunction={this.addUser} placeholder="click to add your full name..." maxLength={12} />
                   </div>
                 </div>
               </div>

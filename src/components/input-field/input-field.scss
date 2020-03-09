@@ -1,7 +1,10 @@
 .main .panel .form-control {
   box-shadow: inset 0 -2px 0 $text;
   color: $white;
+  overflow: hidden;
   padding-right: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .form-control::-webkit-input-placeholder {
@@ -44,6 +47,10 @@
 
     &:hover {
       transform: scale(1.2) rotate(90deg);
+    }
+
+    @media (max-width: $mobile) {
+      right: -35px;
     }
   }
 }

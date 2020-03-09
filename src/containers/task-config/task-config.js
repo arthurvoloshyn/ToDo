@@ -159,7 +159,7 @@ class TaskConfig extends Component {
                     <h5 className="priority text-left">Change Description:</h5>
                   </div>
                   <div className="col-lg-7 col-md-8 text-left">
-                    <textarea className="form-control" rows="2" id="textArea" value={inputValue} onChange={this.updateTaskText} autoFocus />
+                    <textarea className="form-control" rows="2" id="textArea" value={inputValue} onChange={this.updateTaskText} maxLength="30" autoFocus />
                     <span className="help-block">Update your task description</span>
                   </div>
                 </div>

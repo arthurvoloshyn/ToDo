@@ -21,6 +21,16 @@
       line-height: 1;
       text-align: center;
       width: 33.3333%;
+
+      @media (max-width: $mobile) {
+        &:first-child {
+          width: 39.3333%;
+        }
+
+        &:last-child {
+          width: 27.3333%;
+        }
+      }
     }
 
     &-counter {
@@ -43,7 +53,7 @@
       }
     }
 
-    &-descr {
+    &-desc {
       font-weight: bold;
       margin-right: 5px;
       position: relative;

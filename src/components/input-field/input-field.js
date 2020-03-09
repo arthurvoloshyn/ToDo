@@ -17,7 +17,7 @@ const InputField = ({ value, changeFunction, data, addFunction, placeholder, max
   return (
     <div className="add-new">
       <div>
-        <input value={value} onChange={changeFunction} onKeyDown={submitHandler} type="text" className="form-control" placeholder={placeholder} maxLength={maxLength} />
+        <input value={value} onChange={changeFunction} onKeyDown={submitHandler} type="text" className="form-control" placeholder={placeholder} maxLength={`${maxLength}`} />
       </div>
       <Button onClickFunction={onAddFunction} specialClass="btn-add">
         <i className="material-icons">add</i>
@@ -30,7 +30,7 @@ InputField.propTypes = {
   addFunction: PropTypes.func,
   changeFunction: PropTypes.func,
   data: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  maxLength: PropTypes.string,
+  maxLength: PropTypes.number,
   placeholder: PropTypes.string,
   value: PropTypes.string
 };

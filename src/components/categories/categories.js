@@ -195,14 +195,21 @@ class Categories extends Component {
       <div className="panel panel-default categories">
         <div className="panel-heading categories-heading">
           <div className="row">
-            <div className="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-left">
+            <div className="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-left text-block">
               <h4 className="title">
                 <i className="material-icons">next_week</i>
                 <span>CATEGORIES:</span>
               </h4>
             </div>
-            <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-              <InputField value={propsCategoryName} changeFunction={this.updateInputValue} data={propsCategoryName} addFunction={this.addCategory} placeholder="Click to add new category..." />
+            <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right text-block">
+              <InputField
+                value={propsCategoryName}
+                changeFunction={this.updateInputValue}
+                data={propsCategoryName}
+                addFunction={this.addCategory}
+                placeholder="Click to add new category..."
+                maxLength={20}
+              />
             </div>
           </div>
         </div>
