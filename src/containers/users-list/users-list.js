@@ -62,9 +62,8 @@ class UsersList extends Component {
     const { users } = this.props;
     const alias = users[index].alias;
     const tasksValue = this.api.getUserTasks(alias);
-    const tasksCounter = tasksValue && tasksValue.length ? tasksValue.filter(({ isTaskDone }) => isTaskDone === false).length : 0;
 
-    return tasksCounter;
+    return tasksValue && tasksValue.length ? tasksValue.filter(({ isTaskDone }) => isTaskDone === false).length : 0;
   };
 
   isActive = value => {
@@ -136,7 +135,7 @@ class UsersList extends Component {
     const { users, userName } = this.props;
 
     const avatars = usersAvatars.map((avatar, i) => (
-      <div key={i} className={`avatar-wrapp ${this.isActive(i)}`}>
+      <div key={i} className={`avatar-wrap ${this.isActive(i)}`}>
         <img onClick={this.changeUserAvatar} data-index={i} className="avatar" src={avatar} alt="avatar" />
       </div>
     ));
@@ -177,7 +176,7 @@ class UsersList extends Component {
                 </div>
               </div>
               <div className="panel-body">
-                <h5 className="user-descr">Choose your avatar:</h5>
+                <h5 className="user-desc">Choose your avatar:</h5>
                 <div className="user-avatars-wrapper">{avatars}</div>
               </div>
             </div>
