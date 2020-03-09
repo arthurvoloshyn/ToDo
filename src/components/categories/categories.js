@@ -167,7 +167,7 @@ class Categories extends Component {
           <div className="category-name">
             <i className="material-icons">folder</i>
             {isEdit ? (
-              <input value={text} onChange={evt => this.updateCategoryValue(evt, alias)} onBlur={() => this.editCategory(alias, isEdit)} type="text" className="form-control" autoFocus />
+              <input value={text} onChange={evt => this.updateCategoryValue(evt, alias)} onBlur={() => this.editCategory(alias, isEdit)} type="text" className="form-control category-text" autoFocus />
             ) : (
               <h5 className="category-text">{text || null}</h5>
             )}

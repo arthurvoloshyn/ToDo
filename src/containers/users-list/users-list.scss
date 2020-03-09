@@ -60,6 +60,7 @@
 
 .user-avatars-wrapper {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
 
   .avatar-wrap {
@@ -78,13 +79,5 @@
       height: 50px;
       width: 50px;
     }
-  }
-
-  @media (max-width: $mobile) {
-    display: inline-block;
-    left: 50%;
-    margin-right: -50%;
-    position: relative;
-    transform: translate(-50%, 0);
   }
 }
