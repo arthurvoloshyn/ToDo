@@ -110,8 +110,8 @@ class ProgressBar extends Component {
             {progressList.map(({ value, title, id }) => (
               <div key={id} className="progress-counters">
                 <div className={`progress-counter progress-counter--${id}`}>
-                  <span className="progress-descr">{title}</span>
-                  <span>{`${parseInt(value || 0)}%`}</span>
+                  <span className="progress-desc">{title}</span>
+                  <span>{`${parseInt(value) || 0}%`}</span>
                 </div>
               </div>
             ))}

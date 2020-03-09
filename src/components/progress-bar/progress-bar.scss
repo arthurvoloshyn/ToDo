@@ -25,19 +25,19 @@
 
     &-counter {
       &--danger {
-        .progress-descr:before {
+        .progress-desc:before {
           background-color: $danger;
         }
       }
 
       &--warning {
-        .progress-descr:before {
+        .progress-desc:before {
           background-color: $warning;
         }
       }
 
       &--success {
-        .progress-descr:before {
+        .progress-desc:before {
           background-color: $success;
         }
       }
