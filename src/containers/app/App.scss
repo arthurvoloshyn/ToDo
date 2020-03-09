@@ -54,6 +54,12 @@
       h4 {
         color: $white;
         text-transform: uppercase;
+
+        @media (max-width: $modile) {
+          overflow: hidden;
+          white-space: nowrap;
+          width: 60px;
+        }
       }
     }
   }

@@ -30,6 +30,10 @@
       a {
         margin-left: 5px;
       }
+
+      @media (max-width: $modile) {
+        font-weight: 300;
+      }
     }
   }
 }
