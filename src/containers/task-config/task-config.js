@@ -105,7 +105,7 @@ class TaskConfig extends Component {
     updateTask(id, activeCategory, isDone, taskRate, inputValue);
     this.api.updateTask(id, activeCategory, isDone, taskRate, inputValue, userId);
     browserHistory.goBack();
-    toastr.success('Tasks updated', { timeOut: 3000 });
+    toastr.success('Task updated', { timeOut: 3000 });
   };
 
   render() {
@@ -113,12 +113,12 @@ class TaskConfig extends Component {
     const { taskRate, inputValue, isDone, activeCategory } = this.state;
     const { params } = this.props;
 
-    categories = categories.map((category, index) =>
-      category.userId === params.alias ? (
+    categories = categories.map(({ userId, alias, text }, index) =>
+      userId === params.alias ? (
         <div className="radio" key={index}>
           <label>
-            <input onChange={this.updateTaskCategory} type="radio" name={category.alias} checked={activeCategory === category.alias} />
-            {category.text}
+            <input onChange={this.updateTaskCategory} type="radio" name={alias} checked={activeCategory === alias} />
+            {text}
           </label>
         </div>
       ) : null
