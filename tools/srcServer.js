@@ -4,7 +4,7 @@ import path from 'path';
 import open from 'open';
 import favicon from 'serve-favicon';
 
-import config from '../webpack.config.dev';
+import config from '../config/webpack.config.dev';
 
 /* eslint-disable no-console */
 

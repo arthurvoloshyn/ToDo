@@ -1,10 +1,10 @@
-import webpack from 'webpack';
+const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
 
 const PATHS = {
-  src: path.join(__dirname, 'src'),
-  dist: path.join(__dirname, 'public'),
+  src: path.join(__dirname, '../src'),
+  dist: path.join(__dirname, '../public'),
   assets: 'assets/',
   publicPath: '/'
 };
