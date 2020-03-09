@@ -171,7 +171,7 @@ class UsersList extends Component {
                     </h4>
                   </div>
                   <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                    <InputField value={userName} changeFunction={this.updateUserValue} addFunction={this.addUser} placeholder="click to add your full name..." />
+                    <InputField value={userName} changeFunction={this.updateUserValue} addFunction={this.addUser} placeholder="click to add your full name..." maxLength="12" />
                   </div>
                 </div>
               </div>
