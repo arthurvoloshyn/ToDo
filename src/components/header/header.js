@@ -17,7 +17,7 @@ const Header = ({ userAlias, location }) => {
   const Helper = new Helpers();
 
   const user = users ? Helper.getDataByAlias(users, userAlias) : {};
-  const isTaskLocation = location.indexOf('tasks');
+  const isTaskLocation = location.includes('tasks');
 
   return (
     <header className="header">
@@ -26,7 +26,7 @@ const Header = ({ userAlias, location }) => {
           <nav className="col-lg-4 col-md-4">
             {user && (
               <div className="logout-btn-wrapper text-left">
-                {isTaskLocation === -1 ? (
+                {!isTaskLocation ? (
                   <Link to="/" type="button" className="btn btn-primary btn-log-out">
                     <i className="material-icons">exit_to_app</i>
                   </Link>
