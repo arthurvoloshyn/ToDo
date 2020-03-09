@@ -101,6 +101,7 @@ class Todo extends Component {
       priority: inputRate || 3,
       isTaskDone: false
     };
+
     if (taskText.length <= 5) {
       toastr.warning('Very short task name', { timeOut: 4000 });
     } else {
@@ -124,19 +125,19 @@ class Todo extends Component {
 
         this.api.deleteTask(deletedTask.id);
 
-        toastr.info('Tasks deleted', { timeOut: 2000 });
+        toastr.info('Task deleted', { timeOut: 2000 });
       }
     });
   };
 
-  doneTask = (index, task) => {
+  doneTask = id => {
     const { tasks, updateTask } = this.props;
-    const doneTask = this.Helpers.getDataById(tasks, task.id);
+    const doneTask = this.Helpers.getDataById(tasks, id);
     const taskStatus = !doneTask.isTaskDone;
-    const { id, category, priority, text, userId } = doneTask;
+    const { id: doneTaskId, category: doneTaskCategory, priority: doneTaskPriority, text: doneTaskText, userId: doneTaskUserId } = doneTask;
 
-    updateTask(id, category, taskStatus, priority, text);
-    this.api.updateTask(id, category, taskStatus, priority, text, userId);
+    updateTask(doneTaskId, doneTaskCategory, taskStatus, doneTaskPriority, doneTaskText);
+    this.api.updateTask(doneTaskId, doneTaskCategory, taskStatus, doneTaskPriority, doneTaskText, doneTaskUserId);
   };
 
   render() {

@@ -96,9 +96,9 @@ class TasksList extends Component {
     tasksArray.sort((a, b) => a.priority - b.priority);
 
     const notDoneTasksArray = tasksArray.filter(({ isTaskDone }) => !isTaskDone);
-    const doneDasksArray = tasksArray.filter(({ isTaskDone }) => isTaskDone);
+    const doneTasksArray = tasksArray.filter(({ isTaskDone }) => isTaskDone);
 
-    return (tasksArray = [...notDoneTasksArray, ...doneDasksArray]);
+    return [...notDoneTasksArray, ...doneTasksArray];
   };
 
   render() {
@@ -108,8 +108,10 @@ class TasksList extends Component {
 
     categoryName = categoryName.length ? categoryName[0].text : '';
 
-    const activeView = this.Helpers.getDataByAlias(users, alias).settings[0].activeView;
-    const showDone = this.Helpers.getDataByAlias(users, alias).settings[1].showDone;
+    const data = this.Helpers.getDataByAlias(users, alias);
+    const {
+      settings: [{ activeView }, { showDone }]
+    } = data;
 
     tasks = this.sortTasksOrder(tasks.filter(({ userId }) => userId === alias));
 
@@ -148,8 +150,8 @@ class TasksList extends Component {
           {tasks.map((task, index) => (
             <RenderTask
               key={index}
-              task={task}
               index={index}
+              task={task}
               tasks={tasks}
               activeView={activeView}
               activeCategory={activeCategory}

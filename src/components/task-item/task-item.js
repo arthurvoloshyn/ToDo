@@ -22,7 +22,7 @@ const taskItem = ({ index, task, alias, doneTask, deleteTask }) => {
       break;
   }
 
-  const onDoneTask = () => doneTask(index, task);
+  const onDoneTask = () => doneTask(task.id);
   const onDeleteTask = () => deleteTask(task.id);
 
   return (
