@@ -1,15 +1,7 @@
 {
-  "presets": ["react", "es2015", "stage-0"],
-  "env": {
-    "development": {
-      "presets": ["react-hmre"]
-    },
-    "production": {
-      "presets": ["react", "es2015"]
-    }
-  },
+  "presets": ["@babel/preset-env", "@babel/preset-react"],
   "plugins": [
-    "transform-class-properties",
-    "syntax-dynamic-import"
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-syntax-dynamic-import"
   ]
 }
