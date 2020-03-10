@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { toastr } from 'react-redux-toastr';
 
-import LocalApi from './../../helpers/localApi';
-import Helpers from './../../helpers/Helpers';
+import LocalApi from '~/helpers/localApi';
+import Helpers from '~/helpers/Helpers';
 
-import InputField from './../input-field/input-field';
-import Button from './../button/button';
-import ButtonsGroup from './../buttons-group/buttons-group';
+import InputField from '../input-field/input-field';
+import Button from '../button/button';
+import ButtonsGroup from '../buttons-group/buttons-group';
 
 class Categories extends Component {
   static propTypes = {

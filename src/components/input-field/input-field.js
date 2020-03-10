@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Enter } from '../../constants/constants';
+import { Enter } from '~/constants/constants';
 
-import Button from './../button/button';
+import Button from '../button/button';
 
 const InputField = ({ value, changeFunction, data, addFunction, placeholder, maxLength }) => {
   const submitHandler = ({ keyCode }) => {

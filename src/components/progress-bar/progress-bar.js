@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { priorityList } from '../../constants/constants';
+import { priorityList } from '~/constants/constants';
 
-import Helpers from '../../helpers/Helpers';
+import Helpers from '~/helpers/Helpers';
 
 class ProgressBar extends Component {
   static propTypes = {

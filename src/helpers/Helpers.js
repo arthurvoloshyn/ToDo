@@ -1,12 +1,12 @@
 // TODO: another way for pictures
-import man1 from '../assets/img/avatars/man1.png'; // eslint-disable-line
-import man2 from '../assets/img/avatars/man2.png'; // eslint-disable-line
-import man3 from '../assets/img/avatars/man3.png'; // eslint-disable-line
-import man4 from '../assets/img/avatars/man4.png'; // eslint-disable-line
-import woman1 from '../assets/img/avatars/woman1.png'; // eslint-disable-line
-import woman2 from '../assets/img/avatars/woman2.png'; // eslint-disable-line
-import woman3 from '../assets/img/avatars/woman3.png'; // eslint-disable-line
-import woman4 from '../assets/img/avatars/woman4.png'; // eslint-disable-line
+import man1 from '~/assets/img/avatars/man1.png';
+import man2 from '~/assets/img/avatars/man2.png';
+import man3 from '~/assets/img/avatars/man3.png';
+import man4 from '~/assets/img/avatars/man4.png';
+import woman1 from '~/assets/img/avatars/woman1.png';
+import woman2 from '~/assets/img/avatars/woman2.png';
+import woman3 from '~/assets/img/avatars/woman3.png';
+import woman4 from '~/assets/img/avatars/woman4.png';
 
 class Helpers {
   getDataById = (dataArray, id) => dataArray.filter(data => data.id === +id)[0];

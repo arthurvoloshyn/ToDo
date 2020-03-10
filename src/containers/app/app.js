@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReduxToastr from 'react-redux-toastr';
 
-import Header from './../../components/header/header';
-import Footer from './../../components/footer/footer';
+import Header from '~/components/header/header';
+import Footer from '~/components/footer/footer';
 
 const App = ({ params, children, location }) => (
   <div className="App">

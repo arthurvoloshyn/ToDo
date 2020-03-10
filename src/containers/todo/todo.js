@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { toastr } from 'react-redux-toastr';
 
-import LocalApi from './../../helpers/localApi';
-import Helpers from '../../helpers/Helpers';
+import LocalApi from '~/helpers/localApi';
+import Helpers from '~/helpers/Helpers';
 
-import { addTask, deleteTask, updateTask, changeTaskText, addCategory, deleteCategory, updateCategory, changeActiveCategory, changeCategoryName } from './../../actions/actionCreators';
+import { addTask, deleteTask, updateTask, changeTaskText, addCategory, deleteCategory, updateCategory, changeActiveCategory, changeCategoryName } from '~/actions/actionCreators';
 
-import Categories from './../../components/categories/categories';
+import Categories from '~/components/categories/categories';
 
-import TasksList from './../tasks-list/tasks-list';
+import TasksList from '../tasks-list/tasks-list';
 
 class Todo extends Component {
   static propTypes = {

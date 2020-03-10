@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { filterList } from '../../constants/constants';
+import { filterList } from '~/constants/constants';
 
-import LocalApi from './../../helpers/localApi';
-import Helpers from './../../helpers/Helpers';
+import LocalApi from '~/helpers/localApi';
+import Helpers from '~/helpers/Helpers';
 
-import Button from './../../components/button/button';
-import ButtonsGroup from './../../components/buttons-group/buttons-group';
+import Button from '~/components/button/button';
+import ButtonsGroup from '~/components/buttons-group/buttons-group';
 
 class Filter extends Component {
   static propTypes = {

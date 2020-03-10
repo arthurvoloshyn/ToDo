@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { toastr } from 'react-redux-toastr';
 
-import { priorityList, readinessList } from '../../constants/constants';
+import { priorityList, readinessList } from '~/constants/constants';
 
-import { updateTask } from '../../actions/actionCreators';
+import { updateTask } from '~/actions/actionCreators';
 
-import LocalApi from './../../helpers/localApi';
-import Helpers from './../../helpers/Helpers';
+import LocalApi from '~/helpers/localApi';
+import Helpers from '~/helpers/Helpers';
 
-import Button from './../../components/button/button';
-import ButtonsGroup from './../../components/buttons-group/buttons-group';
+import Button from '~/components/button/button';
+import ButtonsGroup from '~/components/buttons-group/buttons-group';
 
 class TaskConfig extends Component {
   static propTypes = {

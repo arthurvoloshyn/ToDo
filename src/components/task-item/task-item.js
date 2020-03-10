@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
-import Button from './../button/button';
+import Button from '../button/button';
 
 const taskItem = ({ index, id, text, isTaskDone, priority, alias, doneTask, deleteTask }) => {
   let itemClass = 'alert panel alert-';

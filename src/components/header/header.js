@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory, Link } from 'react-router';
 
-import LocalApi from '../../helpers/localApi';
-import Helpers from '../../helpers/Helpers';
+import LocalApi from '~/helpers/localApi';
+import Helpers from '~/helpers/Helpers';
 
-import Button from './../button/button';
-import Clock from './../clock/clock';
+import Button from '../button/button';
+import Clock from '../clock/clock';
 
-import logo from '../../assets/img/react.svg'; // eslint-disable-line
+import logo from '~/assets/img/react.svg';
 
 const Header = ({ userAlias, location }) => {
   const api = new LocalApi();

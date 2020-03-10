@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { toastr } from 'react-redux-toastr';
 
-import LocalApi from './../../helpers/localApi';
-import Helpers from '../../helpers/Helpers';
+import LocalApi from '~/helpers/localApi';
+import Helpers from '~/helpers/Helpers';
 
-import { addUser, deleteUser, addCategory, changeUserName } from './../../actions/actionCreators';
+import { addUser, deleteUser, addCategory, changeUserName } from '~/actions/actionCreators';
 
-import InputField from './../../components/input-field/input-field';
+import InputField from '~/components/input-field/input-field';
 
 class UsersList extends Component {
   static propTypes = {

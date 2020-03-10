@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { priorityList } from '../../constants/constants';
+import { priorityList } from '~/constants/constants';
 
-import Helpers from '../../helpers/Helpers';
+import Helpers from '~/helpers/Helpers';
 
-import { changeTaskText, updateUser } from './../../actions/actionCreators';
+import { changeTaskText, updateUser } from '~/actions/actionCreators';
 
-import ProgressBar from '../../components/progress-bar/progress-bar';
-import Button from './../../components/button/button';
-import ButtonsGroup from './../../components/buttons-group/buttons-group';
-import InputField from './../../components/input-field/input-field';
-import Filter from './../../components/filter/filter';
-import Task from '../../components/task-item/task-item';
+import ProgressBar from '~/components/progress-bar/progress-bar';
+import Button from '~/components/button/button';
+import ButtonsGroup from '~/components/buttons-group/buttons-group';
+import InputField from '~/components/input-field/input-field';
+import Filter from '~/components/filter/filter';
+import Task from '~/components/task-item/task-item';
 
 class TasksList extends Component {
   static propTypes = {
