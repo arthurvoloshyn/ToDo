@@ -9,7 +9,7 @@
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --collectCoverage",
     "start": "webpack-dev-server --open --config ./config/webpack.config.dev.js",
-    "lint": "eslint --ext .js --ext .jsx --fix src",
+    "lint": "eslint --ext .js --ext .jsx --fix src config __tests__",
     "lint:fix": "npm run lint -- --fix",
     "lint:watch": "npm run lint -- --watch",
     "lint:styles": "stylelint --fix --syntax scss **/*.scss",
