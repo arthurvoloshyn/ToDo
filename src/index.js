@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, browserHistory, IndexRoute, Redirect } from 'react-router';
+import { Router, Route, hashHistory, IndexRoute, Redirect } from 'react-router';
 
 import * as serviceWorker from './serviceWorker';
 
@@ -18,7 +18,7 @@ import './styles/main.scss';
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router history={hashHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={UsersList} />
         <Redirect from="users" to="/" />

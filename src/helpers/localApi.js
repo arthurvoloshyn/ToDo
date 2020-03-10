@@ -97,7 +97,7 @@ class LocalApi {
   };
 
   deleteUserCategories = alias => {
-    const userCategories = this.getTasks();
+    const userCategories = this.getCategories();
 
     const categories = userCategories.filter(({ userId }) => userId !== alias) || [];
 

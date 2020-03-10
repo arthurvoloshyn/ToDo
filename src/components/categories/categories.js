@@ -41,7 +41,7 @@ class Categories extends Component {
   };
 
   static defaultProps = {
-    activeCategory: '',
+    activeCategory: 'default',
     addCategory: () => {},
     alias: '',
     categories: [],
