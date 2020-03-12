@@ -17,7 +17,7 @@ const Footer = () => {
             <div className="info-wrapper text-right">
               <h6>
                 Full code of application
-                <a href="https://github.com/ArturW1998/ToDo" target="_blank">
+                <a href="https://github.com/ArturW1998/ToDo" target="_blank" rel="noopener noreferrer">
                   &lt;On gitHub &#8725;&gt;
                 </a>
               </h6>
