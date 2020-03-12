@@ -142,6 +142,7 @@ class Todo extends Component {
 
   render() {
     const { categories, categoryName, activeCategory, addCategory, deleteCategory, updateCategory, changeActiveCategory, changeCategoryName, tasks, params } = this.props;
+    const currentCategories = categories.filter(({ userId }) => userId === params.alias);
 
     return (
       <div className="container">
@@ -159,11 +160,14 @@ class Todo extends Component {
               changeCategoryName={changeCategoryName}
               tasks={tasks}
               deleteTask={deleteTask}
+              currentCategories={currentCategories}
             />
           </section>
-          <section className="col-lg-offset-0 col-lg-7 col-md-offset-2 col-md-8">
-            <TasksList alias={params.alias} deleteTask={this.deleteTask} doneTask={this.doneTask} addTask={this.addTask} />
-          </section>
+          {currentCategories.length > 0 && (
+            <section className="col-lg-offset-0 col-lg-7 col-md-offset-2 col-md-8">
+              <TasksList alias={params.alias} deleteTask={this.deleteTask} doneTask={this.doneTask} addTask={this.addTask} />
+            </section>
+          )}
         </div>
       </div>
     );

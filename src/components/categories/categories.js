@@ -25,6 +25,14 @@ class Categories extends Component {
     categoryName: PropTypes.string,
     changeActiveCategory: PropTypes.func,
     changeCategoryName: PropTypes.func,
+    currentCategories: PropTypes.arrayOf(
+      PropTypes.shape({
+        userId: PropTypes.string,
+        id: PropTypes.number,
+        text: PropTypes.string,
+        alias: PropTypes.string
+      })
+    ),
     deleteCategory: PropTypes.func,
     deleteTask: PropTypes.func,
     tasks: PropTypes.arrayOf(
@@ -48,6 +56,7 @@ class Categories extends Component {
     categoryName: '',
     changeActiveCategory: () => {},
     changeCategoryName: () => {},
+    currentCategories: [],
     deleteCategory: () => {},
     deleteTask: () => {},
     tasks: [],
@@ -62,10 +71,10 @@ class Categories extends Component {
   Helpers = new Helpers();
 
   componentWillMount() {
-    const { categories } = this.props;
+    const { changeActiveCategory, currentCategories } = this.props;
 
-    if (categories.length > 0) {
-      this.isActive(categories[0].alias);
+    if (currentCategories.length > 0) {
+      changeActiveCategory(currentCategories[0].alias);
     }
   }
 
@@ -92,7 +101,7 @@ class Categories extends Component {
   };
 
   addCategory = categoryName => {
-    const { alias, addCategory, changeCategoryName } = this.props;
+    const { alias, addCategory, changeCategoryName, changeActiveCategory } = this.props;
 
     const categoryInit = {
       userId: alias,
@@ -111,13 +120,15 @@ class Categories extends Component {
       this.api.addCategory(categoryInit);
 
       changeCategoryName('');
+      changeActiveCategory(alias);
     }
   };
 
   deleteCategory = (evt, id) => {
     evt.stopPropagation();
 
-    const { categories, tasks, deleteCategory, deleteTask } = this.props;
+    const { categories, tasks, deleteCategory, deleteTask, changeActiveCategory, currentCategories } = this.props;
+    const updatedCurrentCategories = currentCategories.filter(category => category.id !== id);
     const deletedCategory = this.Helpers.getDataById(categories, id);
 
     toastr.confirm('This will delete all tasks connected with category', {
@@ -133,6 +144,10 @@ class Categories extends Component {
         deleteCategory(deletedCategory.id);
 
         this.api.deleteCategory(deletedCategory.id);
+
+        if (updatedCurrentCategories.length > 0) {
+          changeActiveCategory(updatedCurrentCategories[0].alias);
+        }
       }
     });
   };
