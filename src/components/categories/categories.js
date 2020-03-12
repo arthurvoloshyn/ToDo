@@ -178,7 +178,7 @@ class Categories extends Component {
 
     const category = propsCategories.map(({ userId, alias, isEdit, text, id }, index) =>
       userId === propsAlias ? (
-        <article onClick={this.changeActive} key={index} data-name={alias} className={`category alert panel ${this.isActive(alias)}`} role="alert">
+        <article onClick={this.changeActive} key={index} data-name={alias} className={`category alert panel ${this.isActive(alias)}`}>
           <div className="category-name">
             <i className="material-icons">folder</i>
             {isEdit ? (

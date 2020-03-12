@@ -26,15 +26,15 @@ const taskItem = ({ index, id, text, isTaskDone, priority, alias, doneTask, dele
   const onDeleteTask = () => deleteTask(id);
 
   return (
-    <article key={index} className={`${isTaskDone ? 'doneTask' : ''} ${itemClass}`} role="alert">
-      <label className="tasks-list-item">
+    <article key={index} className={`${isTaskDone ? 'doneTask' : ''} ${itemClass}`}>
+      <div className="tasks-list-item">
         <span onClick={onDoneTask} className="tasks-list-mark">
           <i className="material-icons">{`${isTaskDone ? 'check_box' : 'check_box_outline_blank'}`}</i>
         </span>
         <h5 onClick={onDoneTask} className="task-text">
           {text}
         </h5>
-      </label>
+      </div>
       <div className="btn-group" role="group">
         <Link className="iconBtn" to={`/users/${alias}/tasks/${id}`}>
           <i className="material-icons">create</i>
