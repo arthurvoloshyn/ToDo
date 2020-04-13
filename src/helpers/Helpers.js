@@ -27,8 +27,10 @@ class Helpers {
     };
   };
 
+  isEmptyArray = arr => arr.every(el => !el);
+
   getPriorityListWithValues = (list, ...data) => {
-    if (!data.length) return list;
+    if (this.isEmptyArray(data)) return list;
 
     const [danger, warning, success, all] = data;
 
