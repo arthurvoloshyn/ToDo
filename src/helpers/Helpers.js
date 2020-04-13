@@ -27,7 +27,11 @@ class Helpers {
     };
   };
 
-  getPriorityListWithValues = (list, danger, warning, success, all) =>
+  getPriorityListWithValues = (list, ...data) => {
+    if (!data.length) return list;
+
+    const [danger, warning, success, all] = data;
+
     list.map(item => {
       switch (item.title) {
         case 'Hight':
@@ -42,6 +46,7 @@ class Helpers {
           return { ...item };
       }
     });
+  };
 
   getUsersAvatars = () => [man1, man2, man3, man4, woman1, woman2, woman3, woman4];
 }
