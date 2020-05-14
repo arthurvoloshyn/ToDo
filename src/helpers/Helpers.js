@@ -36,7 +36,7 @@ class Helpers {
 
     return list.map(item => {
       switch (item.title) {
-        case 'Hight':
+        case 'High':
           return { ...item, value: danger };
         case 'Middle':
           return { ...item, value: warning };
