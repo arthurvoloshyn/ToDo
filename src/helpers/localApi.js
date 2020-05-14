@@ -12,7 +12,7 @@ class LocalApi {
   getUserTasks = alias => {
     const userTasks = this.getTasks();
 
-    return userTasks.filter(task => task.userId === alias) || [];
+    return userTasks.filter(({ userId }) => userId === alias) || [];
   };
 
   addUser = user => {
@@ -41,7 +41,7 @@ class LocalApi {
   updateUser = (alias, activeView, showDone) => {
     const users = this.getUsers();
 
-    const newUsers = users.map(user => (user.alias === alias ? { ...user, settings: [{ activeView }, { showDone }] } : { ...user }));
+    const newUsers = users.map(user => (user.alias === alias ? { ...user, settings: [{ activeView }, { showDone }] } : user));
 
     Helper.addToLocalStorage(newUsers, 'users');
   };
@@ -49,7 +49,7 @@ class LocalApi {
   updateTask = (id, category, isTaskDone, priority, text, userId) => {
     const userTasks = this.getTasks();
 
-    const newUserTasks = userTasks.map(task => (task.id === id ? { ...task, id, category, isTaskDone, priority, text, userId } : { ...task }));
+    const newUserTasks = userTasks.map(task => (task.id === id ? { ...task, id, category, isTaskDone, priority, text, userId } : task));
 
     Helper.addToLocalStorage(newUserTasks, 'tasks');
   };
@@ -57,7 +57,7 @@ class LocalApi {
   updateCategory = (id, text, userId) => {
     const userCategories = this.getCategories();
 
-    const newUserCategories = userCategories.map(category => (category.id === id ? { ...category, id, text, userId } : { ...category }));
+    const newUserCategories = userCategories.map(category => (category.id === id ? { ...category, id, text, userId } : category));
 
     Helper.addToLocalStorage(newUserCategories, 'categories');
   };
@@ -80,7 +80,8 @@ class LocalApi {
 
   deleteUser = id => {
     const users = this.getUsers();
-    const alias = users.filter(user => user.id === id)[0].alias;
+    const currentUser = users.filter(user => user.id === id)[0];
+    const alias = currentUser.alias;
     const newUsers = users.filter(user => user.id !== id);
 
     Helper.addToLocalStorage(newUsers, 'users');

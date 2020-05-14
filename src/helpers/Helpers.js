@@ -45,7 +45,7 @@ class Helpers {
         case 'All':
           return { ...item, value: all };
         default:
-          return { ...item };
+          return item;
       }
     });
   };

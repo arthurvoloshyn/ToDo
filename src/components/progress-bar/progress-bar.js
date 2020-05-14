@@ -65,6 +65,8 @@ class ProgressBar extends Component {
 
   updateProgress = nextProps => {
     let { tasksList, alias, activeCategory } = this.props;
+    const { getProgress } = this.Helpers;
+
     let tasks = nextProps ? nextProps.tasksList : tasksList;
     const danger = [];
     const warning = [];
@@ -92,12 +94,14 @@ class ProgressBar extends Component {
       }
     });
 
-    return this.Helpers.getProgress(danger, warning, success);
+    return getProgress(danger, warning, success);
   };
 
   render() {
     const { danger, warning, success, isShowedCounters } = this.state;
-    const progressList = this.Helpers.getPriorityListWithValues(priorityList, danger, warning, success);
+    const { getPriorityListWithValues } = this.Helpers;
+
+    const progressList = getPriorityListWithValues(priorityList, danger, warning, success);
 
     return (
       <div onClick={this.showCounters} className="panel progress-panel">

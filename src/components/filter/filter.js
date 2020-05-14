@@ -65,29 +65,38 @@ class Filter extends Component {
 
   isActive = () => {
     const { users, alias } = this.props;
-    const activeUser = this.Helpers.getDataByAlias(users, alias);
+    const { getDataByAlias } = this.Helpers;
 
-    return activeUser.settings[0].activeView;
+    const activeUser = getDataByAlias(users, alias);
+    const { activeView } = activeUser.settings[0];
+
+    return activeView;
   };
 
   isShowDone = () => {
     const { users, alias } = this.props;
-    const activeUser = this.Helpers.getDataByAlias(users, alias);
+    const { getDataByAlias } = this.Helpers;
 
-    return activeUser.settings[1].showDone ? 'active' : '';
+    const activeUser = getDataByAlias(users, alias);
+    const { showDone } = activeUser.settings[1];
+
+    return showDone ? 'active' : '';
   };
 
   updateView = ({ currentTarget }) => {
     const { users, alias, updateUser } = this.props;
+    const { getDataByAlias } = this.Helpers;
+    const { updateUser: updateUserApi } = this.api;
+
     const priority = +currentTarget.getAttribute('data-value');
-    const activeUser = this.Helpers.getDataByAlias(users, alias);
+    const activeUser = getDataByAlias(users, alias);
     const {
       alias: activeUserAlias,
       settings: [, { showDone }]
     } = activeUser;
 
     updateUser(activeUserAlias, priority, showDone);
-    this.api.updateUser(activeUserAlias, priority, showDone);
+    updateUserApi(activeUserAlias, priority, showDone);
 
     this.setState({
       activeView: priority
@@ -96,7 +105,10 @@ class Filter extends Component {
 
   showDoneTasks = () => {
     const { users, alias, updateUser } = this.props;
-    const activeUser = this.Helpers.getDataByAlias(users, alias);
+    const { getDataByAlias } = this.Helpers;
+    const { updateUser: updateUserApi } = this.api;
+
+    const activeUser = getDataByAlias(users, alias);
     const {
       alias: activeUserAlias,
       settings: [{ activeView }, { showDone }]
@@ -104,13 +116,15 @@ class Filter extends Component {
     const newShowDone = !showDone;
 
     updateUser(activeUserAlias, activeView, newShowDone);
-    this.api.updateUser(activeUserAlias, activeView, newShowDone);
+    updateUserApi(activeUserAlias, activeView, newShowDone);
   };
 
   render() {
     let { alias, tasks, users, activeCategory } = this.props;
     const { activeView: stateActiveView } = this.state;
-    const activeUser = this.Helpers.getDataByAlias(users, alias);
+    const { getDataByAlias, getPriorityListWithValues } = this.Helpers;
+
+    const activeUser = getDataByAlias(users, alias);
     const {
       settings: [{ activeView }]
     } = activeUser;
@@ -142,7 +156,7 @@ class Filter extends Component {
       }
     });
 
-    const priorityList = this.Helpers.getPriorityListWithValues(filterList, danger, warning, success, all);
+    const priorityList = getPriorityListWithValues(filterList, danger, warning, success, all);
 
     return (
       <div className="panel panel-default filter-panel">

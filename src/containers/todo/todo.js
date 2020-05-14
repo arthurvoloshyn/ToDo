@@ -92,6 +92,7 @@ class Todo extends Component {
 
   addTask = ({ inputRate }) => {
     const { params, activeCategory, taskText, addTask, changeTaskText } = this.props;
+    const { addTask: addTaskApi } = this.api;
 
     const taskInit = {
       userId: params.alias,
@@ -109,7 +110,7 @@ class Todo extends Component {
 
       addTask(userId, id, category, text, priority, isTaskDone);
 
-      this.api.addTask(taskInit);
+      addTaskApi(taskInit);
 
       changeTaskText('');
     }
@@ -117,13 +118,16 @@ class Todo extends Component {
 
   deleteTask = id => {
     const { tasks, deleteTask } = this.props;
-    const deletedTask = this.Helpers.getDataById(tasks, id);
+    const { getDataById } = this.Helpers;
+    const { deleteTask: deleteTaskApi } = this.api;
+
+    const deletedTask = getDataById(tasks, id);
 
     toastr.confirm('Are you sure that you want to delete this task', {
       onOk: () => {
         deleteTask(deletedTask.id);
 
-        this.api.deleteTask(deletedTask.id);
+        deleteTaskApi(deletedTask.id);
 
         toastr.info('Task deleted', { timeOut: 2000 });
       }
@@ -132,12 +136,15 @@ class Todo extends Component {
 
   doneTask = id => {
     const { tasks, updateTask } = this.props;
-    const doneTask = this.Helpers.getDataById(tasks, id);
+    const { getDataById } = this.Helpers;
+    const { updateTask: updateTaskApi } = this.api;
+
+    const doneTask = getDataById(tasks, id);
     const taskStatus = !doneTask.isTaskDone;
     const { id: doneTaskId, category: doneTaskCategory, priority: doneTaskPriority, text: doneTaskText, userId: doneTaskUserId } = doneTask;
 
     updateTask(doneTaskId, doneTaskCategory, taskStatus, doneTaskPriority, doneTaskText);
-    this.api.updateTask(doneTaskId, doneTaskCategory, taskStatus, doneTaskPriority, doneTaskText, doneTaskUserId);
+    updateTaskApi(doneTaskId, doneTaskCategory, taskStatus, doneTaskPriority, doneTaskText, doneTaskUserId);
   };
 
   render() {

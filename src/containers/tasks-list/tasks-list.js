@@ -104,11 +104,13 @@ class TasksList extends Component {
   render() {
     let { users, addTask, taskText, activeCategory, categories, tasks, alias, doneTask, deleteTask, updateUser } = this.props;
     const { inputRate } = this.state;
+    const { getDataByAlias } = this.Helpers;
+
     let categoryName = categories.filter(({ alias }) => alias === activeCategory);
 
     categoryName = categoryName.length ? categoryName[0].text : '';
 
-    const data = this.Helpers.getDataByAlias(users, alias);
+    const data = getDataByAlias(users, alias);
     const {
       settings: [{ activeView }, { showDone }]
     } = data;

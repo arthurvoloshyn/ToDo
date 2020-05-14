@@ -60,8 +60,10 @@ class UsersList extends Component {
 
   setTasksCounter = index => {
     const { users } = this.props;
+    const { getUserTasks } = this.api;
+
     const alias = users[index].alias;
-    const tasksValue = this.api.getUserTasks(alias);
+    const tasksValue = getUserTasks(alias);
 
     return tasksValue && tasksValue.length ? tasksValue.filter(({ isTaskDone }) => isTaskDone === false).length : 0;
   };
@@ -81,6 +83,7 @@ class UsersList extends Component {
   addUser = () => {
     const { userName, addUser, addCategory, changeUserName } = this.props;
     const { usersAvatars, avatarIndex } = this.state;
+    const { addUser: addUserApi, addCategory: addCategoryApi } = this.api;
 
     const userInit = {
       id: new Date().getTime(),
@@ -96,7 +99,7 @@ class UsersList extends Component {
       const { id, avatar, name, alias, settings } = userInit;
       const user = addUser(id, avatar, name, alias, settings);
 
-      this.api.addUser(user);
+      addUserApi(user);
 
       const categoryInit = {
         userId: userInit.alias,
@@ -108,7 +111,7 @@ class UsersList extends Component {
       const { userId: categoryUserId, id: categoryId, text: categoryText, alias: categoryAlias } = categoryInit;
       addCategory(categoryUserId, categoryId, categoryText, categoryAlias);
 
-      this.api.addCategory(categoryInit);
+      addCategoryApi(categoryInit);
 
       changeUserName('');
 
@@ -120,12 +123,13 @@ class UsersList extends Component {
     toastr.confirm('Are you sure that you want to delete user profile', {
       onOk: () => {
         const { deleteUser } = this.props;
-        const { alias } = this.api.deleteUser(id);
+        const { deleteUser: deleteUserApi, deleteUserTask, deleteUserCategories } = this.api;
+        const { alias } = deleteUserApi(id);
 
         deleteUser(id);
 
-        this.api.deleteUserTask(alias);
-        this.api.deleteUserCategories(alias);
+        deleteUserTask(alias);
+        deleteUserCategories(alias);
       }
     });
   };

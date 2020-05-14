@@ -102,6 +102,7 @@ class Categories extends Component {
 
   addCategory = categoryName => {
     const { alias, addCategory, changeCategoryName, changeActiveCategory } = this.props;
+    const { addCategory: addCategoryApi } = this.api;
 
     const categoryInit = {
       userId: alias,
@@ -117,7 +118,7 @@ class Categories extends Component {
 
       addCategory(userId, id, text, alias);
 
-      this.api.addCategory(categoryInit);
+      addCategoryApi(categoryInit);
 
       changeCategoryName('');
       changeActiveCategory(alias);
@@ -128,8 +129,11 @@ class Categories extends Component {
     evt.stopPropagation();
 
     const { categories, tasks, deleteCategory, deleteTask, changeActiveCategory, currentCategories } = this.props;
+    const { getDataById } = this.Helpers;
+    const { deleteTask: deleteTaskApi, deleteCategory: deleteCategoryApi } = this.api;
+
     const updatedCurrentCategories = currentCategories.filter(category => category.id !== id);
-    const deletedCategory = this.Helpers.getDataById(categories, id);
+    const deletedCategory = getDataById(categories, id);
 
     toastr.confirm('This will delete all tasks connected with category', {
       onOk: () => {
@@ -137,13 +141,13 @@ class Categories extends Component {
           if (category === deletedCategory.alias && userId === deletedCategory.userId) {
             deleteTask(id);
 
-            this.api.deleteTask(id);
+            deleteTaskApi(id);
           }
         });
 
         deleteCategory(deletedCategory.id);
 
-        this.api.deleteCategory(deletedCategory.id);
+        deleteCategoryApi(deletedCategory.id);
 
         if (updatedCurrentCategories.length > 0) {
           changeActiveCategory(updatedCurrentCategories[0].alias);
@@ -154,23 +158,29 @@ class Categories extends Component {
 
   editCategory = (alias, isEdit) => {
     const { categories, updateCategory } = this.props;
-    const editableCategory = this.Helpers.getDataByAlias(categories, alias);
+    const { getDataByAlias } = this.Helpers;
+    const { updateCategory: updateCategoryApi } = this.api;
+
+    const editableCategory = getDataByAlias(categories, alias);
     const { id, text, userId } = editableCategory;
 
     editableCategory.isEdit = !isEdit;
     updateCategory(id, text);
 
-    this.api.updateCategory(id, text, userId);
+    updateCategoryApi(id, text, userId);
   };
 
   updateCategoryValue = ({ target: { value } }, alias) => {
     const { categories, updateCategory } = this.props;
-    const editableCategory = this.Helpers.getDataByAlias(categories, alias);
+    const { getDataByAlias } = this.Helpers;
+    const { updateCategory: updateCategoryApi } = this.api;
+
+    const editableCategory = getDataByAlias(categories, alias);
     const { id, userId } = editableCategory;
 
     updateCategory(id, value);
 
-    this.api.updateCategory(id, value, userId);
+    updateCategoryApi(id, value, userId);
   };
 
   render() {

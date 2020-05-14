@@ -85,7 +85,9 @@ class TaskConfig extends Component {
 
   updateData = () => {
     const { tasks, routeParams } = this.props;
-    const task = this.Helpers.getDataById(tasks, routeParams.id);
+    const { getDataById } = this.Helpers;
+
+    const task = getDataById(tasks, routeParams.id);
     const { priority, isTaskDone, text, category } = task;
 
     this.setState({
@@ -99,19 +101,24 @@ class TaskConfig extends Component {
   saveChanges = () => {
     const { taskRate, isDone, inputValue, activeCategory } = this.state;
     const { tasks, routeParams, updateTask } = this.props;
-    const task = this.Helpers.getDataById(tasks, routeParams.id);
+    const { getDataById } = this.Helpers;
+    const { updateTask: updateTaskApi } = this.api;
+
+    const task = getDataById(tasks, routeParams.id);
     const { id, userId } = task;
 
     updateTask(id, activeCategory, isDone, taskRate, inputValue);
-    this.api.updateTask(id, activeCategory, isDone, taskRate, inputValue, userId);
+    updateTaskApi(id, activeCategory, isDone, taskRate, inputValue, userId);
     browserHistory.goBack();
     toastr.success('Task updated', { timeOut: 3000 });
   };
 
   render() {
-    let categories = this.api.getCategories();
-    const { taskRate, inputValue, isDone, activeCategory } = this.state;
     const { params } = this.props;
+    const { taskRate, inputValue, isDone, activeCategory } = this.state;
+    const { getCategories } = this.api;
+
+    let categories = getCategories();
 
     categories = categories.map(({ userId, alias, text }, index) =>
       userId === params.alias ? (
