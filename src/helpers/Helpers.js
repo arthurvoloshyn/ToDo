@@ -34,7 +34,7 @@ class Helpers {
 
     const [danger, warning, success, all] = data;
 
-    list.map(item => {
+    return list.map(item => {
       switch (item.title) {
         case 'Hight':
           return { ...item, value: danger };
