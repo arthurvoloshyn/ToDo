@@ -6,7 +6,17 @@ import { toastr } from 'react-redux-toastr';
 import LocalApi from '~/helpers/localApi';
 import Helpers from '~/helpers/Helpers';
 
-import { addTask, deleteTask, updateTask, changeTaskText, addCategory, deleteCategory, updateCategory, changeActiveCategory, changeCategoryName } from '~/actions/actionCreators';
+import {
+  addTask,
+  deleteTask,
+  updateTask,
+  changeTaskText,
+  addCategory,
+  deleteCategory,
+  updateCategory,
+  changeActiveCategory,
+  changeCategoryName
+} from '~/actions/actionCreators';
 
 import Categories from '~/components/categories/categories';
 
@@ -141,14 +151,38 @@ class Todo extends Component {
 
     const doneTask = getDataById(tasks, id);
     const taskStatus = !doneTask.isTaskDone;
-    const { id: doneTaskId, category: doneTaskCategory, priority: doneTaskPriority, text: doneTaskText, userId: doneTaskUserId } = doneTask;
+    const {
+      id: doneTaskId,
+      category: doneTaskCategory,
+      priority: doneTaskPriority,
+      text: doneTaskText,
+      userId: doneTaskUserId
+    } = doneTask;
 
     updateTask(doneTaskId, doneTaskCategory, taskStatus, doneTaskPriority, doneTaskText);
-    updateTaskApi(doneTaskId, doneTaskCategory, taskStatus, doneTaskPriority, doneTaskText, doneTaskUserId);
+    updateTaskApi(
+      doneTaskId,
+      doneTaskCategory,
+      taskStatus,
+      doneTaskPriority,
+      doneTaskText,
+      doneTaskUserId
+    );
   };
 
   render() {
-    const { categories, categoryName, activeCategory, addCategory, deleteCategory, updateCategory, changeActiveCategory, changeCategoryName, tasks, params } = this.props;
+    const {
+      categories,
+      categoryName,
+      activeCategory,
+      addCategory,
+      deleteCategory,
+      updateCategory,
+      changeActiveCategory,
+      changeCategoryName,
+      tasks,
+      params
+    } = this.props;
     const currentCategories = categories.filter(({ userId }) => userId === params.alias);
 
     return (
@@ -172,7 +206,12 @@ class Todo extends Component {
           </section>
           {currentCategories.length > 0 && (
             <section className="col-lg-offset-0 col-lg-7 col-md-offset-2 col-md-8">
-              <TasksList alias={params.alias} deleteTask={this.deleteTask} doneTask={this.doneTask} addTask={this.addTask} />
+              <TasksList
+                alias={params.alias}
+                deleteTask={this.deleteTask}
+                doneTask={this.doneTask}
+                addTask={this.addTask}
+              />
             </section>
           )}
         </div>

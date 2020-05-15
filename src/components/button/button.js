@@ -5,7 +5,12 @@ const Button = ({ onClickFunction, specialClass, children, dataValue, checkActiv
   const isActive = () => (checkActive === +dataValue ? 'active' : '');
 
   return (
-    <button onClick={onClickFunction} data-value={dataValue} type="button" className={`${specialClass} ${isActive()}`}>
+    <button
+      onClick={onClickFunction}
+      data-value={dataValue}
+      type="button"
+      className={`${specialClass} ${isActive()}`}
+    >
       {React.Children.map(children, child => child)}
     </button>
   );

@@ -9,6 +9,15 @@ import userName from './userName';
 import taskText from './taskText';
 import categoryName from './categoryName';
 
-const rootReducer = combineReducers({ tasks, users, categories, activeCategory, userName, taskText, categoryName, toastr });
+const rootReducer = combineReducers({
+  tasks,
+  users,
+  categories,
+  activeCategory,
+  userName,
+  taskText,
+  categoryName,
+  toastr
+});
 
 export default rootReducer;

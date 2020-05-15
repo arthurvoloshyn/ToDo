@@ -65,7 +65,9 @@ class UsersList extends Component {
     const alias = users[index].alias;
     const tasksValue = getUserTasks(alias);
 
-    return tasksValue && tasksValue.length ? tasksValue.filter(({ isTaskDone }) => isTaskDone === false).length : 0;
+    return tasksValue && tasksValue.length
+      ? tasksValue.filter(({ isTaskDone }) => isTaskDone === false).length
+      : 0;
   };
 
   isActive = value => {
@@ -108,7 +110,12 @@ class UsersList extends Component {
         alias: 'default'
       };
 
-      const { userId: categoryUserId, id: categoryId, text: categoryText, alias: categoryAlias } = categoryInit;
+      const {
+        userId: categoryUserId,
+        id: categoryId,
+        text: categoryText,
+        alias: categoryAlias
+      } = categoryInit;
       addCategory(categoryUserId, categoryId, categoryText, categoryAlias);
 
       addCategoryApi(categoryInit);
@@ -140,7 +147,13 @@ class UsersList extends Component {
 
     const avatars = usersAvatars.map((avatar, i) => (
       <div key={i} className={`avatar-wrap ${this.isActive(i)}`}>
-        <img onClick={this.changeUserAvatar} data-index={i} className="avatar" src={avatar} alt="avatar" />
+        <img
+          onClick={this.changeUserAvatar}
+          data-index={i}
+          className="avatar"
+          src={avatar}
+          alt="avatar"
+        />
       </div>
     ));
 
@@ -175,7 +188,13 @@ class UsersList extends Component {
                     </h4>
                   </div>
                   <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right text-block">
-                    <InputField value={userName} changeFunction={this.updateUserValue} addFunction={this.addUser} placeholder="click to add your full name..." maxLength={12} />
+                    <InputField
+                      value={userName}
+                      changeFunction={this.updateUserValue}
+                      addFunction={this.addUser}
+                      placeholder="click to add your full name..."
+                      maxLength={12}
+                    />
                   </div>
                 </div>
               </div>

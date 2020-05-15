@@ -124,7 +124,12 @@ class TaskConfig extends Component {
       userId === params.alias ? (
         <div className="radio" key={index}>
           <label>
-            <input onChange={this.updateTaskCategory} type="radio" name={alias} checked={activeCategory === alias} />
+            <input
+              onChange={this.updateTaskCategory}
+              type="radio"
+              name={alias}
+              checked={activeCategory === alias}
+            />
             {text}
           </label>
         </div>
@@ -152,7 +157,13 @@ class TaskConfig extends Component {
                       <div className="col-lg-7 col-md-8 text-left">
                         <ButtonsGroup specialClass="priority">
                           {priorityList.map(({ title, id }, index) => (
-                            <Button key={id} onClickFunction={this.updateTaskRate} dataValue={`${index + 1}`} specialClass={`btn alert-${id}`} checkActive={taskRate}>
+                            <Button
+                              key={id}
+                              onClickFunction={this.updateTaskRate}
+                              dataValue={`${index + 1}`}
+                              specialClass={`btn alert-${id}`}
+                              checkActive={taskRate}
+                            >
                               {title}
                             </Button>
                           ))}
@@ -166,7 +177,15 @@ class TaskConfig extends Component {
                     <h5 className="priority text-left">Change Description:</h5>
                   </div>
                   <div className="col-lg-7 col-md-8 text-left">
-                    <textarea className="form-control" rows="2" id="textArea" value={inputValue} onChange={this.updateTaskText} maxLength="30" autoFocus />
+                    <textarea
+                      className="form-control"
+                      rows="2"
+                      id="textArea"
+                      value={inputValue}
+                      onChange={this.updateTaskText}
+                      maxLength="30"
+                      autoFocus
+                    />
                     <span className="help-block">Update your task description</span>
                   </div>
                 </div>
@@ -181,7 +200,13 @@ class TaskConfig extends Component {
                           {readinessList.map(({ value, title }, index) => (
                             <div key={index} className="radio">
                               <label>
-                                <input onChange={this.updateTaskStatus} type="radio" checked={value ? isDone : !isDone} name="optionsRadios" value={`${value}`} />
+                                <input
+                                  onChange={this.updateTaskStatus}
+                                  type="radio"
+                                  checked={value ? isDone : !isDone}
+                                  name="optionsRadios"
+                                  value={`${value}`}
+                                />
                                 {title}
                               </label>
                             </div>
@@ -203,7 +228,10 @@ class TaskConfig extends Component {
                     </div>
                   </div>
                 </div>
-                <Button onClickFunction={this.saveChanges} specialClass="btn btn-primary save-changes">
+                <Button
+                  onClickFunction={this.saveChanges}
+                  specialClass="btn btn-primary save-changes"
+                >
                   <i className="material-icons">check</i>
                 </Button>
               </div>

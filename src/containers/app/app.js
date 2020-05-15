@@ -8,7 +8,13 @@ import Footer from '~/components/footer/footer';
 const App = ({ params, children, location }) => (
   <div className="App">
     <Header userAlias={params.alias} location={location.pathname} />
-    <ReduxToastr newestOnTop={false} preventDuplicates position="top-center" transitionIn="fadeIn" transitionOut="fadeOut" />
+    <ReduxToastr
+      newestOnTop={false}
+      preventDuplicates
+      position="top-center"
+      transitionIn="fadeIn"
+      transitionOut="fadeOut"
+    />
     <main className="main">{children}</main>
     <Footer />
   </div>

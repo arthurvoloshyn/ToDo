@@ -31,7 +31,10 @@ const Header = ({ userAlias, location }) => {
                     <i className="material-icons">exit_to_app</i>
                   </Link>
                 ) : (
-                  <Button onClickFunction={browserHistory.goBack} specialClass="btn-primary btn-back">
+                  <Button
+                    onClickFunction={browserHistory.goBack}
+                    specialClass="btn-primary btn-back"
+                  >
                     <i className="material-icons">keyboard_backspace</i>
                   </Button>
                 )}
@@ -42,8 +45,18 @@ const Header = ({ userAlias, location }) => {
             <Clock />
           </div>
           <div className="col-lg-4 col-md-4 text-right">
-            {user && user.name ? <h4 className="greetings">Hello, {user.name}</h4> : <h4 className="greetings">Choose your profile</h4>}
-            <div className="avatarWrapper">{user && user.name ? <img src={user.avatar} className="App-logo" alt={user.name} /> : <img src={logo} className="App-logo" alt="to-do logo" />}</div>
+            {user && user.name ? (
+              <h4 className="greetings">Hello, {user.name}</h4>
+            ) : (
+              <h4 className="greetings">Choose your profile</h4>
+            )}
+            <div className="avatarWrapper">
+              {user && user.name ? (
+                <img src={user.avatar} className="App-logo" alt={user.name} />
+              ) : (
+                <img src={logo} className="App-logo" alt="to-do logo" />
+              )}
+            </div>
           </div>
         </div>
       </div>

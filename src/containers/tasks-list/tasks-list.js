@@ -102,7 +102,18 @@ class TasksList extends Component {
   };
 
   render() {
-    let { users, addTask, taskText, activeCategory, categories, tasks, alias, doneTask, deleteTask, updateUser } = this.props;
+    let {
+      users,
+      addTask,
+      taskText,
+      activeCategory,
+      categories,
+      tasks,
+      alias,
+      doneTask,
+      deleteTask,
+      updateUser
+    } = this.props;
     const { inputRate } = this.state;
     const { getDataByAlias } = this.Helpers;
 
@@ -119,12 +130,28 @@ class TasksList extends Component {
     tasks = this.sortTasksOrder(filteredTasks);
 
     const tasksList = tasks.map(({ priority, category, isTaskDone, id, text }, index) => {
-      const conditionWithShowingDone = (priority === activeView && category === activeCategory) || (activeView === 4 && category === activeCategory);
-      const conditionWithoutShowingDone = (priority === activeView && !isTaskDone && category === activeCategory) || (activeView === 4 && !isTaskDone && category === activeCategory);
+      const conditionWithShowingDone =
+        (priority === activeView && category === activeCategory) ||
+        (activeView === 4 && category === activeCategory);
+      const conditionWithoutShowingDone =
+        (priority === activeView && !isTaskDone && category === activeCategory) ||
+        (activeView === 4 && !isTaskDone && category === activeCategory);
 
       const isDone = showDone ? conditionWithShowingDone : conditionWithoutShowingDone;
 
-      return isDone ? <Task key={index} index={index} id={id} text={text} isTaskDone={isTaskDone} priority={priority} alias={alias} doneTask={doneTask} deleteTask={deleteTask} /> : null;
+      return isDone ? (
+        <Task
+          key={index}
+          index={index}
+          id={id}
+          text={text}
+          isTaskDone={isTaskDone}
+          priority={priority}
+          alias={alias}
+          doneTask={doneTask}
+          deleteTask={deleteTask}
+        />
+      ) : null;
     });
 
     return (
@@ -139,7 +166,14 @@ class TasksList extends Component {
                 </h4>
               </div>
               <div className="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right text-block">
-                <InputField value={taskText} changeFunction={this.updateInputValue} data={this.state} addFunction={addTask} placeholder="Click to add new task..." maxLength={30} />
+                <InputField
+                  value={taskText}
+                  changeFunction={this.updateInputValue}
+                  data={this.state}
+                  addFunction={addTask}
+                  placeholder="Click to add new task..."
+                  maxLength={30}
+                />
               </div>
             </div>
           </div>
@@ -148,7 +182,13 @@ class TasksList extends Component {
               <div className="col-lg-5 text-left">
                 <ButtonsGroup specialClass="priority" activeElem={inputRate}>
                   {priorityList.map(({ title, id }, index) => (
-                    <Button key={id} onClickFunction={this.updateRateValue} dataValue={`${index + 1}`} specialClass={`btn alert-${id}`} checkActive={inputRate}>
+                    <Button
+                      key={id}
+                      onClickFunction={this.updateRateValue}
+                      dataValue={`${index + 1}`}
+                      specialClass={`btn alert-${id}`}
+                      checkActive={inputRate}
+                    >
                       {title}
                     </Button>
                   ))}
@@ -159,7 +199,13 @@ class TasksList extends Component {
         </div>
         <ProgressBar alias={alias} tasksList={tasks} activeCategory={activeCategory} />
         <div className="panel panel-body tasks-list">{tasksList}</div>
-        <Filter alias={alias} tasks={tasks} users={users} activeCategory={activeCategory} updateUser={updateUser} />
+        <Filter
+          alias={alias}
+          tasks={tasks}
+          users={users}
+          activeCategory={activeCategory}
+          updateUser={updateUser}
+        />
       </div>
     );
   }

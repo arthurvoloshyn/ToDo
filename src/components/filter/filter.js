@@ -169,16 +169,27 @@ class Filter extends Component {
               </h4>
               <ButtonsGroup specialClass="filter" activeElem={activeView}>
                 {priorityList.map(({ value, title, id }, index) => (
-                  <Button key={index} onClickFunction={this.updateView} dataValue={`${index + 1}`} specialClass={`btn ${id}`} checkActive={stateActiveView}>
+                  <Button
+                    key={index}
+                    onClickFunction={this.updateView}
+                    dataValue={`${index + 1}`}
+                    specialClass={`btn ${id}`}
+                    checkActive={stateActiveView}
+                  >
                     {title} {<span className="badge">{value.length}</span>}
                   </Button>
                 ))}
               </ButtonsGroup>
             </div>
             <div className="col-lg-3 col-md-3 col-sm-3 text-right">
-              <Button onClickFunction={this.showDoneTasks} specialClass={`btn btn-done-tasks ${this.isShowDone()}`}>
+              <Button
+                onClickFunction={this.showDoneTasks}
+                specialClass={`btn btn-done-tasks ${this.isShowDone()}`}
+              >
                 Done tasks
-                <i className="material-icons">{`${this.isShowDone() === 'active' ? 'visibility' : 'visibility_off'}`}</i>
+                <i className="material-icons">{`${
+                  this.isShowDone() === 'active' ? 'visibility' : 'visibility_off'
+                }`}</i>
               </Button>
             </div>
           </div>

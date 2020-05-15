@@ -108,7 +108,12 @@ class ProgressBar extends Component {
         {!isShowedCounters ? (
           <div className="progress">
             {progressList.map(({ value, id }) => (
-              <div key={id} className={`progress-bar progress-bar-${id}`} role="progressbar" style={{ width: `${value}%` }} />
+              <div
+                key={id}
+                className={`progress-bar progress-bar-${id}`}
+                role="progressbar"
+                style={{ width: `${value}%` }}
+              />
             ))}
           </div>
         ) : (

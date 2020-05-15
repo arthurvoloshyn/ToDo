@@ -17,7 +17,9 @@ const tasks = (state = initState, { type, userId, id, category, text, priority, 
     case 'DELETE_TASK':
       return [...state].filter(task => task.id !== id);
     case 'UPDATE_TASK':
-      return [...state].map(task => (task.id === id ? { ...task, category, isTaskDone, priority, text } : task));
+      return [...state].map(task =>
+        task.id === id ? { ...task, category, isTaskDone, priority, text } : task
+      );
     default:
       return state;
   }
