@@ -4204,7 +4204,16 @@ a.thumbnail.active {
     transparent 75%,
     transparent
   );
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
   -webkit-background-size: 40px 40px;
   background-size: 40px 40px;
 }
@@ -4238,7 +4247,16 @@ a.thumbnail.active {
     transparent 75%,
     transparent
   );
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
 }
 .progress-bar-info {
   background-color: #9c27b0;
@@ -4264,7 +4282,16 @@ a.thumbnail.active {
     transparent 75%,
     transparent
   );
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
 }
 .progress-bar-warning {
   background-color: #ff9800;
@@ -4290,7 +4317,16 @@ a.thumbnail.active {
     transparent 75%,
     transparent
   );
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
 }
 .progress-bar-danger {
   background-color: #d27d80;
@@ -4316,7 +4352,16 @@ a.thumbnail.active {
     transparent 75%,
     transparent
   );
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
 }
 .media {
   margin-top: 15px;
@@ -4667,23 +4712,63 @@ button.list-group-item-danger.active:focus {
   border-top-right-radius: 2px;
 }
 .panel > .table:first-child > thead:first-child > tr:first-child td:first-child,
-.panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:first-child,
+.panel
+> .table-responsive:first-child
+> .table:first-child
+> thead:first-child
+> tr:first-child
+td:first-child,
 .panel > .table:first-child > tbody:first-child > tr:first-child td:first-child,
-.panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:first-child,
+.panel
+> .table-responsive:first-child
+> .table:first-child
+> tbody:first-child
+> tr:first-child
+td:first-child,
 .panel > .table:first-child > thead:first-child > tr:first-child th:first-child,
-.panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:first-child,
+.panel
+> .table-responsive:first-child
+> .table:first-child
+> thead:first-child
+> tr:first-child
+th:first-child,
 .panel > .table:first-child > tbody:first-child > tr:first-child th:first-child,
-.panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:first-child {
+.panel
+> .table-responsive:first-child
+> .table:first-child
+> tbody:first-child
+> tr:first-child
+th:first-child {
   border-top-left-radius: 2px;
 }
 .panel > .table:first-child > thead:first-child > tr:first-child td:last-child,
-.panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:last-child,
+.panel
+> .table-responsive:first-child
+> .table:first-child
+> thead:first-child
+> tr:first-child
+td:last-child,
 .panel > .table:first-child > tbody:first-child > tr:first-child td:last-child,
-.panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:last-child,
+.panel
+> .table-responsive:first-child
+> .table:first-child
+> tbody:first-child
+> tr:first-child
+td:last-child,
 .panel > .table:first-child > thead:first-child > tr:first-child th:last-child,
-.panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:last-child,
+.panel
+> .table-responsive:first-child
+> .table:first-child
+> thead:first-child
+> tr:first-child
+th:last-child,
 .panel > .table:first-child > tbody:first-child > tr:first-child th:last-child,
-.panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:last-child {
+.panel
+> .table-responsive:first-child
+> .table:first-child
+> tbody:first-child
+> tr:first-child
+th:last-child {
   border-top-right-radius: 2px;
 }
 .panel > .table:last-child,
@@ -4699,23 +4784,63 @@ button.list-group-item-danger.active:focus {
   border-bottom-right-radius: 2px;
 }
 .panel > .table:last-child > tbody:last-child > tr:last-child td:first-child,
-.panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:first-child,
+.panel
+> .table-responsive:last-child
+> .table:last-child
+> tbody:last-child
+> tr:last-child
+td:first-child,
 .panel > .table:last-child > tfoot:last-child > tr:last-child td:first-child,
-.panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:first-child,
+.panel
+> .table-responsive:last-child
+> .table:last-child
+> tfoot:last-child
+> tr:last-child
+td:first-child,
 .panel > .table:last-child > tbody:last-child > tr:last-child th:first-child,
-.panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:first-child,
+.panel
+> .table-responsive:last-child
+> .table:last-child
+> tbody:last-child
+> tr:last-child
+th:first-child,
 .panel > .table:last-child > tfoot:last-child > tr:last-child th:first-child,
-.panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:first-child {
+.panel
+> .table-responsive:last-child
+> .table:last-child
+> tfoot:last-child
+> tr:last-child
+th:first-child {
   border-bottom-left-radius: 2px;
 }
 .panel > .table:last-child > tbody:last-child > tr:last-child td:last-child,
-.panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:last-child,
+.panel
+> .table-responsive:last-child
+> .table:last-child
+> tbody:last-child
+> tr:last-child
+td:last-child,
 .panel > .table:last-child > tfoot:last-child > tr:last-child td:last-child,
-.panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:last-child,
+.panel
+> .table-responsive:last-child
+> .table:last-child
+> tfoot:last-child
+> tr:last-child
+td:last-child,
 .panel > .table:last-child > tbody:last-child > tr:last-child th:last-child,
-.panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:last-child,
+.panel
+> .table-responsive:last-child
+> .table:last-child
+> tbody:last-child
+> tr:last-child
+th:last-child,
 .panel > .table:last-child > tfoot:last-child > tr:last-child th:last-child,
-.panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:last-child {
+.panel
+> .table-responsive:last-child
+> .table:last-child
+> tfoot:last-child
+> tr:last-child
+th:last-child {
   border-bottom-right-radius: 2px;
 }
 .panel > .panel-body + .table,
@@ -5449,17 +5574,37 @@ button.close {
   width: 15%;
 }
 .carousel-control.left {
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
+  background-image: -webkit-linear-gradient(
+    left,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.0001) 100%
+  );
   background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
-  background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.0001)));
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(rgba(0, 0, 0, 0.5)),
+    to(rgba(0, 0, 0, 0.0001))
+  );
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
   background-repeat: repeat-x;
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
 }
 .carousel-control.right {
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
+  background-image: -webkit-linear-gradient(
+    left,
+    rgba(0, 0, 0, 0.0001) 0%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
   background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
-  background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.0001)), to(rgba(0, 0, 0, 0.5)));
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(rgba(0, 0, 0, 0.0001)),
+    to(rgba(0, 0, 0, 0.5))
+  );
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
   background-repeat: repeat-x;
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
