@@ -226,18 +226,12 @@ class Categories extends Component {
           </div>
           <ButtonsGroup>
             {isEdit && (
-              <Button
-                onClickFunction={handleEditCategory}
-                specialClass="iconBtn active"
-              >
+              <Button onClickFunction={handleEditCategory} specialClass="iconBtn active">
                 <i className="material-icons">done</i>
               </Button>
             )}
             {!isEdit && (
-              <Button
-                onClickFunction={handleEditCategory}
-                specialClass="iconBtn"
-              >
+              <Button onClickFunction={handleEditCategory} specialClass="iconBtn">
                 <i className="material-icons">create</i>
               </Button>
             )}
@@ -246,7 +240,7 @@ class Categories extends Component {
             </Button>
           </ButtonsGroup>
         </article>
-      ) : null
+      ) : null;
     });
 
     return (

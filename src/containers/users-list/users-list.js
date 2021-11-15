@@ -170,8 +170,8 @@ class UsersList extends Component {
               {name}
             </Link>
             <span onClick={handleDeleteUser} className="label label-danger delete-user">
-            Delete profile
-          </span>
+              Delete profile
+            </span>
           </div>
         </div>
       );
