@@ -197,8 +197,12 @@ class Categories extends Component {
       alias: propsAlias
     } = this.props;
 
-    const category = propsCategories.map(({ userId, alias, isEdit, text, id }, index) =>
-      userId === propsAlias ? (
+    const category = propsCategories.map(({ userId, alias, isEdit, text, id }, index) => {
+      const handleUpdateCategoryValue = evt => this.updateCategoryValue(evt, alias);
+      const handleEditCategory = () => this.editCategory(alias, isEdit);
+      const handleDeleteCategory = evt => this.deleteCategory(evt, id);
+
+      return userId === propsAlias ? (
         <article
           onClick={this.changeActive}
           key={index}
@@ -210,8 +214,8 @@ class Categories extends Component {
             {isEdit ? (
               <input
                 value={text}
-                onChange={evt => this.updateCategoryValue(evt, alias)}
-                onBlur={() => this.editCategory(alias, isEdit)}
+                onChange={handleUpdateCategoryValue}
+                onBlur={handleEditCategory}
                 type="text"
                 className="form-control category-text"
                 autoFocus
@@ -223,7 +227,7 @@ class Categories extends Component {
           <ButtonsGroup>
             {isEdit && (
               <Button
-                onClickFunction={() => this.editCategory(alias, isEdit)}
+                onClickFunction={handleEditCategory}
                 specialClass="iconBtn active"
               >
                 <i className="material-icons">done</i>
@@ -231,19 +235,19 @@ class Categories extends Component {
             )}
             {!isEdit && (
               <Button
-                onClickFunction={() => this.editCategory(alias, isEdit)}
+                onClickFunction={handleEditCategory}
                 specialClass="iconBtn"
               >
                 <i className="material-icons">create</i>
               </Button>
             )}
-            <Button onClickFunction={evt => this.deleteCategory(evt, id)} specialClass="iconBtn">
+            <Button onClickFunction={handleDeleteCategory} specialClass="iconBtn">
               <i className="material-icons">delete</i>
             </Button>
           </ButtonsGroup>
         </article>
       ) : null
-    );
+    });
 
     return (
       <div className="panel panel-default categories">

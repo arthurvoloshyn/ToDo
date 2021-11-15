@@ -1,4 +1,4 @@
-.users__item {
+.users-item {
   transition: all 200ms ease;
 
   &:hover {
@@ -10,7 +10,7 @@
     position: relative;
   }
 
-  .users__avatar {
+  .users-avatar {
     border-radius: 50%;
     height: 50px;
     margin-right: 20px;
@@ -22,7 +22,7 @@
     }
   }
 
-  .users__name {
+  .users-name {
     color: $text;
     font-size: 22px;
     line-height: 50px;

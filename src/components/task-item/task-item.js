@@ -26,7 +26,7 @@ const taskItem = ({ index, id, text, isTaskDone, priority, alias, doneTask, dele
   const onDeleteTask = () => deleteTask(id);
 
   return (
-    <article key={index} className={`${isTaskDone ? 'doneTask' : ''} ${itemClass}`}>
+    <article key={index} className={`${isTaskDone ? 'done-task' : ''} ${itemClass}`}>
       <div className="tasks-list-item">
         <span onClick={onDoneTask} className="tasks-list-mark">
           <i className="material-icons">{`${
