@@ -58,7 +58,7 @@
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
     "serve-favicon": "^2.3.0",
-    "express": "4.13.4"
+    "express": "4.17.3"
   },
   "devDependencies": {
     "@babel/parser": "^7.7.5",
@@ -116,7 +116,7 @@
     "eslint-watch": "2.1.11",
     "eventsource-polyfill": "0.9.6",
     "expect": "1.19.0",
-    "express": "4.13.4",
+    "express": "4.17.3",
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "^5.1.0",
     "fs": "0.0.1-security",
